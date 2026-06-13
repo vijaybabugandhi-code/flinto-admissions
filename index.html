@@ -1,6 +1,11 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Flinto Admissions Intelligence — Jun-13</title>
 <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F5F7FA;color:#1a1a2e}
 .header{background:linear-gradient(135deg,#FF6B35,#FF8C61);color:#fff;padding:28px 40px;display:flex;justify-content:space-between;align-items:center}
+.filter-bar{display:flex;gap:8px;align-items:center;padding:16px 40px;flex-wrap:wrap;background:#fff;border-bottom:1px solid #e5e7eb;box-shadow:0 2px 6px rgba(0,0,0,0.04)}
+.filter-bar span{font-size:13px;font-weight:600;color:#374151;margin-right:4px}
+.filter-btn{padding:8px 20px;border-radius:20px;border:2px solid #e5e7eb;background:#fff;cursor:pointer;font-size:13px;font-weight:600;color:#374151;transition:all .2s}
+.filter-btn:hover{border-color:#FF6B35;color:#FF6B35}
+.filter-btn.active{background:#FF6B35;border-color:#FF6B35;color:#fff}
 .section{background:#fff;border-radius:14px;padding:24px;margin:20px 40px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
 .section-warn{background:#fffbeb;border:1px solid #fcd34d;border-radius:14px;padding:24px;margin:20px 40px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
 h2{font-size:16px;font-weight:700;color:#374151;margin-bottom:16px;text-transform:uppercase;letter-spacing:.5px;border-left:4px solid #FF6B35;padding-left:12px}
@@ -13,394 +18,197 @@ table{width:100%;border-collapse:collapse}.grid{display:grid;grid-template-colum
 .ig{display:grid;grid-template-columns:1fr 1fr;gap:16px}.ib{border-radius:12px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
 .upd{background:rgba(255,255,255,0.22);padding:6px 12px;border-radius:20px;font-size:13px;font-weight:600;display:inline-block;margin-top:6px}
 footer{text-align:center;padding:24px;color:#888;font-size:12px}
-
-/* ── Filter bar ── */
-.filter-bar{background:#fff;border-radius:14px;margin:0 40px 0;padding:18px 24px;box-shadow:0 2px 8px rgba(0,0,0,0.06);display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
-.fb-group{display:flex;flex-direction:column;gap:5px}
-.fb-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#6B7280}
-.fb-row{display:flex;gap:8px;align-items:center}
-.fb-input{border:1.5px solid #e5e7eb;border-radius:8px;padding:7px 10px;font-size:13px;color:#1a1a2e;background:#fafafa;outline:none;transition:border .2s}
-.fb-input:focus{border-color:#FF6B35}
-.fb-select{border:1.5px solid #e5e7eb;border-radius:8px;padding:7px 10px;font-size:13px;color:#1a1a2e;background:#fafafa;outline:none;cursor:pointer}
-.fb-presets{display:flex;gap:6px;flex-wrap:wrap}
-.preset-btn{border:1.5px solid #e5e7eb;border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;background:#fff;color:#374151;transition:all .15s;white-space:nowrap}
-.preset-btn:hover,.preset-btn.active{background:#FF6B35;color:#fff;border-color:#FF6B35}
-.apply-btn{background:linear-gradient(135deg,#FF6B35,#FF8C61);color:#fff;border:none;border-radius:8px;padding:9px 22px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .15s}
-.apply-btn:hover{opacity:.88}
-.reset-btn{background:#f3f4f6;color:#6B7280;border:none;border-radius:8px;padding:9px 14px;font-size:12px;cursor:pointer;transition:background .15s}
-.reset-btn:hover{background:#e5e7eb}
-/* ── Clickable cards ── */
-.card.clickable{cursor:pointer;transition:transform .15s,box-shadow .15s}
-.card.clickable:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,0.12)}
-.card.clickable .val{text-decoration:underline dotted 2px;text-underline-offset:3px}
-/* ── Slide panel ── */
-#slide-panel{position:fixed;top:0;right:-520px;width:520px;height:100vh;background:#fff;box-shadow:-4px 0 24px rgba(0,0,0,0.14);z-index:1000;transition:right .3s ease;display:flex;flex-direction:column;overflow:hidden}
-#slide-panel.open{right:0}
-#panel-header{padding:18px 20px;background:linear-gradient(135deg,#FF6B35,#FF8C61);color:#fff;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-#panel-title{font-size:16px;font-weight:700}
-#panel-close{background:rgba(255,255,255,0.25);border:none;color:#fff;font-size:20px;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
-#panel-body{flex:1;overflow-y:auto;padding:16px}
-.panel-lead-card{border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:10px;background:#fafafa}
-.panel-lead-card .plc-name{font-weight:700;font-size:14px;color:#1a1a2e}
-.panel-lead-card .plc-meta{font-size:12px;color:#6B7280;margin:4px 0 6px}
-.panel-lead-card .plc-notes{font-size:12px;color:#555;line-height:1.5;border-left:3px solid #FF6B35;padding-left:8px;margin-top:6px}
-.panel-lead-card .plc-badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600;margin-right:6px}
-.plc-badge.hot{background:#fef3c7;color:#92400e}
-.plc-badge.visit{background:#ede9fe;color:#5b21b6}
-.plc-badge.walkin{background:#dbeafe;color:#1e40af}
-.plc-badge.followup{background:#d1fae5;color:#065f46}
-.plc-badge.rnr{background:#fee2e2;color:#991b1b}
-#panel-empty{text-align:center;color:#9CA3AF;padding:40px 20px;font-size:14px}
-#panel-count{font-size:12px;color:#6B7280;padding:0 16px 8px;flex-shrink:0}
-#overlay{position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:999;display:none}
-#overlay.on{display:block}
-.filter-active-tag{background:#fff0e8;color:#FF6B35;border:1px solid #ffd4b8;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600;display:inline-flex;align-items:center;gap:5px}
-#active-filters{display:flex;flex-wrap:wrap;gap:6px;margin:8px 40px 0;min-height:0}
+.no-rows-msg{display:none;padding:16px;color:#888;font-style:italic;text-align:center}
 </style></head><body>
-<div class="header"><div><div style="font-size:26px;font-weight:800">Flinto Admissions Intelligence</div><div style="opacity:.85;margin-top:4px">Thoraipakkam &amp; Tansi Nagar · Daily Sales Dashboard</div></div><div style="text-align:right"><div style="font-size:28px;font-weight:700">Jun-13</div><div class="upd">🕒 Last updated: Sat 13 Jun, 2026, 10:46 am IST</div></div></div>
+<div class="header"><div><div style="font-size:26px;font-weight:800">Flinto Admissions Intelligence</div><div style="opacity:.85;margin-top:4px">Thoraipakkam &amp; Tansi Nagar · Daily Sales Dashboard</div></div><div style="text-align:right"><div style="font-size:28px;font-weight:700">Jun-13</div><div class="upd">🕒 Last updated: Sat 13 Jun, 2026, 01:07 pm IST</div></div></div>
+
+<div class="filter-bar">
+  <span>Filter by Centre:</span>
+  <button class="filter-btn active" onclick="applyFilter(this,'all')">All Centres</button>
+  <button class="filter-btn" onclick="applyFilter(this,'thoraipakkam')">Thoraipakkam</button>
+  <button class="filter-btn" onclick="applyFilter(this,'tansi')">Tansi Nagar</button>
+</div>
+
 <div class="cards">
-  <div class="card clickable" onclick="openPanel('Total Leads')"><div class="val" style="color:#2563EB">815</div><div class="lbl">Total Leads</div><div class="sub">814 tagged</div></div>
-  <div class="card clickable" onclick="openPanel('School Visited')"><div class="val" style="color:#7C3AED">115</div><div class="lbl">School Visited</div><div class="sub">14.1% of tagged</div></div>
-  <div class="card clickable" onclick="openPanel('Enrolled')"><div class="val" style="color:#27AE60">59</div><div class="lbl">Enrolled</div><div class="sub">51% of visitors</div></div>
-  <div class="card clickable" onclick="openPanel('Active Pipeline')"><div class="val" style="color:#FF6B35">63</div><div class="lbl">Active Pipeline</div></div>
-  <div class="card clickable" onclick="openPanel('Future Prospects')"><div class="val" style="color:#06B6D4">26</div><div class="lbl">Future Prospects</div></div>
-  <div class="card clickable" onclick="openPanel('Lost / Disqualified')"><div class="val" style="color:#E74C3C">661</div><div class="lbl">Lost / Disqualified</div></div>
-  <div class="card warn clickable" onclick="openPanel('⚠️ No Status')"><div class="val" style="color:#D97706">1</div><div class="lbl">⚠️ No Status</div><div class="sub">needs tagging</div></div>
-</div>
-<div id="active-filters"></div>
-<div class="filter-bar" id="filter-bar">
-  <div class="fb-group">
-    <div class="fb-label">Date Range</div>
-    <div class="fb-presets" id="presets">
-      <button class="preset-btn active" data-preset="all" onclick="setPreset(this,'all')">All time</button>
-      <button class="preset-btn" data-preset="today" onclick="setPreset(this,'today')">Today</button>
-      <button class="preset-btn" data-preset="week" onclick="setPreset(this,'week')">This week</button>
-      <button class="preset-btn" data-preset="month" onclick="setPreset(this,'month')">This month</button>
-      <button class="preset-btn" data-preset="last30" onclick="setPreset(this,'last30')">Last 30 days</button>
-      <button class="preset-btn" data-preset="custom" onclick="setPreset(this,'custom')">Custom</button>
-    </div>
-    <div class="fb-row" id="custom-dates" style="display:none;margin-top:6px">
-      <span style="font-size:12px;color:#6B7280">From</span>
-      <input type="date" class="fb-input" id="date-from">
-      <span style="font-size:12px;color:#6B7280">To</span>
-      <input type="date" class="fb-input" id="date-to">
-    </div>
-  </div>
-  <div class="fb-group">
-    <div class="fb-label">Centre</div>
-    <select class="fb-select" id="filter-centre" multiple size="2" style="height:58px">
-      <option value="all" selected>All Centres</option>
-      <option value="Thoraipakkam">Thoraipakkam</option>
-      <option value="Tansi nagar">Tansi Nagar</option>
-    </select>
-  </div>
-  <div class="fb-group">
-    <div class="fb-label">Program</div>
-    <select class="fb-select" id="filter-program" multiple size="2" style="height:58px">
-      <option value="all" selected>All Programs</option>
-      <option value="Academics">Academics</option>
-      <option value="Daycare">Daycare</option>
-      <option value="Other">Other</option>
-      <option value="Phonics">Phonics</option>
-      <option value="Language">Language</option>
-      <option value="Summer Camp">Summer Camp</option>
-      <option value="Abacus">Abacus</option>
-    </select>
-  </div>
-  <div class="fb-group">
-    <div class="fb-label">Status</div>
-    <select class="fb-select" id="filter-status">
-      <option value="all">All Statuses</option>
-      <option value="Hot-Payment expected">Hot — Payment Expected</option>
-      <option value="School visit done">School Visit Done</option>
-      <option value="Walkin scheduled">Walk-in Scheduled</option>
-      <option value="Followup">Follow-up</option>
-      <option value="RNR">RNR</option>
-    </select>
-  </div>
-  <div class="fb-group" style="justify-content:flex-end;gap:8px;flex-direction:row;align-items:center;margin-top:auto">
-    <button class="reset-btn" onclick="resetFilters()">Reset</button>
-    <button class="apply-btn" onclick="applyFilters()">Apply Filters</button>
-  </div>
+  <div class="card"><div class="val" id="c-total" style="color:#2563EB">816</div><div class="lbl">Total Leads</div><div class="sub" id="c-total-sub">814 tagged</div></div>
+  <div class="card"><div class="val" id="c-visited" style="color:#7C3AED">115</div><div class="lbl">School Visited</div><div class="sub" id="c-visited-sub">14.1% of tagged</div></div>
+  <div class="card"><div class="val" id="c-enrolled" style="color:#27AE60">60</div><div class="lbl">Enrolled</div><div class="sub" id="c-enrolled-sub">52% of visitors</div></div>
+  <div class="card"><div class="val" id="c-active" style="color:#FF6B35">63</div><div class="lbl">Active Pipeline</div></div>
+  <div class="card"><div class="val" id="c-future" style="color:#06B6D4">26</div><div class="lbl">Future Prospects</div></div>
+  <div class="card"><div class="val" id="c-lost" style="color:#E74C3C">660</div><div class="lbl">Lost / Disqualified</div></div>
+  <div class="card warn"><div class="val" id="c-nostatus" style="color:#D97706">2</div><div class="lbl">⚠️ No Status</div><div class="sub">needs tagging</div></div>
 </div>
 
-<!-- HOT LEADS rendered by JS -->
-<div class="section-warn"><h2 class="warn">⚠️ Leads Without Status — Action Required (1)</h2><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Sheet Row</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Date</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Parent</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Centre</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Notes</th></tr></thead><tbody><tr style="border-bottom:1px solid #fef3c7"><td style="padding:8px 12px;color:#92400e;font-weight:600">#811</td><td style="padding:8px 12px">Jun-08</td><td style="padding:8px 12px;font-weight:500">Dhilipdeepak</td><td style="padding:8px 12px">Tansi nagar</td><td style="padding:8px 12px;color:#666;font-size:12px">Enquired by mistake. June-8</td></tr></tbody></table></div>
+<div class="section-warn"><h2 class="warn">⚠️ Leads Without Status — Action Required (<span id="nostatus-count">2</span>)</h2><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Sheet Row</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Date</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Parent</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Centre</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Notes</th></tr></thead><tbody id="nostatus-tbody"><tr data-centre="tansi nagar" style="border-bottom:1px solid #fef3c7"><td style="padding:8px 12px;color:#92400e;font-weight:600">#811</td><td style="padding:8px 12px">Jun-08</td><td style="padding:8px 12px;font-weight:500">Dhilipdeepak</td><td style="padding:8px 12px">Tansi nagar</td><td style="padding:8px 12px;color:#666;font-size:12px">Enquired by mistake. June-8</td></tr><tr data-centre="thoraipakkam" style="border-bottom:1px solid #fef3c7"><td style="padding:8px 12px;color:#92400e;font-weight:600">#817</td><td style="padding:8px 12px">Jun-13</td><td style="padding:8px 12px;font-weight:500">Shanmugam C</td><td style="padding:8px 12px">Thoraipakkam</td><td style="padding:8px 12px;color:#666;font-size:12px">Parent will come along with his wife and child for a school tour and decide on enrolling next month </td></tr></tbody></table><div class="no-rows-msg" id="nostatus-empty">No untagged leads for this centre.</div></div>
+
 <div class="section"><h2>Today's Activity — Jun-13</h2><div style="color:#666;font-style:italic;padding:20px">No entries for today or yesterday.</div></div>
-<div class="section"><h2>Lead Funnel — Status Breakdown</h2><div style="font-size:12px;color:#888;margin-bottom:12px">Based on 814 tagged leads (1 untagged excluded from percentages)</div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Lead lost</span><span>441 (54.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#E74C3C;width:54.2%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Disqualified</span><span>170 (20.9%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#6B7280;width:20.9%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Enrolled</span><span>59 (7.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#27AE60;width:7.2%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Lead lost after visit</span><span>50 (6.1%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#DC2626;width:6.1%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Followup</span><span>42 (5.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#2563EB;width:5.2%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Future Prospect</span><span>26 (3.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#06B6D4;width:3.2%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Walkin scheduled</span><span>10 (1.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#FF6B35;width:1.2%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>School visit done</span><span>5 (0.6%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#7C3AED;width:0.6%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Others - Explain in Summary</span><span>5 (0.6%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#888;width:0.6%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>RNR</span><span>5 (0.6%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#F59E0B;width:0.6%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Hot-Payment expected</span><span>1 (0.1%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#10B981;width:0.1%;height:14px;border-radius:4px"></div></div></div></div>
-<div class="section"><h2>Centre Performance</h2><div style="display:flex;gap:16px"><div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.08);flex:1"><h3 style="color:#2563EB;margin:0 0 12px">Thoraipakkam</h3><div style="font-size:28px;font-weight:700">200</div><div style="font-size:13px;color:#666">Tagged Leads</div><hr style="margin:12px 0"><div>🏫 School Visited: <b>61</b></div><div>✅ Enrolled: <b>38</b> (19.0%)</div><div>🔥 Active: <b>17</b></div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost: 99</div><div style="font-size:12px;color:#555;margin-top:4px">Enrolled: 38</div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost after visit: 19</div><div style="font-size:12px;color:#555;margin-top:4px">Future Prospect: 14</div><div style="font-size:12px;color:#555;margin-top:4px">Disqualified: 12</div><div style="font-size:12px;color:#555;margin-top:4px">Followup: 10</div><div style="font-size:12px;color:#555;margin-top:4px">School visit done: 3</div><div style="font-size:12px;color:#555;margin-top:4px">Walkin scheduled: 2</div><div style="font-size:12px;color:#555;margin-top:4px">Others - Explain in Summary: 1</div><div style="font-size:12px;color:#555;margin-top:4px">Hot-Payment expected: 1</div><div style="font-size:12px;color:#555;margin-top:4px">RNR: 1</div></div><div style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.08);flex:1"><h3 style="color:#2563EB;margin:0 0 12px">Tansi nagar</h3><div style="font-size:28px;font-weight:700">212</div><div style="font-size:13px;color:#666">Tagged Leads</div><hr style="margin:12px 0"><div>🏫 School Visited: <b>53</b></div><div>✅ Enrolled: <b>21</b> (9.9%)</div><div>🔥 Active: <b>35</b></div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost: 102</div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost after visit: 30</div><div style="font-size:12px;color:#555;margin-top:4px">Followup: 23</div><div style="font-size:12px;color:#555;margin-top:4px">Enrolled: 21</div><div style="font-size:12px;color:#555;margin-top:4px">Disqualified: 14</div><div style="font-size:12px;color:#555;margin-top:4px">Future Prospect: 9</div><div style="font-size:12px;color:#555;margin-top:4px">Walkin scheduled: 8</div><div style="font-size:12px;color:#555;margin-top:4px">School visit done: 2</div><div style="font-size:12px;color:#555;margin-top:4px">RNR: 2</div><div style="font-size:12px;color:#555;margin-top:4px">Others - Explain in Summary: 1</div></div></div></div>
-<div class="section"><h2>Programme Breakdown</h2><table><thead><tr><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Programme</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Total</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Visited</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Enrolled</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Conv%</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Followup</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Visit Done</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Walkin Sched</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Lost</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Disqualified</th></tr></thead><tbody><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Abacus</td><td style="text-align:center">3</td><td style="text-align:center;color:#7C3AED"><b>0</b></td><td style="text-align:center;color:#27AE60"><b>0</b></td><td style="text-align:center">0.0%</td><td style="text-align:center">1</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center;color:#E74C3C">2</td><td style="text-align:center;color:#6B7280">0</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Academics</td><td style="text-align:center">180</td><td style="text-align:center;color:#7C3AED"><b>62</b></td><td style="text-align:center;color:#27AE60"><b>21</b></td><td style="text-align:center">11.7%</td><td style="text-align:center">23</td><td style="text-align:center">3</td><td style="text-align:center">6</td><td style="text-align:center;color:#E74C3C">103</td><td style="text-align:center;color:#6B7280">3</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Dance</td><td style="text-align:center">3</td><td style="text-align:center;color:#7C3AED"><b>0</b></td><td style="text-align:center;color:#27AE60"><b>0</b></td><td style="text-align:center">0.0%</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center;color:#E74C3C">3</td><td style="text-align:center;color:#6B7280">0</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Daycare</td><td style="text-align:center">20</td><td style="text-align:center;color:#7C3AED"><b>2</b></td><td style="text-align:center;color:#27AE60"><b>0</b></td><td style="text-align:center">0.0%</td><td style="text-align:center">6</td><td style="text-align:center">0</td><td style="text-align:center">1</td><td style="text-align:center;color:#E74C3C">12</td><td style="text-align:center;color:#6B7280">0</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Drawing</td><td style="text-align:center">1</td><td style="text-align:center;color:#7C3AED"><b>0</b></td><td style="text-align:center;color:#27AE60"><b>0</b></td><td style="text-align:center">0.0%</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center;color:#E74C3C">1</td><td style="text-align:center;color:#6B7280">0</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Language</td><td style="text-align:center">1</td><td style="text-align:center;color:#7C3AED"><b>0</b></td><td style="text-align:center;color:#27AE60"><b>0</b></td><td style="text-align:center">0.0%</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center;color:#E74C3C">0</td><td style="text-align:center;color:#6B7280">0</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Other</td><td style="text-align:center">411</td><td style="text-align:center;color:#7C3AED"><b>9</b></td><td style="text-align:center;color:#27AE60"><b>7</b></td><td style="text-align:center">1.7%</td><td style="text-align:center">9</td><td style="text-align:center">1</td><td style="text-align:center">2</td><td style="text-align:center;color:#E74C3C">218</td><td style="text-align:center;color:#6B7280">163</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Phonics</td><td style="text-align:center">10</td><td style="text-align:center;color:#7C3AED"><b>1</b></td><td style="text-align:center;color:#27AE60"><b>1</b></td><td style="text-align:center">10.0%</td><td style="text-align:center">2</td><td style="text-align:center">0</td><td style="text-align:center">1</td><td style="text-align:center;color:#E74C3C">6</td><td style="text-align:center;color:#6B7280">0</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Summer Camp</td><td style="text-align:center">185</td><td style="text-align:center;color:#7C3AED"><b>41</b></td><td style="text-align:center;color:#27AE60"><b>30</b></td><td style="text-align:center">16.2%</td><td style="text-align:center">1</td><td style="text-align:center">1</td><td style="text-align:center">0</td><td style="text-align:center;color:#E74C3C">146</td><td style="text-align:center;color:#6B7280">4</td></tr></tbody></table></div>
-<div class="section"><h2>Monthly Trend</h2><div class="grid"><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Jan</div><div style="font-size:22px;font-weight:700;color:#2563EB">27</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">3 visited</div><div style="color:#27AE60;font-weight:600">1 enrolled</div><div style="font-size:11px;color:#F59E0B">3 walk-ins</div><div style="font-size:11px;color:#E74C3C">22 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">4% conv</div></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Feb</div><div style="font-size:22px;font-weight:700;color:#2563EB">183</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">11 visited</div><div style="color:#27AE60;font-weight:600">4 enrolled</div><div style="font-size:11px;color:#F59E0B">11 walk-ins</div><div style="font-size:11px;color:#E74C3C">171 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">2% conv</div></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Mar</div><div style="font-size:22px;font-weight:700;color:#2563EB">281</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">29 visited</div><div style="color:#27AE60;font-weight:600">15 enrolled</div><div style="font-size:11px;color:#F59E0B">29 walk-ins</div><div style="font-size:11px;color:#E74C3C">250 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">5% conv</div></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Apr</div><div style="font-size:22px;font-weight:700;color:#2563EB">173</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">45 visited</div><div style="color:#27AE60;font-weight:600">29 enrolled</div><div style="font-size:11px;color:#F59E0B">45 walk-ins</div><div style="font-size:11px;color:#E74C3C">132 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">17% conv</div></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">May</div><div style="font-size:22px;font-weight:700;color:#2563EB">118</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">25 visited</div><div style="color:#27AE60;font-weight:600">8 enrolled</div><div style="font-size:11px;color:#F59E0B">25 walk-ins</div><div style="font-size:11px;color:#E74C3C">76 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">7% conv</div></div><div style="background:#FFF7ED;border:2px solid #FF6B35;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Jun</div><div style="font-size:22px;font-weight:700;color:#2563EB">28</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">2 visited</div><div style="color:#27AE60;font-weight:600">2 enrolled</div><div style="font-size:11px;color:#F59E0B">2 walk-ins</div><div style="font-size:11px;color:#E74C3C">8 lost</div><div style="font-size:12px;font-weight:700;color:#FF6B35">7% conv</div></div></div></div>
 
-<!-- FILTER BAR -->
-<div class="section" id="hot-leads-section">
-  <h2 id="hot-leads-title">Hot Leads — Action Required</h2>
-  <div id="hot-leads-body"></div>
-</div>
+<div class="section"><h2>Lead Funnel — Status Breakdown</h2><div style="font-size:12px;color:#888;margin-bottom:12px">Based on 814 tagged leads (2 untagged excluded from percentages)</div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Lead lost</span><span>441 (54.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#E74C3C;width:54.2%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Disqualified</span><span>170 (20.9%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#6B7280;width:20.9%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Enrolled</span><span>60 (7.4%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#27AE60;width:7.4%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Lead lost after visit</span><span>49 (6.0%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#DC2626;width:6.0%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Followup</span><span>42 (5.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#2563EB;width:5.2%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Future Prospect</span><span>26 (3.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#06B6D4;width:3.2%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Walkin scheduled</span><span>10 (1.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#FF6B35;width:1.2%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>School visit done</span><span>5 (0.6%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#7C3AED;width:0.6%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Others - Explain in Summary</span><span>5 (0.6%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#888;width:0.6%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>RNR</span><span>5 (0.6%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#F59E0B;width:0.6%;height:14px;border-radius:4px"></div></div></div><div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Hot-Payment expected</span><span>1 (0.1%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#10B981;width:0.1%;height:14px;border-radius:4px"></div></div></div></div>
 
-<!-- SLIDE PANEL -->
-<div id="overlay" onclick="closePanel()"></div>
-<div id="slide-panel">
-  <div id="panel-header">
-    <div id="panel-title">Lead Details</div>
-    <button id="panel-close" onclick="closePanel()">✕</button>
-  </div>
-  <div id="panel-count"></div>
-  <div id="panel-body"></div>
-</div>
+<div class="section"><h2>Centre Performance</h2><div style="display:flex;gap:16px">
+<div data-centre="thoraipakkam" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.08);flex:1"><h3 style="color:#2563EB;margin:0 0 12px">Thoraipakkam</h3><div style="font-size:28px;font-weight:700">200</div><div style="font-size:13px;color:#666">Tagged Leads</div><hr style="margin:12px 0"><div>🏫 School Visited: <b>61</b></div><div>✅ Enrolled: <b>39</b> (19.5%)</div><div>🔥 Active: <b>17</b></div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost: 99</div><div style="font-size:12px;color:#555;margin-top:4px">Enrolled: 39</div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost after visit: 18</div><div style="font-size:12px;color:#555;margin-top:4px">Future Prospect: 14</div><div style="font-size:12px;color:#555;margin-top:4px">Disqualified: 12</div><div style="font-size:12px;color:#555;margin-top:4px">Followup: 10</div><div style="font-size:12px;color:#555;margin-top:4px">School visit done: 3</div><div style="font-size:12px;color:#555;margin-top:4px">Walkin scheduled: 2</div><div style="font-size:12px;color:#555;margin-top:4px">Others - Explain in Summary: 1</div><div style="font-size:12px;color:#555;margin-top:4px">Hot-Payment expected: 1</div><div style="font-size:12px;color:#555;margin-top:4px">RNR: 1</div></div>
+<div data-centre="tansi nagar" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.08);flex:1"><h3 style="color:#2563EB;margin:0 0 12px">Tansi nagar</h3><div style="font-size:28px;font-weight:700">212</div><div style="font-size:13px;color:#666">Tagged Leads</div><hr style="margin:12px 0"><div>🏫 School Visited: <b>53</b></div><div>✅ Enrolled: <b>21</b> (9.9%)</div><div>🔥 Active: <b>35</b></div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost: 102</div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost after visit: 30</div><div style="font-size:12px;color:#555;margin-top:4px">Followup: 23</div><div style="font-size:12px;color:#555;margin-top:4px">Enrolled: 21</div><div style="font-size:12px;color:#555;margin-top:4px">Disqualified: 14</div><div style="font-size:12px;color:#555;margin-top:4px">Future Prospect: 9</div><div style="font-size:12px;color:#555;margin-top:4px">Walkin scheduled: 8</div><div style="font-size:12px;color:#555;margin-top:4px">School visit done: 2</div><div style="font-size:12px;color:#555;margin-top:4px">RNR: 2</div><div style="font-size:12px;color:#555;margin-top:4px">Others - Explain in Summary: 1</div></div>
+</div></div>
+
+<div class="section"><h2>Programme Breakdown</h2><table><thead><tr><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Programme</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Total</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Visited</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Enrolled</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Conv%</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Followup</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Visit Done</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Walkin Sched</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Lost</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Disqualified</th></tr></thead><tbody><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Abacus</td><td style="text-align:center">3</td><td style="text-align:center;color:#7C3AED"><b>0</b></td><td style="text-align:center;color:#27AE60"><b>0</b></td><td style="text-align:center">0.0%</td><td style="text-align:center">1</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center;color:#E74C3C">2</td><td style="text-align:center;color:#6B7280">0</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Academics</td><td style="text-align:center">180</td><td style="text-align:center;color:#7C3AED"><b>62</b></td><td style="text-align:center;color:#27AE60"><b>22</b></td><td style="text-align:center">12.2%</td><td style="text-align:center">23</td><td style="text-align:center">3</td><td style="text-align:center">6</td><td style="text-align:center;color:#E74C3C">102</td><td style="text-align:center;color:#6B7280">3</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Dance</td><td style="text-align:center">3</td><td style="text-align:center;color:#7C3AED"><b>0</b></td><td style="text-align:center;color:#27AE60"><b>0</b></td><td style="text-align:center">0.0%</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center;color:#E74C3C">3</td><td style="text-align:center;color:#6B7280">0</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Daycare</td><td style="text-align:center">20</td><td style="text-align:center;color:#7C3AED"><b>2</b></td><td style="text-align:center;color:#27AE60"><b>0</b></td><td style="text-align:center">0.0%</td><td style="text-align:center">6</td><td style="text-align:center">0</td><td style="text-align:center">1</td><td style="text-align:center;color:#E74C3C">12</td><td style="text-align:center;color:#6B7280">0</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Drawing</td><td style="text-align:center">1</td><td style="text-align:center;color:#7C3AED"><b>0</b></td><td style="text-align:center;color:#27AE60"><b>0</b></td><td style="text-align:center">0.0%</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center;color:#E74C3C">1</td><td style="text-align:center;color:#6B7280">0</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Language</td><td style="text-align:center">1</td><td style="text-align:center;color:#7C3AED"><b>0</b></td><td style="text-align:center;color:#27AE60"><b>0</b></td><td style="text-align:center">0.0%</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center">0</td><td style="text-align:center;color:#E74C3C">0</td><td style="text-align:center;color:#6B7280">0</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Other</td><td style="text-align:center">411</td><td style="text-align:center;color:#7C3AED"><b>9</b></td><td style="text-align:center;color:#27AE60"><b>7</b></td><td style="text-align:center">1.7%</td><td style="text-align:center">9</td><td style="text-align:center">1</td><td style="text-align:center">2</td><td style="text-align:center;color:#E74C3C">218</td><td style="text-align:center;color:#6B7280">163</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Phonics</td><td style="text-align:center">10</td><td style="text-align:center;color:#7C3AED"><b>1</b></td><td style="text-align:center;color:#27AE60"><b>1</b></td><td style="text-align:center">10.0%</td><td style="text-align:center">2</td><td style="text-align:center">0</td><td style="text-align:center">1</td><td style="text-align:center;color:#E74C3C">6</td><td style="text-align:center;color:#6B7280">0</td></tr><tr style="border-bottom:1px solid #f3f4f6"><td style="padding:8px 12px;font-weight:500">Summer Camp</td><td style="text-align:center">185</td><td style="text-align:center;color:#7C3AED"><b>41</b></td><td style="text-align:center;color:#27AE60"><b>30</b></td><td style="text-align:center">16.2%</td><td style="text-align:center">1</td><td style="text-align:center">1</td><td style="text-align:center">0</td><td style="text-align:center;color:#E74C3C">146</td><td style="text-align:center;color:#6B7280">4</td></tr></tbody></table></div>
+
+<div class="section"><h2>Monthly Trend</h2><div class="grid"><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Jan</div><div style="font-size:22px;font-weight:700;color:#2563EB">27</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">3 visited</div><div style="color:#27AE60;font-weight:600">1 enrolled</div><div style="font-size:11px;color:#F59E0B">3 walk-ins</div><div style="font-size:11px;color:#E74C3C">22 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">4% conv</div></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Feb</div><div style="font-size:22px;font-weight:700;color:#2563EB">183</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">11 visited</div><div style="color:#27AE60;font-weight:600">4 enrolled</div><div style="font-size:11px;color:#F59E0B">11 walk-ins</div><div style="font-size:11px;color:#E74C3C">171 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">2% conv</div></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Mar</div><div style="font-size:22px;font-weight:700;color:#2563EB">281</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">29 visited</div><div style="color:#27AE60;font-weight:600">15 enrolled</div><div style="font-size:11px;color:#F59E0B">29 walk-ins</div><div style="font-size:11px;color:#E74C3C">250 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">5% conv</div></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Apr</div><div style="font-size:22px;font-weight:700;color:#2563EB">173</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">45 visited</div><div style="color:#27AE60;font-weight:600">29 enrolled</div><div style="font-size:11px;color:#F59E0B">45 walk-ins</div><div style="font-size:11px;color:#E74C3C">132 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">17% conv</div></div><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">May</div><div style="font-size:22px;font-weight:700;color:#2563EB">118</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">25 visited</div><div style="color:#27AE60;font-weight:600">9 enrolled</div><div style="font-size:11px;color:#F59E0B">25 walk-ins</div><div style="font-size:11px;color:#E74C3C">75 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">8% conv</div></div><div style="background:#FFF7ED;border:2px solid #FF6B35;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Jun</div><div style="font-size:22px;font-weight:700;color:#2563EB">28</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">2 visited</div><div style="color:#27AE60;font-weight:600">2 enrolled</div><div style="font-size:11px;color:#F59E0B">2 walk-ins</div><div style="font-size:11px;color:#E74C3C">8 lost</div><div style="font-size:12px;font-weight:700;color:#FF6B35">7% conv</div></div></div></div>
+
+<div class="section"><h2>Hot Leads — Action Required</h2><table id="hot-leads-table"><thead><tr><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Date</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Parent</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Centre</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Program</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Next Task</th><th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">Notes</th></tr></thead><tbody>
+<tr class="group-header"><td colspan="6" style="padding:10px 12px;background:#f8fafc;font-weight:700;color:#10B981;font-size:13px">Hot-Payment expected (1)</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Apr-15</td><td style="padding:7px 12px;font-weight:500">—</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Summer Camp</td><td style="padding:7px 12px">—</td><td style="padding:7px 12px;color:#666;font-size:12px">The parent will come on 18-4-26 for enrollment RNR-Apr 17 She will come today for enrollment before 5-Apr 18</td></tr>
+<tr class="group-header"><td colspan="6" style="padding:10px 12px;background:#f8fafc;font-weight:700;color:#7C3AED;font-size:13px">School visit done (5)</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jan-27</td><td style="padding:7px 12px;font-weight:500">MANISHA</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">5-31-26</td><td style="padding:7px 12px;color:#666;font-size:12px">They visited and got info.Planning for june admission.will get back by may end after returning from native-4 Feb</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Feb-26</td><td style="padding:7px 12px;font-weight:500">Annie S</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Summer Camp</td><td style="padding:7px 12px">Jun 1</td><td style="padding:7px 12px;color:#666;font-size:12px">RNR-Feb 26 RNR-WA sent-Feb 27 They are into discussion whether to join in sc or june adm-will decide and let us know-Feb 27 They will be joining for s</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Apr-02</td><td style="padding:7px 12px;font-weight:500">Preethi</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Jun 5</td><td style="padding:7px 12px;color:#666;font-size:12px">Will confirm tomorrow planning for a 2nd visit after he reaches chennai in may 2nd week-Apr 21 they are not back in chennai yet-will update by month e</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-20</td><td style="padding:7px 12px;font-weight:500">Julie</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">—</td><td style="padding:7px 12px;color:#666;font-size:12px">Enquiry through call have asked the parent to visit the centre. RNR-May 21 She will call back-May 22 RNR-checking on WA-May 23 Her husband(Selvam)call</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-25</td><td style="padding:7px 12px;font-weight:500">Gayathri</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">—</td><td style="padding:7px 12px;color:#666;font-size:12px">Enquired wrt admission for EY1. Will visit the school this week. May 29-RNR.</td></tr>
+<tr class="group-header"><td colspan="6" style="padding:10px 12px;background:#f8fafc;font-weight:700;color:#FF6B35;font-size:13px">Walkin scheduled (10)</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Mar-14</td><td style="padding:7px 12px;font-weight:500">Janani</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Phonics</td><td style="padding:7px 12px">Jun 5</td><td style="padding:7px 12px;color:#666;font-size:12px">Velachery, my son is 3.10 months She will try to come on monday afternoon-Mar 14 She will come one day this week-mar 17 RNR-Mar 24 Not in town-will be</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Mar-19</td><td style="padding:7px 12px;font-weight:500">Noname</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">May 30</td><td style="padding:7px 12px;color:#666;font-size:12px">RNR-checking on WA-Mar 19 She is from tiruvanmiyur-says both locations are okay-sending location on WA-Mar 19 RNR-Mar 21</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Mar-19</td><td style="padding:7px 12px;font-weight:500">Noname</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Jun 5</td><td style="padding:7px 12px;color:#666;font-size:12px">RNR-checking on WA-Mar 19 asked to call tomorrow-WA reply-Mar 19 RNR-mar 20 RNR-checking on WA again-Mar 21 Parent showe</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Apr-04</td><td style="padding:7px 12px;font-weight:500">Rajanmi</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Sep 30</td><td style="padding:7px 12px;color:#666;font-size:12px">Parent will decide whether to enrol or not till 8th April Switched off-apr 22 RNR-num not in WA-APr 25 Speaking to some1-Apr 27 they are thinking to</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-06</td><td style="padding:7px 12px;font-weight:500">Tanuja</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">June 15</td><td style="padding:7px 12px;color:#666;font-size:12px">Parent will visit the school visit next week for nursery. She is not in town.wll try to come after thurday next week or next to nxt weel-May 9 RNR-che</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-25</td><td style="padding:7px 12px;font-weight:500">No name</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">June 1</td><td style="padding:7px 12px;color:#666;font-size:12px">No inc calls-checking on WA-May 25 Replied to WA-Nursery adm-May 25. Walk-in Scheduled on 27 May at 10:</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-29</td><td style="padding:7px 12px;font-weight:500">Swathi</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">Jun 8</td><td style="padding:7px 12px;color:#666;font-size:12px">Enquired about what all the classes we do have for 4 year-given details and asked to visit-will be coming next week.address shared-may 29.</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-02</td><td style="padding:7px 12px;font-weight:500">—</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Jun4</td><td style="padding:7px 12px;color:#666;font-size:12px">Parent inquired about Pre KG Programme. Probably they will visit the school tomorrow or day after tomorrow. June-2</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-03</td><td style="padding:7px 12px;font-weight:500">Vandhana Balaji</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Daycare</td><td style="padding:7px 12px">Jun 15</td><td style="padding:7px 12px;color:#666;font-size:12px">Will decide and get back today. (only daycare) The parent will come tomorrw at the centre. June-12</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-03</td><td style="padding:7px 12px;font-weight:500">—</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Jun12</td><td style="padding:7px 12px;color:#666;font-size:12px">RNR. Jun-11. RNR-June-12</td></tr>
+<tr class="group-header"><td colspan="6" style="padding:10px 12px;background:#f8fafc;font-weight:700;color:#2563EB;font-size:13px">Followup (42)</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Mar-11</td><td style="padding:7px 12px;font-weight:500">Aishwarya</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Jun 15</td><td style="padding:7px 12px;color:#666;font-size:12px">Phone call enquiry will visit on Saturday RNR-Mar 13 she will be coming tomorrow-Mar 17 RNR-Mar 18 RNR-Mar 24 RNR-Mar 28</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Mar-17</td><td style="padding:7px 12px;font-weight:500">Rajalakshmi</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Phonics</td><td style="padding:7px 12px">—</td><td style="padding:7px 12px;color:#666;font-size:12px">Enquired for phonics classes-She has budget issues.Asked to visit and take the assessment to the difference here.She will come in next month after his</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Mar-21</td><td style="padding:7px 12px;font-weight:500">Hemnath</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">June-2</td><td style="padding:7px 12px;color:#666;font-size:12px">Asked to share the location-he will be visiting today afternoon-Mar 21</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Mar-24</td><td style="padding:7px 12px;font-weight:500">Arun Prasath M</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">June 17</td><td style="padding:7px 12px;color:#666;font-size:12px">Will come back First week of april Out of town-they will be back around month end-May 13. Due to Medical reasons parents</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Apr-02</td><td style="padding:7px 12px;font-weight:500">Sujitha</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Jun 5</td><td style="padding:7px 12px;color:#666;font-size:12px">She is from karapakkam-sharing the location-Apr 2 RNR-checking on WA-Apr 21 RNR- Che</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Apr-07</td><td style="padding:7px 12px;font-weight:500">Priya</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Jun 8</td><td style="padding:7px 12px;color:#666;font-size:12px">Phone call enquiry from Trichy. Relocating to Chennai in June. Details shared about EY2. RNR-call next month-Apr 21.</td></tr>
+<tr data-centre="other" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Apr-28</td><td style="padding:7px 12px;font-weight:500">No name</td><td style="padding:7px 12px">?</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Jun 8</td><td style="padding:7px 12px;color:#666;font-size:12px">No inc calls-checking on WA-Apr 28 No inc calls-Apr 29 Replied to WA-EY1 enq-she will visit next week-Apr 30 no inc calls-May 5 Checking on WA-May 7 N</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-11</td><td style="padding:7px 12px;font-weight:500">Sumithra</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">June 5</td><td style="padding:7px 12px;color:#666;font-size:12px">Enquiry for EY2 , SCHOOL TOUR PENDING . The father will come along with his wife and child after 2 or 3 days. It says the recipient mail box is full.H</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-18</td><td style="padding:7px 12px;font-weight:500">Bhuvana</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Summer Camp</td><td style="padding:7px 12px">June 1</td><td style="padding:7px 12px;color:#666;font-size:12px">She will discuss with husband and confirm her availability for direct visit-May 18 RNR-May 19 RNR-checking on WA-May 20 replied as they are out of sta</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-19</td><td style="padding:7px 12px;font-weight:500">Deepa</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Abacus</td><td style="padding:7px 12px">—</td><td style="padding:7px 12px;color:#666;font-size:12px">Enquiry for After school activities have shared the scheduled to the parent Says wrong number-checking with CD-May 20 Will discuss with husband today</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-19</td><td style="padding:7px 12px;font-weight:500">Neelam</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Daycare</td><td style="padding:7px 12px">—</td><td style="padding:7px 12px;color:#666;font-size:12px">The parent wants only day care in the morning have informed about the acdemics, and asked the parent to visit the centre in person to have a clear pic</td></tr>
+<tr data-centre="other" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-22</td><td style="padding:7px 12px;font-weight:500">Manju</td><td style="padding:7px 12px">?</td><td style="padding:7px 12px">Daycare</td><td style="padding:7px 12px">June 5</td><td style="padding:7px 12px;color:#666;font-size:12px">Enquired for Daycare-she will call back-May 22 RNR-May 23 RNR-checking on WA-May 25. Parent will get back to us.</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-22</td><td style="padding:7px 12px;font-weight:500">Hemalatha</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Daycare</td><td style="padding:7px 12px">13Jun</td><td style="padding:7px 12px;color:#666;font-size:12px">Enquired for daycare. She will visit the school for more details. RNR-JUNE-3</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-21</td><td style="padding:7px 12px;font-weight:500">Vaishnavi</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">June 5</td><td style="padding:7px 12px;color:#666;font-size:12px">The parent had visited the centre on 21st may as i had gone to thoraipakkam for audit my teacher had asked them to fill the enquiry form, today when</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-23</td><td style="padding:7px 12px;font-weight:500">Lakshmi S</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Phonics</td><td style="padding:7px 12px">June 1</td><td style="padding:7px 12px;color:#666;font-size:12px">Timing does not work, wants phonics classes after 6pm. Thinking of having it on Saturdays, need time to discuss. (PHONICS).</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-23</td><td style="padding:7px 12px;font-weight:500">Malan</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Daycare</td><td style="padding:7px 12px">June 1</td><td style="padding:7px 12px;color:#666;font-size:12px">Parent is thinking whether to enrol in this age, will decide and get back.( DAYCARE) RNR-May 25.</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-25</td><td style="padding:7px 12px;font-weight:500">No name</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">June 3</td><td style="padding:7px 12px;color:#666;font-size:12px">He wanted to know the fees /after i asked to visit school he was like ok ok mam-leave it-may 25 Parent is willing to kn</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-25</td><td style="padding:7px 12px;font-weight:500">Renugadevi</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">July 14</td><td style="padding:7px 12px;color:#666;font-size:12px">—</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-26</td><td style="padding:7px 12px;font-weight:500">Juli.c</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">May 30</td><td style="padding:7px 12px;color:#666;font-size:12px">Enquiry for EY2 SCHOOL TOUR DONE RNR-May 29</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-27</td><td style="padding:7px 12px;font-weight:500">Bhavani K</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">—</td><td style="padding:7px 12px;color:#666;font-size:12px">Parent is looking out for other schools too. Will get back in a weeks time wrt enrolling the child in EY1.</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-27</td><td style="padding:7px 12px;font-weight:500">Meenalakshmi</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">June 1</td><td style="padding:7px 12px;color:#666;font-size:12px">RNR-checking on WA -May 29</td></tr>
+<tr data-centre="other" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-28</td><td style="padding:7px 12px;font-weight:500">No name</td><td style="padding:7px 12px">?</td><td style="padding:7px 12px">Daycare</td><td style="padding:7px 12px">—</td><td style="padding:7px 12px;color:#666;font-size:12px">Enquired for Daycare-May 28</td></tr>
+<tr data-centre="other" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-28</td><td style="padding:7px 12px;font-weight:500">No name</td><td style="padding:7px 12px">?</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">June 4</td><td style="padding:7px 12px;color:#666;font-size:12px">—</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-28</td><td style="padding:7px 12px;font-weight:500">K Aruna</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">May 30</td><td style="padding:7px 12px;color:#666;font-size:12px">—</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-28</td><td style="padding:7px 12px;font-weight:500">Mahendran K</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">May 10</td><td style="padding:7px 12px;color:#666;font-size:12px">Parent will decide with his wife and get back in a weeks time for admission in EY1. RNR</td></tr>
+<tr data-centre="other" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-29</td><td style="padding:7px 12px;font-weight:500">No name</td><td style="padding:7px 12px">?</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">June 5</td><td style="padding:7px 12px;color:#666;font-size:12px">RNR-checking n WA-May 29. Can't take incoming calls. June-2</td></tr>
+<tr data-centre="other" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-29</td><td style="padding:7px 12px;font-weight:500">No name</td><td style="padding:7px 12px">?</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">June 5</td><td style="padding:7px 12px;color:#666;font-size:12px">RNR-checking n WA-May 29. RNR. Checking on WhatsApp. June-</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-28</td><td style="padding:7px 12px;font-weight:500">Nathiya</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Jun 5</td><td style="padding:7px 12px;color:#666;font-size:12px">Will decide and get back. Came after 5.45pm, so the school tour was not done. I've asked them to come the next day. EY1</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-29</td><td style="padding:7px 12px;font-weight:500">Lakshmi Priyanka</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Jun 2</td><td style="padding:7px 12px;color:#666;font-size:12px">Will discuss and get back. EY1 Fees to high not June 11</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-30</td><td style="padding:7px 12px;font-weight:500">Sarathi Kannan</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">Jun 10</td><td style="padding:7px 12px;color:#666;font-size:12px">Parent will come along with the child on Monday for a school tour and decide on enrolling either in EY1 or EY2.</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-30</td><td style="padding:7px 12px;font-weight:500">Renu K</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Jun 6</td><td style="padding:7px 12px;color:#666;font-size:12px">Will decide and get back in a week. joined another school 11 June</td></tr>
+<tr data-centre="other" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-01</td><td style="padding:7px 12px;font-weight:500">Adamsanjay</td><td style="padding:7px 12px">?</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">Jun 2</td><td style="padding:7px 12px;color:#666;font-size:12px">RNR-checking n WA-May 29 Not interested at this time. June-1 Call went on voice call June 11</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-01</td><td style="padding:7px 12px;font-weight:500">Nandhinee</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">—</td><td style="padding:7px 12px;color:#666;font-size:12px">Enquired for EY1 and fee structure. RNR June 11 RNR-June-12</td></tr>
+<tr data-centre="other" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-02</td><td style="padding:7px 12px;font-weight:500">Vaidehraju</td><td style="padding:7px 12px">?</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">Jun3</td><td style="padding:7px 12px;color:#666;font-size:12px">Number is switched off. checked on whatsapp. June-2 incomimg calls m=not available June 11</td></tr>
+<tr data-centre="other" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-02</td><td style="padding:7px 12px;font-weight:500">—</td><td style="padding:7px 12px">?</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">Jun4</td><td style="padding:7px 12px;color:#666;font-size:12px">Disconnected the call. June-2</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-02</td><td style="padding:7px 12px;font-weight:500">Divya</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Daycare</td><td style="padding:7px 12px">Jun3</td><td style="padding:7px 12px;color:#666;font-size:12px">Parent asked for Ramnagar centre. Incoming call is not available currently on this number. June-2</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-02</td><td style="padding:7px 12px;font-weight:500">Surya</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">—</td><td style="padding:7px 12px;color:#666;font-size:12px">Parent has enquired about EY2 programme. Will come for the school visit on 3.6.26. June-2 They will get back to</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-06</td><td style="padding:7px 12px;font-weight:500">Priyadharshini</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Jun 25</td><td style="padding:7px 12px;color:#666;font-size:12px">Parent will get back on Monday. EY2. Parent will enroll her child from july. June-11</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-08</td><td style="padding:7px 12px;font-weight:500">Joice Jeshnita</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">—</td><td style="padding:7px 12px;color:#666;font-size:12px">Enquired by mistake. June-8</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-08</td><td style="padding:7px 12px;font-weight:500">Sivasettu</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Jun10</td><td style="padding:7px 12px;color:#666;font-size:12px">Parents asked details on whatsapp. Asked to visit school. June-8 Repeatedly pa</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-08</td><td style="padding:7px 12px;font-weight:500">Rama</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Jun-15</td><td style="padding:7px 12px;color:#666;font-size:12px">Parent said she will come in person to visit the centre, but not specified any date. June-11</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-09</td><td style="padding:7px 12px;font-weight:500">Deepthi</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Academics</td><td style="padding:7px 12px">Jun 16</td><td style="padding:7px 12px;color:#666;font-size:12px">Parent said the fee is high so they are looking for other options also. Probably she can come back if there is any offer is available. Asked to contac</td></tr>
+<tr class="group-header"><td colspan="6" style="padding:10px 12px;background:#f8fafc;font-weight:700;color:#F59E0B;font-size:13px">RNR (5)</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-14</td><td style="padding:7px 12px;font-weight:500">Aarthi</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">—</td><td style="padding:7px 12px;color:#666;font-size:12px">Ram nagar enquiry-Shared location and asked to visit Tansi nagar also once-She will check and get back-May 14. RNR-JUNE-3</td></tr>
+<tr data-centre="tansi nagar" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-25</td><td style="padding:7px 12px;font-weight:500">Prabha</td><td style="padding:7px 12px">Tansi nagar</td><td style="padding:7px 12px">Language</td><td style="padding:7px 12px">June 5</td><td style="padding:7px 12px;color:#666;font-size:12px">Enquiry for Hindi have shared the schedule to the parent They are planning to join from june-will come to center-May 29</td></tr>
+<tr data-centre="other" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">May-29</td><td style="padding:7px 12px;font-weight:500">No name</td><td style="padding:7px 12px">?</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">June 5</td><td style="padding:7px 12px;color:#666;font-size:12px">RNR-checking n WA-May 29. Asked for summer camp and After School Programme. Shared details. June-2</td></tr>
+<tr data-centre="other" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-01</td><td style="padding:7px 12px;font-weight:500">Sharukh Gori</td><td style="padding:7px 12px">?</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">Jun 10</td><td style="padding:7px 12px;color:#666;font-size:12px">RNR-checking on WA-Jun1 RNR-Jun-8 Not interested 11 June</td></tr>
+<tr data-centre="thoraipakkam" style="border-bottom:1px solid #f3f4f6"><td style="padding:7px 12px;color:#666">Jun-01</td><td style="padding:7px 12px;font-weight:500">Silabarasan</td><td style="padding:7px 12px">Thoraipakkam</td><td style="padding:7px 12px">Other</td><td style="padding:7px 12px">Jun10</td><td style="padding:7px 12px;color:#666;font-size:12px">Enquired for EY2. Parent will discuss with his wife and get back. Fees fee is to the higher end.</td></tr>
+</tbody></table></div>
+
+<div class="section"><h2>Key Insights</h2><div class="ig">
+  <div class="ib" style="border-left:4px solid #27AE60"><h3 style="color:#27AE60;margin-bottom:8px">✅ What's Working</h3><p>Overall conv: 7.4% (of tagged)<br>Visit-to-enroll: 52%<br>Top program: Other<br>Thoraipakkam: 200 leads, 61 visited, 39 enrolled<br>Tansi Nagar: 212 leads, 53 visited, 21 enrolled</p></div>
+  <div class="ib" style="border-left:4px solid #E74C3C"><h3 style="color:#E74C3C;margin-bottom:8px">🚩 Flags</h3><p>660 leads lost/disqualified<br>63 active leads need follow-up<br>55 visited but not enrolled<br>2 leads missing status tag</p></div>
+  <div class="ib" style="border-left:4px solid #F59E0B"><h3 style="color:#F59E0B;margin-bottom:8px">📅 Due This Week</h3><p>5 school visits done — follow up!<br>10 walk-ins scheduled<br>RNR: 5 — retry contact</p></div>
+  <div class="ib" style="border-left:4px solid #7C3AED"><h3 style="color:#7C3AED;margin-bottom:8px">🎯 June Pipeline</h3><p>Future Prospects: 26<br>School Visited: 115 (52% enrolled)<br>Active pipeline: 63<br>Hot-Payment expected: 1</p></div>
+</div></div>
+<footer>Generated by Flinto Admissions Intelligence · <a href="https://docs.google.com/spreadsheets/d/1b4j3GeQZrEyJAUDQxgKKwLcG6iNjwdlPHIKRxQqmXRo/edit?gid=1680636582" target="_blank" style="color:#FF6B35">Source Sheet</a> · Last updated Sat 13 Jun, 2026, 01:07 pm IST · Refreshed at 9 AM, 1 PM &amp; 8 PM IST</footer>
 
 <script>
-// ── Data ──────────────────────────────────────────────────────────────────
-const ALL_LEADS = [{"group": "Hot-Payment expected", "date": "Apr-15", "parent": "\u2014", "centre": "Thoraipakkam", "program": "Summer Camp", "next_task": "\u2014", "notes": "The parent will come on 18-4-26 for enrollment RNR-Apr 17 She will come today for enrollment before 5-Apr 18"}, {"group": "School visit done", "date": "Jan-27", "parent": "MANISHA", "centre": "Tansi nagar", "program": "Academics", "next_task": "5-31-26", "notes": "They visited and got info.Planning for june admission.will get back by may end after returning from native-4 Feb"}, {"group": "School visit done", "date": "Feb-26", "parent": "Annie S", "centre": "Thoraipakkam", "program": "Summer Camp", "next_task": "Jun 1", "notes": "RNR-Feb 26 RNR-WA sent-Feb 27 They are into discussion whether to join in sc or june adm-will decide and let us know-Feb 27 They will be joining for s"}, {"group": "School visit done", "date": "Apr-02", "parent": "Preethi", "centre": "Thoraipakkam", "program": "Academics", "next_task": "Jun 5", "notes": "Will confirm tomorrow planning for a 2nd visit after he reaches chennai in may 2nd week-Apr 21 they are not back in chennai yet-will update by month e"}, {"group": "School visit done", "date": "May-20", "parent": "Julie", "centre": "Tansi nagar", "program": "Academics", "next_task": "\u2014", "notes": "Enquiry through call have asked the parent to visit the centre. RNR-May 21 She will call back-May 22 RNR-checking on WA-May 23 Her husband(Selvam)call"}, {"group": "School visit done", "date": "May-25", "parent": "Gayathri", "centre": "Thoraipakkam", "program": "Other", "next_task": "\u2014", "notes": "Enquired wrt admission for EY1.  Will visit the school this week. May 29-RNR."}, {"group": "Walkin scheduled", "date": "Mar-14", "parent": "Janani", "centre": "Tansi nagar", "program": "Phonics", "next_task": "Jun 5", "notes": "Velachery, my son is 3.10 months She will try to come on monday afternoon-Mar 14 She will come one day this week-mar 17 RNR-Mar 24 Not in town-will be"}, {"group": "Walkin scheduled", "date": "Mar-19", "parent": "Noname", "centre": "Thoraipakkam", "program": "Other", "next_task": "May 30", "notes": "RNR-checking on WA-Mar 19 She is from tiruvanmiyur-says both locations are okay-sending location on WA-Mar 19 RNR-Mar 21"}, {"group": "Walkin scheduled", "date": "Mar-19", "parent": "Noname", "centre": "Tansi nagar", "program": "Academics", "next_task": "Jun 5", "notes": "RNR-checking on WA-Mar 19 asked to call tomorrow-WA reply-Mar 19 RNR-mar 20 RNR-checking on WA again-Mar 21                               Parent showe"}, {"group": "Walkin scheduled", "date": "Apr-04", "parent": "Rajanmi", "centre": "Tansi nagar", "program": "Academics", "next_task": "Sep 30", "notes": "Parent will decide whether to enroll or not till 8th April Switched off-apr 22 RNR-num not in WA-APr 25 Speaking to some1-Apr 27 they are thinking to"}, {"group": "Walkin scheduled", "date": "May-06", "parent": "Tanuja", "centre": "Thoraipakkam", "program": "Academics", "next_task": "June 15", "notes": "Parent will visit the school visit next week for nursery. She is not in town.wll try to come after thurday next week or next to nxt weel-May 9 RNR-che"}, {"group": "Walkin scheduled", "date": "May-25", "parent": "No name", "centre": "Tansi nagar", "program": "Academics", "next_task": "June 1", "notes": "No inc calls-checking on WA-May 25 Replied to WA-Nursery adm-May 25.                                                Walk-in Scheduled on 27 May at 10:"}, {"group": "Walkin scheduled", "date": "May-29", "parent": "Swathi", "centre": "Tansi nagar", "program": "Other", "next_task": "Jun 8", "notes": "Enquired about what all the classes we do have for 4 year-given details and asked to visit-will be coming next week.address shared-may 29."}, {"group": "Walkin scheduled", "date": "Jun-02", "parent": "\u2014", "centre": "Tansi nagar", "program": "Academics", "next_task": "Jun4", "notes": "Parent inquired about Pre KG Programme. Probably they will visit the school tomorrow or day after tomorrow. June-2"}, {"group": "Walkin scheduled", "date": "Jun-03", "parent": "Vandhana Balaji", "centre": "Tansi nagar", "program": "Daycare", "next_task": "Jun 15", "notes": "Will decide and get back today. (only daycare)  The parent will come tomorrw at the centre. June-12"}, {"group": "Walkin scheduled", "date": "Jun-03", "parent": "\u2014", "centre": "Tansi nagar", "program": "Academics", "next_task": "Jun12", "notes": "RNR. Jun-11.                              RNR-June-12"}, {"group": "Followup", "date": "Mar-11", "parent": "Aishwarya", "centre": "Thoraipakkam", "program": "Academics", "next_task": "Jun 15", "notes": "Phone call enquiry will visit on Saturday RNR-Mar 13 she will  be coming tomorrow-Mar 17 RNR-Mar 18 RNR-Mar 24 RNR-Mar 28"}, {"group": "Followup", "date": "Mar-17", "parent": "Rajalakshmi", "centre": "Tansi nagar", "program": "Phonics", "next_task": "\u2014", "notes": "Enquired for phonics classes-She has budget issues.Asked to visit and take the assessment to the difference here.She will come in next month after his"}, {"group": "Followup", "date": "Mar-21", "parent": "Hemnath", "centre": "Tansi nagar", "program": "Other", "next_task": "June-2", "notes": "Asked to share the location-he will be visiting today afternoon-Mar 21"}, {"group": "Followup", "date": "Mar-24", "parent": "Arun Prasath M", "centre": "Thoraipakkam", "program": "Academics", "next_task": "June 17", "notes": "Will come back First week of april Out of town-they will be back around month end-May 13.                                Due to Medical reasons parents"}, {"group": "Followup", "date": "Apr-02", "parent": "Sujitha", "centre": "Thoraipakkam", "program": "Academics", "next_task": "Jun 5", "notes": "She is from karapakkam-sharing the location-Apr 2 RNR-checking on WA-Apr 21                                                                     RNR- Che"}, {"group": "Followup", "date": "Apr-07", "parent": "Priya", "centre": "Thoraipakkam", "program": "Academics", "next_task": "Jun 8", "notes": "Phone call enquiry from Trichy.  Relocating to Chennai in June.  Details shared about EY2. RNR-call next month-Apr 21."}, {"group": "Followup", "date": "Apr-28", "parent": "No name", "centre": "?", "program": "Academics", "next_task": "Jun 8", "notes": "No inc calls-checking on WA-Apr 28 No inc calls-Apr 29 Replied to WA-EY1 enq-she will visit next week-Apr 30 no inc calls-May 5 Checking on WA-May 7 N"}, {"group": "Followup", "date": "May-11", "parent": "Sumithra", "centre": "Tansi nagar", "program": "Academics", "next_task": "June 5", "notes": "Enquiry for EY2 , SCHOOL TOUR PENDING . The father will come along with his wife and child after 2 or 3 days. It says the recipient mail box is full.H"}, {"group": "Followup", "date": "May-18", "parent": "Bhuvana", "centre": "Tansi nagar", "program": "Summer Camp", "next_task": "June 1", "notes": "She will discuss with husband and confirm her availability for direct visit-May 18 RNR-May 19 RNR-checking on WA-May 20 replied as they are out of sta"}, {"group": "Followup", "date": "May-19", "parent": "Deepa", "centre": "Tansi nagar", "program": "Abacus", "next_task": "\u2014", "notes": "Enquiry for After school activities have shared the scheduled to the parent Says wrong number-checking with CD-May 20 Will discuss with husband today"}, {"group": "Followup", "date": "May-19", "parent": "Neelam", "centre": "Tansi nagar", "program": "Daycare", "next_task": "\u2014", "notes": "The parent wants only day care in the morning have informed about the acdemics, and asked the parent to visit the centre in person to have a clear pic"}, {"group": "Followup", "date": "May-22", "parent": "Manju", "centre": "?", "program": "Daycare", "next_task": "June 5", "notes": "Enqud for Daycare-she will call back-May 22 RNR-May 23 RNR-checking on WA-May 25.                                       Parent will get back to us."}, {"group": "Followup", "date": "May-22", "parent": "Hemalatha", "centre": "Thoraipakkam", "program": "Daycare", "next_task": "13Jun", "notes": "Enquired for daycare.  She will visit the school for more details.                                                                RNR-JUNE-3"}, {"group": "Followup", "date": "May-21", "parent": "Vaishnavi", "centre": "Tansi nagar", "program": "Academics", "next_task": "June 5", "notes": "The parent had visited the centre on 21st may as i had gone to thoraipakkam for audit my teacher had asked them to fill the enquiry form, today when"}, {"group": "Followup", "date": "May-23", "parent": "Lakshmi S", "centre": "Tansi nagar", "program": "Phonics", "next_task": "June 1", "notes": "Timing does not work, wants phonics classes after 6pm. Thinking of having it on Saturdays, need time to discuss.   (PHONICS)."}, {"group": "Followup", "date": "May-23", "parent": "Malan", "centre": "Tansi nagar", "program": "Daycare", "next_task": "June 1", "notes": "Parent is thinking whether to enrol in this age, will decide and get back.( DAYCARE) RNR-May 25."}, {"group": "Followup", "date": "May-25", "parent": "No name", "centre": "Tansi nagar", "program": "Other", "next_task": "June 3", "notes": "He wanted to know the fees /after i asked to visit school he was like ok ok mam-leave it-may 25                                Parent is willing to kn"}, {"group": "Followup", "date": "May-25", "parent": "Renugadevi", "centre": "Tansi nagar", "program": "Academics", "next_task": "July 14", "notes": "\u2014"}, {"group": "Followup", "date": "May-26", "parent": "Juli.c", "centre": "Tansi nagar", "program": "Academics", "next_task": "May 30", "notes": "Enquiry for EY2 SCHOOL TOUR DONE  RNR-May 29"}, {"group": "Followup", "date": "May-27", "parent": "Bhavani K", "centre": "Thoraipakkam", "program": "Academics", "next_task": "\u2014", "notes": "Parent is looking out for other schools too.  Will get back in a weeks time wrt enrolling the child in EY1."}, {"group": "Followup", "date": "May-27", "parent": "Meenalakshmi", "centre": "Tansi nagar", "program": "Academics", "next_task": "June 1", "notes": "RNR-checking on WA -May 29"}, {"group": "Followup", "date": "May-28", "parent": "No name", "centre": "?", "program": "Daycare", "next_task": "\u2014", "notes": "Enquired for Daycare-May 28"}, {"group": "Followup", "date": "May-28", "parent": "No name", "centre": "?", "program": "Academics", "next_task": "June 4", "notes": "\u2014"}, {"group": "Followup", "date": "May-28", "parent": "K Aruna", "centre": "Tansi nagar", "program": "Academics", "next_task": "May 30", "notes": "\u2014"}, {"group": "Followup", "date": "May-28", "parent": "Mahendran K", "centre": "Thoraipakkam", "program": "Academics", "next_task": "May 10", "notes": "Parent will decide with his wife and get back in a weeks time for admission in EY1.                                                                RNR"}, {"group": "Followup", "date": "May-29", "parent": "No name", "centre": "?", "program": "Other", "next_task": "June 5", "notes": "RNR-checking n WA-May 29.                                          Can't take incoming calls. June-2"}, {"group": "Followup", "date": "May-29", "parent": "No name", "centre": "?", "program": "Other", "next_task": "June 5", "notes": "RNR-checking n WA-May 29.              RNR.                                                                                Checking on WhatsApp. June-"}, {"group": "Followup", "date": "May-28", "parent": "Nathiya", "centre": "Tansi nagar", "program": "Academics", "next_task": "Jun 5", "notes": "Will decide and get back. Came after 5.45pm, so the school tour was not done. I've asked them to come the next day.    EY1"}, {"group": "Followup", "date": "May-29", "parent": "Lakshmi Priyanka", "centre": "Tansi nagar", "program": "Academics", "next_task": "Jun 2", "notes": "Will discuss and get back.    EY1 Fees to high not June 11"}, {"group": "Followup", "date": "May-30", "parent": "Sarathi Kannan", "centre": "Thoraipakkam", "program": "Other", "next_task": "Jun 10", "notes": "Parent will come along with the child on Monday for a school tour and decide on enrolling either in EY1 or EY2."}, {"group": "Followup", "date": "May-30", "parent": "Renu K", "centre": "Tansi nagar", "program": "Academics", "next_task": "Jun 6", "notes": "Will decide and get back in a week. joined another school 11 June"}, {"group": "Followup", "date": "Jun-01", "parent": "Adamsanjay", "centre": "?", "program": "Other", "next_task": "Jun 2", "notes": "RNR-checking n WA-May 29                                                    Not interested at this time. June-1 Call went on voice call June 11"}, {"group": "Followup", "date": "Jun-01", "parent": "Nandhinee", "centre": "Thoraipakkam", "program": "Other", "next_task": "\u2014", "notes": "Enquired for EY1 and fee structure.   RNR June 11                                                    RNR-June-12"}, {"group": "Followup", "date": "Jun-02", "parent": "Vaidehraju", "centre": "?", "program": "Other", "next_task": "Jun3", "notes": "Number is switched off. checked on whatsapp. June-2 incomimg calls m=not available June 11"}, {"group": "Followup", "date": "Jun-02", "parent": "\u2014", "centre": "?", "program": "Other", "next_task": "Jun4", "notes": "Disconnected the call. June-2"}, {"group": "Followup", "date": "Jun-02", "parent": "Divya", "centre": "Tansi nagar", "program": "Daycare", "next_task": "Jun3", "notes": "Parent asked for  Ramnagar centre. Incoming call is not available currently on this number. June-2"}, {"group": "Followup", "date": "Jun-02", "parent": "Surya", "centre": "Tansi nagar", "program": "Academics", "next_task": "\u2014", "notes": "Parent has enquired about EY2 programme. Will come for the school visit on 3.6.26. June-2                                       They will get back to"}, {"group": "Followup", "date": "Jun-06", "parent": "Priyadharshini", "centre": "Tansi nagar", "program": "Academics", "next_task": "Jun 25", "notes": "Parent will get back on Monday.  EY2. Parent will enroll her child from july. June-11"}, {"group": "Followup", "date": "Jun-08", "parent": "Joice Jeshnita", "centre": "Tansi nagar", "program": "Academics", "next_task": "\u2014", "notes": "Enquired by mistake. June-8"}, {"group": "Followup", "date": "Jun-08", "parent": "Sivasettu", "centre": "Thoraipakkam", "program": "Academics", "next_task": "Jun10", "notes": "Parents asked details on whatsapp. Asked to visit school. June-8                                                                         Repeatedly pa"}, {"group": "Followup", "date": "Jun-08", "parent": "Rama", "centre": "Tansi nagar", "program": "Academics", "next_task": "Jun-15", "notes": "Parent said she will come in person to visit the centre, but not specified any date. June-11"}, {"group": "Followup", "date": "Jun-09", "parent": "Deepthi", "centre": "Tansi nagar", "program": "Academics", "next_task": "Jun 16", "notes": "Parent said the fee is high so they are looking for other options also. Probably she can come back if there is any offer is available. Asked to contac"}, {"group": "RNR", "date": "May-14", "parent": "Aarthi", "centre": "Tansi nagar", "program": "Other", "next_task": "\u2014", "notes": "Ram nagar enquiry-Shared location and asked to visit Tansi nagar also once-She will check and get back-May 14.                     RNR-JUNE-3"}, {"group": "RNR", "date": "May-25", "parent": "Prabha", "centre": "Tansi nagar", "program": "Language", "next_task": "June 5", "notes": "Enquiry for Hindi have shared the schedule to the parent They are planning to join from june-will come to center-May 29"}, {"group": "RNR", "date": "May-29", "parent": "No name", "centre": "?", "program": "Other", "next_task": "June 5", "notes": "RNR-checking n WA-May 29.                                     Asked for summer camp and After School Programme. Shared details. June-2"}, {"group": "RNR", "date": "Jun-01", "parent": "Sharukh Gori", "centre": "?", "program": "Other", "next_task": "Jun 10", "notes": "RNR-checking on WA-Jun1                                                                RNR-Jun-8 Not interested 11 June"}, {"group": "RNR", "date": "Jun-01", "parent": "Silabarasan", "centre": "Thoraipakkam", "program": "Other", "next_task": "Jun10", "notes": "Enquired for EY2.  Parent will discuss with his wife and get back.  Fees fee is to the higher end."}];
+var centreData = {
+  all:           {total:'816', totalSub:'814 tagged', visited:'115', visitedSub:'14.1% of tagged', enrolled:'60', enrolledSub:'52% of visitors', active:'63', future:'26', lost:'660', noStatus:'2'},
+  thoraipakkam:  {total:'200', totalSub:'tagged leads', visited:'61', visitedSub:'30.5% of tagged', enrolled:'39', enrolledSub:'63.9% of visitors', active:'17', future:'14', lost:'129', noStatus:'1'},
+  tansi:         {total:'212', totalSub:'tagged leads', visited:'53', visitedSub:'25.0% of tagged', enrolled:'21', enrolledSub:'39.6% of visitors', active:'35', future:'9',  lost:'146', noStatus:'1'}
+};
 
-// ── Date helpers ─────────────────────────────────────────────────────────
-function parseLeadDate(str) {
-  // "May-25", "Jun-08", "Jan-27", "Apr-02" → Date
-  const parts = str.split('-');
-  if(parts.length !== 2) return null;
-  const months = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
-  const m = months[parts[0]];
-  if(m === undefined) return null;
-  const y = 2026; // all data is 2026
-  return new Date(y, m, parseInt(parts[1]));
-}
-
-function today0() { const d=new Date(); d.setHours(0,0,0,0); return d; }
-function addDays(d,n) { const r=new Date(d); r.setDate(r.getDate()+n); return r; }
-function startOfWeek(d) { const r=new Date(d); r.setDate(r.getDate()-r.getDay()); r.setHours(0,0,0,0); return r; }
-function startOfMonth(d) { return new Date(d.getFullYear(),d.getMonth(),1); }
-
-// ── State ─────────────────────────────────────────────────────────────────
-let activeFilters = { preset:'all', dateFrom:null, dateTo:null, centres:[], programs:[], status:'all' };
-
-// ── Preset logic ─────────────────────────────────────────────────────────
-function setPreset(btn, preset) {
-  document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));
+function applyFilter(btn, centre) {
+  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
-  document.getElementById('custom-dates').style.display = preset==='custom'?'flex':'none';
-  activeFilters.preset = preset;
-  if(preset !== 'custom') {
-    document.getElementById('date-from').value='';
-    document.getElementById('date-to').value='';
-  }
-}
 
-// ── Get selected values from multi-select ─────────────────────────────────
-function getMultiSelect(id) {
-  const opts = [...document.getElementById(id).selectedOptions].map(o=>o.value);
-  return opts.includes('all') ? [] : opts;
-}
+  var d = centreData[centre];
 
-// ── Apply Filters ────────────────────────────────────────────────────────
-function applyFilters() {
-  const preset = activeFilters.preset;
-  let df=null, dt=null;
-  const t = today0();
-  if(preset==='today') { df=t; dt=t; }
-  else if(preset==='week') { df=startOfWeek(t); dt=addDays(startOfWeek(t),6); }
-  else if(preset==='month') { df=startOfMonth(t); dt=new Date(t.getFullYear(),t.getMonth()+1,0); }
-  else if(preset==='last30') { df=addDays(t,-30); dt=t; }
-  else if(preset==='custom') {
-    const fv=document.getElementById('date-from').value;
-    const tv=document.getElementById('date-to').value;
-    if(fv) df=new Date(fv+'T00:00:00');
-    if(tv) dt=new Date(tv+'T23:59:59');
-  }
-  activeFilters.dateFrom = df;
-  activeFilters.dateTo = dt;
-  activeFilters.centres = getMultiSelect('filter-centre');
-  activeFilters.programs = getMultiSelect('filter-program');
-  activeFilters.status = document.getElementById('filter-status').value;
-  renderHotLeads();
-  renderActiveTags();
-}
+  // Update summary cards
+  document.getElementById('c-total').textContent    = d.total;
+  document.getElementById('c-total-sub').textContent = d.totalSub;
+  document.getElementById('c-visited').textContent  = d.visited;
+  document.getElementById('c-visited-sub').textContent = d.visitedSub;
+  document.getElementById('c-enrolled').textContent = d.enrolled;
+  document.getElementById('c-enrolled-sub').textContent = d.enrolledSub;
+  document.getElementById('c-active').textContent   = d.active;
+  document.getElementById('c-future').textContent   = d.future;
+  document.getElementById('c-lost').textContent     = d.lost;
+  document.getElementById('c-nostatus').textContent = d.noStatus;
+  document.getElementById('nostatus-count').textContent = d.noStatus;
 
-function resetFilters() {
-  activeFilters = { preset:'all', dateFrom:null, dateTo:null, centres:[], programs:[], status:'all' };
-  document.querySelectorAll('.preset-btn').forEach(b=classList.remove('active'));
-  document.querySelector('[data-preset="all"]').classList.add('active');
-  document.getElementById('custom-dates').style.display='none';
-  document.getElementById('date-from').value='';
-  document.getElementById('date-to').value='';
-  document.getElementById('filter-centre').selectedIndex=0;
-  document.getElementById('filter-program').selectedIndex=0;
-  document.getElementById('filter-status').value='all';
-  renderHotLeads();
-  renderActiveTags();
-}
-
-// ── Filter leads ─────────────────────────────────────────────────────────
-function filterLeads(leads) {
-  return leads.filter(l => {
-    if(activeFilters.centres.length && !activeFilters.centres.includes(l.centre)) return false;
-    if(activeFilters.programs.length && !activeFilters.programs.includes(l.program)) return false;
-    if(activeFilters.status !== 'all' && l.group !== activeFilters.status) return false;
-    if(activeFilters.dateFrom || activeFilters.dateTo) {
-      const d = parseLeadDate(l.date);
-      if(!d) return true;
-      if(activeFilters.dateFrom && d < activeFilters.dateFrom) return false;
-      if(activeFilters.dateTo && d > activeFilters.dateTo) return false;
-    }
-    return true;
-  });
-}
-
-// ── Badge colors ─────────────────────────────────────────────────────────
-const GROUP_COLORS = {
-  'Hot-Payment expected': '#10B981',
-  'School visit done': '#7C3AED',
-  'Walkin scheduled': '#2563EB',
-  'Followup': '#27AE60',
-  'RNR': '#F59E0B'
-};
-const BADGE_CLASS = {
-  'Hot-Payment expected':'hot','School visit done':'visit',
-  'Walkin scheduled':'walkin','Followup':'followup','RNR':'rnr'
-};
-
-// ── Render Hot Leads table ────────────────────────────────────────────────
-function renderHotLeads(filteredSet) {
-  const leads = filteredSet !== undefined ? filteredSet : filterLeads(ALL_LEADS);
-  const body = document.getElementById('hot-leads-body');
-  const title = document.getElementById('hot-leads-title');
-  
-  const hasFilters = activeFilters.centres.length || activeFilters.programs.length || 
-                     activeFilters.status!=='all' || activeFilters.dateFrom || activeFilters.dateTo;
-  title.textContent = hasFilters ? `Hot Leads — Action Required (${leads.length} of ${ALL_LEADS.length} shown)` : `Hot Leads — Action Required`;
-
-  if(!leads.length) {
-    body.innerHTML='<div style="color:#9CA3AF;text-align:center;padding:30px">No leads match the current filters.</div>';
-    return;
-  }
-
-  // Group by status
-  const groups = {};
-  leads.forEach(l => {
-    if(!groups[l.group]) groups[l.group] = [];
-    groups[l.group].push(l);
-  });
-
-  const groupOrder = ['Hot-Payment expected','School visit done','Walkin scheduled','Followup','RNR'];
-  let html = '<table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr>' +
-    ['Date','Parent','Centre','Program','Next Task','Notes'].map(h=>
-      `<th style="padding:10px 12px;text-align:left;border-bottom:2px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.4px">${h}</th>`
-    ).join('') + '</tr></thead><tbody>';
-
-  groupOrder.forEach(g => {
-    if(!groups[g]) return;
-    const color = GROUP_COLORS[g] || '#888';
-    html += `<tr><td colspan="6" style="padding:10px 12px;background:#f8fafc;font-weight:700;color:${color};font-size:13px">${g} (${groups[g].length})</td></tr>`;
-    groups[g].forEach(l => {
-      html += `<tr style="border-bottom:1px solid #f3f4f6">
-        <td style="padding:7px 12px;color:#666">${l.date}</td>
-        <td style="padding:7px 12px;font-weight:500">${l.parent}</td>
-        <td style="padding:7px 12px">${l.centre}</td>
-        <td style="padding:7px 12px">${l.program}</td>
-        <td style="padding:7px 12px">${l.next_task}</td>
-        <td style="padding:7px 12px;color:#666;font-size:12px">${l.notes}</td>
-      </tr>`;
-    });
-  });
-
-  html += '</tbody></table>';
-  body.innerHTML = html;
-}
-
-// ── Render active filter tags ─────────────────────────────────────────────
-function renderActiveTags() {
-  const af = activeFilters;
-  const tags = [];
-  if(af.preset !== 'all') tags.push(af.preset === 'custom' ? 'Custom date' : af.preset);
-  if(af.centres.length) tags.push(af.centres.join(', '));
-  if(af.programs.length) tags.push(af.programs.join(', '));
-  if(af.status !== 'all') tags.push(af.status);
-  const el = document.getElementById('active-filters');
-  if(tags.length) {
-    el.innerHTML = '<span style="font-size:11px;color:#6B7280;margin-right:4px">Active filters:</span>' +
-      tags.map(t=>`<span class="filter-active-tag">${t}</span>`).join('');
-    el.style.padding = '0 40px 8px';
-  } else {
-    el.innerHTML=''; el.style.padding='0';
-  }
-}
-
-// ── Slide Panel ───────────────────────────────────────────────────────────
-const CARD_GROUPS = {
-  'Active Pipeline': null,  // show all
-  'Future Prospects': ['Hot-Payment expected'],
-  'School Visited': ['School visit done'],
-  'Enrolled': null,
-  'Total Leads': null,
-  'Lost / Disqualified': null,
-  '⚠️ No Status': null,
-};
-
-const PANEL_NO_DATA = new Set(['Enrolled','Total Leads','Lost / Disqualified']);
-
-function openPanel(label) {
-  const panel = document.getElementById('slide-panel');
-  const overlay = document.getElementById('overlay');
-  const title = document.getElementById('panel-title');
-  const body = document.getElementById('panel-body');
-  const count = document.getElementById('panel-count');
-
-  title.textContent = label;
-
-  let leadsToShow = [];
-  let noDataMsg = '';
-
-  if(PANEL_NO_DATA.has(label)) {
-    noDataMsg = `<div id="panel-empty">Detailed lead records for "<b>${label}</b>" are not included in this view.<br><br>Open the <a href="https://docs.google.com/spreadsheets/d/1b4j3GeQZrEyJAUDQxgKKwLcG6iNjwdlPHIKRxQqmXRo/edit?gid=1680636582" target="_blank" style="color:#FF6B35">Source Sheet</a> to see all leads.</div>`;
-  } else if(label === 'Active Pipeline') {
-    leadsToShow = filterLeads(ALL_LEADS);
-  } else if(label === 'School Visited') {
-    leadsToShow = filterLeads(ALL_LEADS.filter(l=>l.group==='School visit done'));
-  } else if(label === 'Future Prospects') {
-    leadsToShow = filterLeads(ALL_LEADS.filter(l=>l.group==='Hot-Payment expected'));
-  } else if(label.includes('No Status')) {
-    noDataMsg = '<div id="panel-empty">See the ⚠️ No Status table above.</div>';
-  } else {
-    leadsToShow = filterLeads(ALL_LEADS);
-  }
-
-  if(noDataMsg) {
-    count.textContent = '';
-    body.innerHTML = noDataMsg;
-  } else {
-    count.textContent = leadsToShow.length + ' lead' + (leadsToShow.length!==1?'s':'') + ' (filters applied)';
-    if(!leadsToShow.length) {
-      body.innerHTML = '<div id="panel-empty">No leads match current filters.</div>';
+  // Filter all rows with data-centre attribute
+  var rows = document.querySelectorAll('tr[data-centre]');
+  rows.forEach(function(row) {
+    if (centre === 'all') {
+      row.style.display = '';
     } else {
-      body.innerHTML = leadsToShow.map(l => {
-        const badgeCls = BADGE_CLASS[l.group] || '';
-        return `<div class="panel-lead-card">
-          <div class="plc-name">${l.parent}</div>
-          <div class="plc-meta">📅 ${l.date} &nbsp;·&nbsp; 🏫 ${l.centre} &nbsp;·&nbsp; 📚 ${l.program}</div>
-          <div><span class="plc-badge ${badgeCls}">${l.group}</span>${l.next_task && l.next_task!=='—' ? `<span style="font-size:11px;color:#6B7280">Follow-up: ${l.next_task}</span>`:'' }</div>
-          ${l.notes ? `<div class="plc-notes">${l.notes}</div>`:''}
-        </div>`;
-      }).join('');
+      var rc = row.getAttribute('data-centre');
+      row.style.display = (rc === centre || rc === centre + ' nagar' || matchCentre(rc, centre)) ? '' : 'none';
+    }
+  });
+
+  // Hide group-header rows if all their data rows are hidden
+  var tbody = document.querySelector('#hot-leads-table tbody');
+  var allRows = Array.from(tbody.querySelectorAll('tr'));
+  for (var i = 0; i < allRows.length; i++) {
+    if (allRows[i].classList.contains('group-header')) {
+      // find next group header or end
+      var hasVisible = false;
+      for (var j = i + 1; j < allRows.length; j++) {
+        if (allRows[j].classList.contains('group-header')) break;
+        if (allRows[j].style.display !== 'none') { hasVisible = true; break; }
+      }
+      allRows[i].style.display = hasVisible ? '' : 'none';
     }
   }
 
-  panel.classList.add('open');
-  overlay.classList.add('on');
+  // No-status empty message
+  var nsRows = document.querySelectorAll('#nostatus-tbody tr[data-centre]');
+  var nsVisible = 0;
+  nsRows.forEach(function(r){ if(r.style.display !== 'none') nsVisible++; });
+  document.getElementById('nostatus-empty').style.display = nsVisible === 0 ? 'block' : 'none';
+
+  // Centre Performance cards
+  var perfCards = document.querySelectorAll('[data-centre]');
+  perfCards.forEach(function(card) {
+    if (card.tagName === 'TR') return; // skip rows already handled
+    var cc = card.getAttribute('data-centre');
+    if (centre === 'all') {
+      card.style.display = '';
+    } else {
+      card.style.display = matchCentre(cc, centre) ? '' : 'none';
+    }
+  });
 }
 
-function closePanel() {
-  document.getElementById('slide-panel').classList.remove('open');
-  document.getElementById('overlay').classList.remove('on');
+function matchCentre(rowCentre, filter) {
+  if (filter === 'all') return true;
+  if (filter === 'thoraipakkam') return rowCentre === 'thoraipakkam';
+  if (filter === 'tansi') return rowCentre === 'tansi nagar';
+  return false;
 }
-
-// ── Init ──────────────────────────────────────────────────────────────────
-renderHotLeads();
 </script>
-</div>
-<div class="section"><h2>Key Insights</h2><div class="ig">
-  <div class="ib" style="border-left:4px solid #27AE60"><h3 style="color:#27AE60;margin-bottom:8px">✅ What's Working</h3><p>Overall conv: 7.2% (of tagged)<br>Visit-to-enroll: 51%<br>Top program: Other<br>Thoraipakkam: 200 leads, 61 visited, 38 enrolled<br>Tansi Nagar: 212 leads, 53 visited, 21 enrolled</p></div>
-  <div class="ib" style="border-left:4px solid #E74C3C"><h3 style="color:#E74C3C;margin-bottom:8px">🚩 Flags</h3><p>661 leads lost/disqualified<br>63 active leads need follow-up<br>56 visited but not enrolled<br>1 leads missing status tag</p></div>
-  <div class="ib" style="border-left:4px solid #F59E0B"><h3 style="color:#F59E0B;margin-bottom:8px">📅 Due This Week</h3><p>5 school visits done — follow up!<br>10 walk-ins scheduled<br>RNR: 5 — retry contact</p></div>
-  <div class="ib" style="border-left:4px solid #7C3AED"><h3 style="color:#7C3AED;margin-bottom:8px">🎯 June Pipeline</h3><p>Future Prospects: 26<br>School Visited: 115 (51% enrolled)<br>Active pipeline: 63<br>Hot-Payment expected: 1</p></div>
-</div></div>
-<footer>Generated by Flinto Admissions Intelligence · <a href="https://docs.google.com/spreadsheets/d/1b4j3GeQZrEyJAUDQxgKKwLcG6iNjwdlPHIKRxQqmXRo/edit?gid=1680636582" target="_blank" style="color:#FF6B35">Source Sheet</a> · Last updated Sat 13 Jun, 2026, 10:46 am IST · Refreshed at 9 AM, 1 PM &amp; 8 PM IST</footer>
 </body></html>
