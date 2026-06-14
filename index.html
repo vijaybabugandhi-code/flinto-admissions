@@ -13,6 +13,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .date-custom.show{display:flex}
 .date-custom input{border:2px solid #e5e7eb;border-radius:8px;padding:4px 8px;font-size:12px;color:#374151}
 .filter-note{background:#fffbeb;border-top:1px solid #fcd34d;border-bottom:1px solid #fcd34d;padding:6px 40px;font-size:12px;color:#92400e;display:none}
+.apply-btn{padding:8px 28px;border-radius:20px;border:none;background:#FF6B35;color:#fff;cursor:pointer;font-size:13px;font-weight:700;transition:all .2s;letter-spacing:.3px}
+.apply-btn:hover{background:#e85d2a;transform:translateY(-1px);box-shadow:0 4px 12px rgba(255,107,53,.4)}
+.apply-btn.pending{background:#10B981;box-shadow:0 0 0 0 rgba(16,185,129,.6);animation:ring .9s ease infinite}
+.reset-btn{padding:8px 18px;border-radius:20px;border:2px solid #d1d5db;background:#fff;cursor:pointer;font-size:12px;font-weight:600;color:#6B7280;transition:all .2s}
+.reset-btn:hover{border-color:#E74C3C;color:#E74C3C}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(16,185,129,.5)}70%{box-shadow:0 0 0 8px rgba(16,185,129,0)}100%{box-shadow:0 0 0 0 rgba(16,185,129,0)}}
 .filter-note.show{display:block}
 .cards{display:flex;gap:16px;margin:20px 40px;flex-wrap:wrap}
 .card{flex:1;min-width:120px;background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.07);text-align:center}
@@ -70,8 +76,8 @@ footer{text-align:center;padding:24px;color:#888;font-size:12px}
     <button class="fbtn" data-group="date" onclick="setDate(this,'thisyear')">This Year</button>
     <button class="fbtn" data-group="date" onclick="setDate(this,'custom')">Custom…</button>
     <div class="date-custom" id="custom-dates">
-      From <input type="date" id="date-from" value="2026-01-01" onchange="applyFilters()">
-      To <input type="date" id="date-to" value="2026-06-13" onchange="applyFilters()">
+      From <input type="date" id="date-from" value="2026-01-01" onchange="markPending()">
+      To <input type="date" id="date-to" value="2026-06-13" onchange="markPending()">
     </div>
   </div>
   <div class="filter-row">
@@ -92,6 +98,10 @@ footer{text-align:center;padding:24px;color:#888;font-size:12px}
     <button class="fbtn" data-group="prog" onclick="setProg(this,'Drawing')">Drawing</button>
     <button class="fbtn" data-group="prog" onclick="setProg(this,'Language')">Language</button>
     <button class="fbtn" data-group="prog" onclick="setProg(this,'Other')">Other</button>
+  </div>
+  <div class="filter-row" style="justify-content:flex-end;padding:8px 0 4px;gap:10px">
+    <button class="reset-btn" onclick="resetFilters()">✕ Reset</button>
+    <button class="apply-btn" id="apply-btn" onclick="applyFilters()">Apply Filters</button>
   </div>
 </div>
 <div class="filter-note" id="filter-note">⚡ All summary cards update with programme &amp; centre filters. Cards marked * are approximate when combining both filters or using date range (full dataset needed).</div>
@@ -306,22 +316,38 @@ function setDate(btn,preset){
   btn.classList.add('active');
   state.datePreset=preset;
   document.getElementById('custom-dates').classList.toggle('show',preset==='custom');
-  updateFilterNote();applyFilters();
+  markPending();
 }
 function setCentre(btn,centre){
   document.querySelectorAll('[data-group="centre"]').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
   state.centre=centre;
-  updateFilterNote();applyFilters();
+  markPending();
 }
 function setProg(btn,prog){
   document.querySelectorAll('[data-group="prog"]').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
   state.prog=prog;
-  updateFilterNote();applyFilters();
+  markPending();
+}
+function markPending(){
+  var btn=document.getElementById('apply-btn');
+  btn.classList.add('pending');
+  btn.textContent='Apply Filters ●';
+}
+function resetFilters(){
+  state={centre:'all',prog:'all',datePreset:'all'};
+  document.querySelectorAll('[data-group="date"]').forEach(function(b){b.classList.remove('active');});
+  document.querySelector('[data-group="date"][onclick*="\'all\'"]').classList.add('active');
+  document.querySelectorAll('[data-group="centre"]').forEach(function(b){b.classList.remove('active');});
+  document.querySelector('[data-group="centre"][onclick*="\'all\'"]').classList.add('active');
+  document.querySelectorAll('[data-group="prog"]').forEach(function(b){b.classList.remove('active');});
+  document.querySelector('[data-group="prog"][onclick*="\'all\'"]').classList.add('active');
+  document.getElementById('custom-dates').classList.remove('show');
+  applyFilters();
 }
 function updateFilterNote(){
-  var active=state.datePreset!=='all'||state.prog!=='all';
+  var active=state.datePreset!=='all'||state.prog!=='all'||state.centre!=='all';
   document.getElementById('filter-note').classList.toggle('show',active);
 }
 function updateSummaryCards(){
@@ -405,7 +431,16 @@ function updateCentrePerf(){
     if(el2) el2.textContent=centreData['tansi nagar'].active;
   }
 }
-function applyFilters(){updateSummaryCards();updateFunnel();updateCentrePerf();renderHotLeads();renderNoStatus();}
+function applyFilters(){
+  updateFilterNote();
+  updateSummaryCards();
+  updateFunnel();
+  updateCentrePerf();
+  renderHotLeads();
+  renderNoStatus();
+  var btn=document.getElementById('apply-btn');
+  if(btn){btn.classList.remove('pending');btn.textContent='Applied ✓';setTimeout(function(){btn.textContent='Apply Filters';},1500);}
+}
 
 function renderNoStatus(){
   var ns=LEADS.filter(function(l){return l.s==='No Status'&&matchLead(l);});
