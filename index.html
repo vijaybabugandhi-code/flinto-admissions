@@ -94,7 +94,7 @@ footer{text-align:center;padding:24px;color:#888;font-size:12px}
     <button class="fbtn" data-group="prog" onclick="setProg(this,'Other')">Other</button>
   </div>
 </div>
-<div class="filter-note" id="filter-note">⚡ Active Pipeline, No Status, Funnel &amp; Hot Leads reflect current filters. Cards marked * show all-time centre totals (full dataset needed for filtering).</div>
+<div class="filter-note" id="filter-note">⚡ All summary cards update with programme &amp; centre filters. Cards marked * are approximate when combining both filters or using date range (full dataset needed).</div>
 
 <div class="cards">
   <div class="card"><div class="val" id="c-total" style="color:#2563EB" onclick="noDataModal('total')">816</div><div class="lbl">Total Leads</div><div class="sub" id="c-total-sub">814 tagged</div></div>
@@ -181,6 +181,17 @@ footer{text-align:center;padding:24px;color:#888;font-size:12px}
 </div>
 
 <script>
+var progData = {
+  'Abacus':     {total:'3',   totalSub:'tagged leads',visited:'0', visitedSub:'0% of tagged',    enrolled:'0', enrolledSub:'N/A',              future:'—',lost:'2'},
+  'Academics':  {total:'180', totalSub:'tagged leads',visited:'62',visitedSub:'34.4% of tagged', enrolled:'22',enrolledSub:'35.5% of visitors', future:'—',lost:'105'},
+  'Dance':      {total:'3',   totalSub:'tagged leads',visited:'0', visitedSub:'0% of tagged',    enrolled:'0', enrolledSub:'N/A',              future:'—',lost:'3'},
+  'Daycare':    {total:'20',  totalSub:'tagged leads',visited:'2', visitedSub:'10% of tagged',   enrolled:'0', enrolledSub:'0% of visitors',   future:'—',lost:'12'},
+  'Drawing':    {total:'1',   totalSub:'tagged leads',visited:'0', visitedSub:'0% of tagged',    enrolled:'0', enrolledSub:'N/A',              future:'—',lost:'1'},
+  'Language':   {total:'1',   totalSub:'tagged leads',visited:'0', visitedSub:'0% of tagged',    enrolled:'0', enrolledSub:'N/A',              future:'—',lost:'0'},
+  'Other':      {total:'411', totalSub:'tagged leads',visited:'9', visitedSub:'2.2% of tagged',  enrolled:'7', enrolledSub:'77.8% of visitors',future:'—',lost:'381'},
+  'Phonics':    {total:'10',  totalSub:'tagged leads',visited:'1', visitedSub:'10% of tagged',   enrolled:'1', enrolledSub:'100% of visitors', future:'—',lost:'6'},
+  'Summer Camp':{total:'185', totalSub:'tagged leads',visited:'41',visitedSub:'22.2% of tagged', enrolled:'30',enrolledSub:'73.2% of visitors',future:'—',lost:'150'}
+};
 var centreData = {
   'all':         {total:'816',totalSub:'814 tagged',visited:'115',visitedSub:'14.1% of tagged',enrolled:'60',enrolledSub:'52% of visitors',active:'63',future:'26',lost:'660',noStatus:'2'},
   'thoraipakkam':{total:'200',totalSub:'tagged leads',visited:'61',visitedSub:'30.5% of tagged',enrolled:'39',enrolledSub:'63.9% of visitors',active:'17',future:'14',lost:'129',noStatus:'1'},
@@ -314,32 +325,45 @@ function updateFilterNote(){
   document.getElementById('filter-note').classList.toggle('show',active);
 }
 function updateSummaryCards(){
-  var d=centreData[state.centre]||centreData['all'];
-  var extraFilter=state.prog!=='all'||state.datePreset!=='all';
+  var hasProg=state.prog!=='all';
+  var hasCentre=state.centre!=='all';
+  var hasDate=state.datePreset!=='all';
 
-  // Active Pipeline and No Status: always computed from LEADS with ALL active filters
+  // Active Pipeline + No Status: always computed live from LEADS with ALL filters
   var activeLeads=LEADS.filter(function(l){return l.s!=='No Status'&&matchLead(l);});
   var nsLeads=LEADS.filter(function(l){return l.s==='No Status'&&matchLead(l);});
   document.getElementById('c-active').textContent=activeLeads.length;
   document.getElementById('c-nostatus').textContent=nsLeads.length;
   document.getElementById('nostatus-count').textContent=nsLeads.length;
 
-  // Aggregate cards: use centreData (we don't have full individual records for these)
+  // Pick the best available data source for aggregate cards
+  // Priority: progData (if prog filter) > centreData (if centre filter) > all
+  var d, approx=false;
+  if(hasProg){
+    d=progData[state.prog]||centreData['all'];
+    if(hasCentre||hasDate) approx=true; // can't cross-filter centre×prog or date
+  }else{
+    d=centreData[state.centre]||centreData['all'];
+    if(hasDate) approx=true; // date filter can't be applied to aggregate totals
+  }
+
+  var suffix=approx?' *':'';
   document.getElementById('c-total').textContent=d.total;
-  document.getElementById('c-total-sub').textContent=d.totalSub+(extraFilter?' *':'');
+  document.getElementById('c-total-sub').textContent=(d.totalSub||'')+suffix;
   document.getElementById('c-visited').textContent=d.visited;
-  document.getElementById('c-visited-sub').textContent=d.visitedSub+(extraFilter?' *':'');
+  document.getElementById('c-visited-sub').textContent=(d.visitedSub||'')+suffix;
   document.getElementById('c-enrolled').textContent=d.enrolled;
-  document.getElementById('c-enrolled-sub').textContent=d.enrolledSub+(extraFilter?' *':'');
-  document.getElementById('c-future').textContent=d.future;
+  document.getElementById('c-enrolled-sub').textContent=(d.enrolledSub||'')+suffix;
+  document.getElementById('c-future').textContent=d.future||'—';
   document.getElementById('c-lost').textContent=d.lost;
 
-  // Dim aggregate cards when date/prog filter active (they can't respond to those filters)
-  var dimStyle=extraFilter?'0.45':'1';
+  // Dim only the 5 aggregate cards (NOT Active Pipeline / No Status) when data is approximate
+  var dimStyle=approx?'0.5':'1';
+  var tipText=approx?'* Approximate — full breakdown not available for this filter combination':'';
   ['c-total','c-visited','c-enrolled','c-future','c-lost'].forEach(function(id){
-    var card=document.getElementById(id).parentElement.parentElement;
+    var card=document.getElementById(id).parentElement; // .val → .card (one level up)
     card.style.opacity=dimStyle;
-    card.title=extraFilter?'* This number reflects all-time data for the selected centre only — date & programme filters do not apply':'';
+    card.title=tipText;
   });
 
   // Centre performance visibility
