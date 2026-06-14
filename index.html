@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Flinto Admissions Intelligence — Jun-13</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Flinto Admissions Intelligence — Jun-14</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F5F7FA;color:#1a1a2e}
@@ -18,7 +18,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .apply-btn.pending{background:#10B981;box-shadow:0 0 0 0 rgba(16,185,129,.6);animation:ring .9s ease infinite}
 .reset-btn{padding:8px 18px;border-radius:20px;border:2px solid #d1d5db;background:#fff;cursor:pointer;font-size:12px;font-weight:600;color:#6B7280;transition:all .2s}
 .reset-btn:hover{border-color:#E74C3C;color:#E74C3C}
-@keyframes ring{0%{box-shadow:0 0 0 0 rgba(16,185,129,.5)}70%{box-shadow:0 0 0 8px rgba(16,185,129,0)}100%{box-shadow:0 0 0 0 rgba(16,185,129,0)}}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(16,185,129,.5)}70%{box-shadow:0 0 0 8px rgba(16,185,129,0)}100%{box-shadow:0 0 0 0 rgba(16,185,129,0))}}
 .filter-note.show{display:block}
 .cards{display:flex;gap:16px;margin:20px 40px;flex-wrap:wrap}
 .card{flex:1;min-width:120px;background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,.07);text-align:center}
@@ -42,7 +42,6 @@ footer{text-align:center;padding:24px;color:#888;font-size:12px}
 .empty-msg{display:none;padding:16px;color:#888;font-style:italic;text-align:center}
 .funnel-row{cursor:pointer;border-radius:6px;padding:4px;margin:6px 0;transition:background .15s}
 .funnel-row:hover{background:#f9fafb}
-/* Modal */
 #modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;padding:40px 20px;overflow-y:auto}
 #modal-overlay.open{display:flex;align-items:flex-start;justify-content:center}
 #modal-box{background:#fff;border-radius:16px;width:100%;max-width:1040px;box-shadow:0 20px 60px rgba(0,0,0,.3);overflow:hidden;max-height:85vh;display:flex;flex-direction:column}
@@ -62,7 +61,7 @@ footer{text-align:center;padding:24px;color:#888;font-size:12px}
 
 <div class="header">
   <div><div style="font-size:26px;font-weight:800">Flinto Admissions Intelligence</div><div style="opacity:.85;margin-top:4px">Thoraipakkam &amp; Tansi Nagar · Daily Sales Dashboard</div></div>
-  <div style="text-align:right"><div style="font-size:28px;font-weight:700">Jun-13</div><div class="upd">🕒 Last updated: Sat 13 Jun, 2026, 01:07 pm IST</div></div>
+  <div style="text-align:right"><div style="font-size:28px;font-weight:700">Jun-14</div><div class="upd">🕒 Last updated: Sun 14 Jun, 2026, 04:00 pm IST</div></div>
 </div>
 
 <div class="filter-section">
@@ -76,8 +75,8 @@ footer{text-align:center;padding:24px;color:#888;font-size:12px}
     <button class="fbtn" data-group="date" onclick="setDate(this,'thisyear')">This Year</button>
     <button class="fbtn" data-group="date" onclick="setDate(this,'custom')">Custom…</button>
     <div class="date-custom" id="custom-dates">
-      From <input type="date" id="date-from" value="2026-01-01" onchange="markPending()">
-      To <input type="date" id="date-to" value="2026-06-13" onchange="markPending()">
+      From <input type="date" id="date-from" value="2025-05-01" onchange="markPending()">
+      To <input type="date" id="date-to" value="2026-06-14" onchange="markPending()">
     </div>
   </div>
   <div class="filter-row">
@@ -107,62 +106,58 @@ footer{text-align:center;padding:24px;color:#888;font-size:12px}
 <div class="filter-note" id="filter-note">⚡ All summary cards update with programme &amp; centre filters. Cards marked * are approximate when combining both filters or using date range (full dataset needed).</div>
 
 <div class="cards">
-  <div class="card"><div class="val" id="c-total" style="color:#2563EB" onclick="noDataModal('total')">816</div><div class="lbl">Total Leads</div><div class="sub" id="c-total-sub">814 tagged</div></div>
-  <div class="card"><div class="val" id="c-visited" style="color:#7C3AED" onclick="noDataModal('visited')">115</div><div class="lbl">School Visited</div><div class="sub" id="c-visited-sub">14.1% of tagged</div></div>
-  <div class="card"><div class="val" id="c-enrolled" style="color:#27AE60" onclick="noDataModal('enrolled')">60</div><div class="lbl">Enrolled</div><div class="sub" id="c-enrolled-sub">52% of visitors</div></div>
-  <div class="card"><div class="val" id="c-active" style="color:#FF6B35" onclick="showActiveLeads()">63</div><div class="lbl">Active Pipeline</div></div>
-  <div class="card"><div class="val" id="c-future" style="color:#06B6D4" onclick="noDataModal('future')">26</div><div class="lbl">Future Prospects</div></div>
-  <div class="card"><div class="val" id="c-lost" style="color:#E74C3C" onclick="noDataModal('lost')">660</div><div class="lbl">Lost / Disqualified</div></div>
-  <div class="card warn"><div class="val" id="c-nostatus" style="color:#D97706" onclick="showNoStatusLeads()">2</div><div class="lbl">⚠️ No Status</div><div class="sub">needs tagging</div></div>
+  <div class="card"><div class="val" id="c-total" style="color:#2563EB" onclick="noDataModal('total')">151</div><div class="lbl">Total Leads</div><div class="sub" id="c-total-sub">147 tagged</div></div>
+  <div class="card"><div class="val" id="c-visited" style="color:#7C3AED" onclick="noDataModal('visited')">91</div><div class="lbl">School Visited</div><div class="sub" id="c-visited-sub">61.9% of tagged</div></div>
+  <div class="card"><div class="val" id="c-enrolled" style="color:#27AE60" onclick="noDataModal('enrolled')">37</div><div class="lbl">Enrolled</div><div class="sub" id="c-enrolled-sub">40.7% of visitors</div></div>
+  <div class="card"><div class="val" id="c-active" style="color:#FF6B35" onclick="showActiveLeads()">60</div><div class="lbl">Active Pipeline</div></div>
+  <div class="card"><div class="val" id="c-future" style="color:#06B6D4" onclick="noDataModal('future')">0</div><div class="lbl">Future Prospects</div></div>
+  <div class="card"><div class="val" id="c-lost" style="color:#E74C3C" onclick="noDataModal('lost')">50</div><div class="lbl">Lost / Disqualified</div></div>
+  <div class="card warn"><div class="val" id="c-nostatus" style="color:#D97706" onclick="showNoStatusLeads()">4</div><div class="lbl">⚠️ No Status</div><div class="sub">needs tagging</div></div>
 </div>
 
-<div class="section-warn"><h2 class="warn">⚠️ Leads Without Status — Action Required (<span id="nostatus-count">2</span>)</h2>
+<div class="section-warn"><h2 class="warn">⚠️ Leads Without Status — Action Required (<span id="nostatus-count">4</span>)</h2>
 <table style="font-size:13px"><thead><tr><th class="th">Row</th><th class="th">Date</th><th class="th">Parent</th><th class="th">Centre</th><th class="th">Notes</th></tr></thead>
-<tbody id="nostatus-tbody"></tbody></table>
+<tbody id="nostatus-tbody"><tr data-row='19' data-date='2025-06-07' data-parent='Vanisha B' data-centre='thoraipakkam' data-notes='Child is too young for the program, they were looking for infant care /fullday c'><td class='td'>19</td><td class='td'>2025-06-07</td><td class='td'>Vanisha B</td><td class='td'>thoraipakkam</td><td class='td'>Child is too young for the program, they were looking for infant care /fullday c</td></tr><tr data-row='96' data-date='2026-02-23' data-parent='Geetha' data-centre='thoraipakkam' data-notes='Parent enquired over phone for summer camp for May as they out of town (6yrs)'><td class='td'>96</td><td class='td'>2026-02-23</td><td class='td'>Geetha</td><td class='td'>thoraipakkam</td><td class='td'>Parent enquired over phone for summer camp for May as they out of town (6yrs)</td></tr><tr data-row='97' data-date='2026-02-23' data-parent='Ani Jose' data-centre='thoraipakkam' data-notes='Parent enquired for her 2yr daughter will visit the school for more details.'><td class='td'>97</td><td class='td'>2026-02-23</td><td class='td'>Ani Jose</td><td class='td'>thoraipakkam</td><td class='td'>Parent enquired for her 2yr daughter will visit the school for more details.</td></tr><tr data-row='100' data-date='2026-03-30' data-parent='Pushpa Latha' data-centre='thoraipakkam' data-notes='Will get back with one or two days'><td class='td'>100</td><td class='td'>2026-03-30</td><td class='td'>Pushpa Latha</td><td class='td'>thoraipakkam</td><td class='td'>Will get back with one or two days</td></tr></tbody></table>
 <div class="empty-msg" id="nostatus-empty">No untagged leads for this filter.</div></div>
 
-<div class="section"><h2>Today's Activity — Jun-13</h2><div style="color:#666;font-style:italic;padding:20px">No entries for today or yesterday.</div></div>
+<div class="section"><h2>Today's Activity — Jun-14</h2><div style="color:#666;font-style:italic;padding:20px">No entries for today or yesterday.</div></div>
 
 <div class="section"><h2>Lead Funnel — Status Breakdown</h2>
-<div style="font-size:12px;color:#888;margin-bottom:12px">Based on 814 tagged leads · Click any status to see matching leads</div>
-<div class="funnel-row" onclick="clickFunnel('Lead lost')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Lead lost</span><span>441 (54.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#E74C3C;width:54.2%;height:14px;border-radius:4px"></div></div></div>
-<div class="funnel-row" onclick="clickFunnel('Disqualified')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Disqualified</span><span>170 (20.9%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#6B7280;width:20.9%;height:14px;border-radius:4px"></div></div></div>
-<div class="funnel-row" onclick="clickFunnel('Enrolled')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Enrolled</span><span>60 (7.4%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#27AE60;width:7.4%;height:14px;border-radius:4px"></div></div></div>
-<div class="funnel-row" onclick="clickFunnel('Lead lost after visit')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Lead lost after visit</span><span>49 (6.0%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#DC2626;width:6%;height:14px;border-radius:4px"></div></div></div>
-<div class="funnel-row" onclick="clickFunnel('Followup')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Followup</span><span id="fc-followup">42 (5.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#2563EB;width:5.2%;height:14px;border-radius:4px"></div></div></div>
-<div class="funnel-row" onclick="clickFunnel('Future Prospect')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Future Prospect</span><span>26 (3.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#06B6D4;width:3.2%;height:14px;border-radius:4px"></div></div></div>
-<div class="funnel-row" onclick="clickFunnel('Walkin scheduled')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Walkin scheduled</span><span id="fc-walkin">10 (1.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#FF6B35;width:1.2%;height:14px;border-radius:4px"></div></div></div>
-<div class="funnel-row" onclick="clickFunnel('School visit done')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>School visit done</span><span id="fc-visit">5 (0.6%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#7C3AED;width:0.6%;height:14px;border-radius:4px"></div></div></div>
-<div class="funnel-row" onclick="clickFunnel('Others')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Others - Explain in Summary</span><span>5 (0.6%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#888;width:0.6%;height:14px;border-radius:4px"></div></div></div>
-<div class="funnel-row" onclick="clickFunnel('RNR')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>RNR</span><span id="fc-rnr">5 (0.6%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#F59E0B;width:0.6%;height:14px;border-radius:4px"></div></div></div>
-<div class="funnel-row" onclick="clickFunnel('Hot-Payment expected')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Hot-Payment expected</span><span id="fc-hot">1 (0.1%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#10B981;width:0.1%;height:14px;border-radius:4px"></div></div></div>
+<div style="font-size:12px;color:#888;margin-bottom:12px">Based on 147 tagged leads · Click any status to see matching leads</div>
+<div class="funnel-row" onclick="clickFunnel('Lead lost')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Lead lost</span><span>50 (34.0%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#E74C3C;width:34.0%;height:14px;border-radius:4px"></div></div></div>
+<div class="funnel-row" onclick="clickFunnel('Followup')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Followup</span><span id="fc-followup">60 (40.8%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#2563EB;width:40.8%;height:14px;border-radius:4px"></div></div></div>
+<div class="funnel-row" onclick="clickFunnel('Enrolled')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Enrolled</span><span>37 (25.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#27AE60;width:25.2%;height:14px;border-radius:4px"></div></div></div>
+
 </div>
 
-<div class="section"><h2>Centre Performance</h2><div style="display:flex;gap:16px">
-<div data-centre="thoraipakkam" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);flex:1"><h3 style="color:#2563EB;margin:0 0 12px">Thoraipakkam</h3><div style="font-size:28px;font-weight:700;cursor:pointer" onclick="noDataModal('total')" title="Click for details">200</div><div style="font-size:13px;color:#666">Tagged Leads</div><hr style="margin:12px 0"><div>🏫 School Visited: <b style="cursor:pointer" onclick="noDataModal('visited')" title="Click for details">61</b></div><div>✅ Enrolled: <b style="cursor:pointer" onclick="noDataModal('enrolled')" title="Click for details">39</b> (19.5%)</div><div>🔥 Active: <b id="ca-thoraipakkam" style="cursor:pointer" onclick="showCentreActiveLeads('thoraipakkam')" title="Click to see leads">17</b></div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost: 99</div><div style="font-size:12px;color:#555;margin-top:4px">Enrolled: 39</div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost after visit: 18</div><div style="font-size:12px;color:#555;margin-top:4px">Future Prospect: 14</div><div style="font-size:12px;color:#555;margin-top:4px">Disqualified: 12</div><div style="font-size:12px;color:#555;margin-top:4px">Followup: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Followup','thoraipakkam')">10</span></div><div style="font-size:12px;color:#555;margin-top:4px">School visit done: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('School visit done','thoraipakkam')">3</span></div><div style="font-size:12px;color:#555;margin-top:4px">Walkin scheduled: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Walkin scheduled','thoraipakkam')">2</span></div><div style="font-size:12px;color:#555;margin-top:4px">Others - Explain in Summary: 1</div><div style="font-size:12px;color:#555;margin-top:4px">Hot-Payment expected: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Hot-Payment expected','thoraipakkam')">1</span></div><div style="font-size:12px;color:#555;margin-top:4px">RNR: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('RNR','thoraipakkam')">1</span></div></div>
-<div data-centre="tansi nagar" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);flex:1"><h3 style="color:#2563EB;margin:0 0 12px">Tansi Nagar</h3><div style="font-size:28px;font-weight:700;cursor:pointer" onclick="noDataModal('total')" title="Click for details">212</div><div style="font-size:13px;color:#666">Tagged Leads</div><hr style="margin:12px 0"><div>🏫 School Visited: <b style="cursor:pointer" onclick="noDataModal('visited')" title="Click for details">53</b></div><div>✅ Enrolled: <b style="cursor:pointer" onclick="noDataModal('enrolled')" title="Click for details">21</b> (9.9%)</div><div>🔥 Active: <b id="ca-tansi" style="cursor:pointer" onclick="showCentreActiveLeads('tansi nagar')" title="Click to see leads">35</b></div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost: 102</div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost after visit: 30</div><div style="font-size:12px;color:#555;margin-top:4px">Followup: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Followup','tansi nagar')">23</span></div><div style="font-size:12px;color:#555;margin-top:4px">Enrolled: 21</div><div style="font-size:12px;color:#555;margin-top:4px">Disqualified: 14</div><div style="font-size:12px;color:#555;margin-top:4px">Future Prospect: 9</div><div style="font-size:12px;color:#555;margin-top:4px">Walkin scheduled: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Walkin scheduled','tansi nagar')">8</span></div><div style="font-size:12px;color:#555;margin-top:4px">School visit done: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('School visit done','tansi nagar')">2</span></div><div style="font-size:12px;color:#555;margin-top:4px">RNR: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('RNR','tansi nagar')">2</span></div><div style="font-size:12px;color:#555;margin-top:4px">Others - Explain in Summary: 1</div></div>
-</div></div>
+<div class="section"><h2>Centre Performance</h2><div style="display:flex;gap:16px"><div data-centre="thoraipakkam" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);flex:1"><h3 style="color:#2563EB;margin:0 0 12px">Thoraipakkam</h3><div style="font-size:28px;font-weight:700;cursor:pointer" onclick="noDataModal('total')" title="Click for details">95</div><div style="font-size:13px;color:#666">Tagged Leads</div><hr style="margin:12px 0"><div>🏫 School Visited: <b style="cursor:pointer" onclick="noDataModal('visited')" title="Click for details">49</b></div><div>✅ Enrolled: <b style="cursor:pointer" onclick="noDataModal('enrolled')" title="Click for details">28</b> (29.5%)</div><div>🔥 Active: <b id="ca-thoraipakkam" style="cursor:pointer" onclick="showCentreActiveLeads('thoraipakkam')" title="Click to see leads">30</b></div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost: <span>37</span></div>
+<div style="font-size:12px;color:#555;margin-top:4px">Followup: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Followup','thoraipakkam')">30</span></div>
+<div style="font-size:12px;color:#555;margin-top:4px">Enrolled: <span>28</span></div>
+<div style="font-size:12px;color:#555;margin-top:4px">No Status: <span>4</span></div>
+</div><div data-centre="tansi nagar" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);flex:1"><h3 style="color:#2563EB;margin:0 0 12px">Tansi Nagar</h3><div style="font-size:28px;font-weight:700;cursor:pointer" onclick="noDataModal('total')" title="Click for details">52</div><div style="font-size:13px;color:#666">Tagged Leads</div><hr style="margin:12px 0"><div>🏫 School Visited: <b style="cursor:pointer" onclick="noDataModal('visited')" title="Click for details">42</b></div><div>✅ Enrolled: <b style="cursor:pointer" onclick="noDataModal('enrolled')" title="Click for details">9</b> (17.3%)</div><div>🔥 Active: <b id="ca-tansi" style="cursor:pointer" onclick="showCentreActiveLeads('tansi nagar')" title="Click to see leads">30</b></div><div style="font-size:12px;color:#555;margin-top:4px">Followup: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Followup','tansi nagar')">30</span></div>
+<div style="font-size:12px;color:#555;margin-top:4px">Lead lost: <span>13</span></div>
+<div style="font-size:12px;color:#555;margin-top:4px">Enrolled: <span>9</span></div>
+</div></div></div>
 
 <div class="section"><h2>Programme Breakdown</h2><table><thead><tr><th class="th">Programme</th><th class="th" style="text-align:center">Total</th><th class="th" style="text-align:center">Visited</th><th class="th" style="text-align:center">Enrolled</th><th class="th" style="text-align:center">Conv%</th><th class="th" style="text-align:center">Followup</th><th class="th" style="text-align:center">Visit Done</th><th class="th" style="text-align:center">Walkin Sched</th><th class="th" style="text-align:center">Lost</th><th class="th" style="text-align:center">Disqualified</th></tr></thead>
-<tbody>
-<tr style="border-bottom:1px solid #f3f4f6"><td class="td" style="font-weight:500">Abacus</td><td style="text-align:center" class="td">3</td><td style="text-align:center;color:#7C3AED" class="td"><b>0</b></td><td style="text-align:center;color:#27AE60" class="td"><b>0</b></td><td style="text-align:center" class="td">0.0%</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Abacus','Followup')">1</td><td style="text-align:center" class="td">0</td><td style="text-align:center" class="td">0</td><td style="text-align:center;color:#E74C3C" class="td">2</td><td style="text-align:center;color:#6B7280" class="td">0</td></tr>
-<tr style="border-bottom:1px solid #f3f4f6"><td class="td" style="font-weight:500">Academics</td><td style="text-align:center" class="td">180</td><td style="text-align:center;color:#7C3AED" class="td"><b>62</b></td><td style="text-align:center;color:#27AE60" class="td"><b>22</b></td><td style="text-align:center" class="td">12.2%</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Academics','Followup')">23</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Academics','School visit done')">3</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Academics','Walkin scheduled')">6</td><td style="text-align:center;color:#E74C3C" class="td">102</td><td style="text-align:center;color:#6B7280" class="td">3</td></tr>
-<tr style="border-bottom:1px solid #f3f4f6"><td class="td" style="font-weight:500">Dance</td><td style="text-align:center" class="td">3</td><td style="text-align:center;color:#7C3AED" class="td"><b>0</b></td><td style="text-align:center;color:#27AE60" class="td"><b>0</b></td><td style="text-align:center" class="td">0.0%</td><td style="text-align:center" class="td">0</td><td style="text-align:center" class="td">0</td><td style="text-align:center" class="td">0</td><td style="text-align:center;color:#E74C3C" class="td">3</td><td style="text-align:center;color:#6B7280" class="td">0</td></tr>
-<tr style="border-bottom:1px solid #f3f4f6"><td class="td" style="font-weight:500">Daycare</td><td style="text-align:center" class="td">20</td><td style="text-align:center;color:#7C3AED" class="td"><b>2</b></td><td style="text-align:center;color:#27AE60" class="td"><b>0</b></td><td style="text-align:center" class="td">0.0%</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Daycare','Followup')">6</td><td style="text-align:center" class="td">0</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Daycare','Walkin scheduled')">1</td><td style="text-align:center;color:#E74C3C" class="td">12</td><td style="text-align:center;color:#6B7280" class="td">0</td></tr>
-<tr style="border-bottom:1px solid #f3f4f6"><td class="td" style="font-weight:500">Drawing</td><td style="text-align:center" class="td">1</td><td style="text-align:center;color:#7C3AED" class="td"><b>0</b></td><td style="text-align:center;color:#27AE60" class="td"><b>0</b></td><td style="text-align:center" class="td">0.0%</td><td style="text-align:center" class="td">0</td><td style="text-align:center" class="td">0</td><td style="text-align:center" class="td">0</td><td style="text-align:center;color:#E74C3C" class="td">1</td><td style="text-align:center;color:#6B7280" class="td">0</td></tr>
-<tr style="border-bottom:1px solid #f3f4f6"><td class="td" style="font-weight:500">Language</td><td style="text-align:center" class="td">1</td><td style="text-align:center;color:#7C3AED" class="td"><b>0</b></td><td style="text-align:center;color:#27AE60" class="td"><b>0</b></td><td style="text-align:center" class="td">0.0%</td><td style="text-align:center" class="td">0</td><td style="text-align:center" class="td">0</td><td style="text-align:center" class="td">0</td><td style="text-align:center;color:#E74C3C" class="td">0</td><td style="text-align:center;color:#6B7280" class="td">0</td></tr>
-<tr style="border-bottom:1px solid #f3f4f6"><td class="td" style="font-weight:500">Other</td><td style="text-align:center" class="td">411</td><td style="text-align:center;color:#7C3AED" class="td"><b>9</b></td><td style="text-align:center;color:#27AE60" class="td"><b>7</b></td><td style="text-align:center" class="td">1.7%</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Other','Followup')">9</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Other','School visit done')">1</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Other','Walkin scheduled')">2</td><td style="text-align:center;color:#E74C3C" class="td">218</td><td style="text-align:center;color:#6B7280" class="td">163</td></tr>
-<tr style="border-bottom:1px solid #f3f4f6"><td class="td" style="font-weight:500">Phonics</td><td style="text-align:center" class="td">10</td><td style="text-align:center;color:#7C3AED" class="td"><b>1</b></td><td style="text-align:center;color:#27AE60" class="td"><b>1</b></td><td style="text-align:center" class="td">10.0%</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Phonics','Followup')">2</td><td style="text-align:center" class="td">0</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Phonics','Walkin scheduled')">1</td><td style="text-align:center;color:#E74C3C" class="td">6</td><td style="text-align:center;color:#6B7280" class="td">0</td></tr>
-<tr style="border-bottom:1px solid #f3f4f6"><td class="td" style="font-weight:500">Summer Camp</td><td style="text-align:center" class="td">185</td><td style="text-align:center;color:#7C3AED" class="td"><b>41</b></td><td style="text-align:center;color:#27AE60" class="td"><b>30</b></td><td style="text-align:center" class="td">16.2%</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Summer Camp','Followup')">1</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Summer Camp','School visit done')">1</td><td style="text-align:center" class="td">0</td><td style="text-align:center;color:#E74C3C" class="td">146</td><td style="text-align:center;color:#6B7280" class="td">4</td></tr>
+<tbody><tr style="border-bottom:1px solid #f3f4f6"><td class="td" style="font-weight:500">Academics</td><td style="text-align:center" class="td">52</td><td style="text-align:center;color:#7C3AED" class="td"><b>43</b></td><td style="text-align:center;color:#27AE60" class="td"><b>10</b></td><td style="text-align:center" class="td">19.2%</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Academics','Followup')">27</td><td style="text-align:center" class="td">0</td><td style="text-align:center" class="td">0</td><td style="text-align:center;color:#E74C3C" class="td">15</td><td style="text-align:center;color:#6B7280" class="td">0</td></tr>
+<tr style="border-bottom:1px solid #f3f4f6"><td class="td" style="font-weight:500">Summer Camp</td><td style="text-align:center" class="td">9</td><td style="text-align:center;color:#7C3AED" class="td"><b>4</b></td><td style="text-align:center;color:#27AE60" class="td"><b>3</b></td><td style="text-align:center" class="td">33.3%</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Summer Camp','Followup')">3</td><td style="text-align:center" class="td">0</td><td style="text-align:center" class="td">0</td><td style="text-align:center;color:#E74C3C" class="td">2</td><td style="text-align:center;color:#6B7280" class="td">0</td></tr>
+<tr style="border-bottom:1px solid #f3f4f6"><td class="td" style="font-weight:500">Daycare</td><td style="text-align:center" class="td">11</td><td style="text-align:center;color:#7C3AED" class="td"><b>7</b></td><td style="text-align:center;color:#27AE60" class="td"><b>5</b></td><td style="text-align:center" class="td">45.5%</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Daycare','Followup')">3</td><td style="text-align:center" class="td">0</td><td style="text-align:center" class="td">0</td><td style="text-align:center;color:#E74C3C" class="td">2</td><td style="text-align:center;color:#6B7280" class="td">0</td></tr>
+<tr style="border-bottom:1px solid #f3f4f6"><td class="td" style="font-weight:500">Phonics</td><td style="text-align:center" class="td">3</td><td style="text-align:center;color:#7C3AED" class="td"><b>2</b></td><td style="text-align:center;color:#27AE60" class="td"><b>2</b></td><td style="text-align:center" class="td">66.7%</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Phonics','Followup')">1</td><td style="text-align:center" class="td">0</td><td style="text-align:center" class="td">0</td><td style="text-align:center;color:#E74C3C" class="td">0</td><td style="text-align:center;color:#6B7280" class="td">0</td></tr>
+<tr style="border-bottom:1px solid #f3f4f6"><td class="td" style="font-weight:500">Other</td><td style="text-align:center" class="td">76</td><td style="text-align:center;color:#7C3AED" class="td"><b>35</b></td><td style="text-align:center;color:#27AE60" class="td"><b>17</b></td><td style="text-align:center" class="td">22.4%</td><td style="text-align:center;cursor:pointer;text-decoration:underline dotted" class="td" onclick="showProgStatus('Other','Followup')">26</td><td style="text-align:center" class="td">0</td><td style="text-align:center" class="td">0</td><td style="text-align:center;color:#E74C3C" class="td">31</td><td style="text-align:center;color:#6B7280" class="td">0</td></tr>
 </tbody></table></div>
 
-<div class="section"><h2>Monthly Trend</h2><div class="grid">
-<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Jan</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('Jan')">27</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">3 visited</div><div style="color:#27AE60;font-weight:600">1 enrolled</div><div style="font-size:11px;color:#F59E0B">3 walk-ins</div><div style="font-size:11px;color:#E74C3C">22 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">4% conv</div></div>
-<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Feb</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('Feb')">183</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">11 visited</div><div style="color:#27AE60;font-weight:600">4 enrolled</div><div style="font-size:11px;color:#F59E0B">11 walk-ins</div><div style="font-size:11px;color:#E74C3C">171 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">2% conv</div></div>
-<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Mar</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('Mar')">281</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">29 visited</div><div style="color:#27AE60;font-weight:600">15 enrolled</div><div style="font-size:11px;color:#F59E0B">29 walk-ins</div><div style="font-size:11px;color:#E74C3C">250 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">5% conv</div></div>
-<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Apr</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('Apr')">173</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">45 visited</div><div style="color:#27AE60;font-weight:600">29 enrolled</div><div style="font-size:11px;color:#F59E0B">45 walk-ins</div><div style="font-size:11px;color:#E74C3C">132 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">17% conv</div></div>
-<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">May</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('May')">118</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">25 visited</div><div style="color:#27AE60;font-weight:600">9 enrolled</div><div style="font-size:11px;color:#F59E0B">25 walk-ins</div><div style="font-size:11px;color:#E74C3C">75 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">8% conv</div></div>
-<div style="background:#FFF7ED;border:2px solid #FF6B35;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Jun</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('Jun')">28</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">2 visited</div><div style="color:#27AE60;font-weight:600">2 enrolled</div><div style="font-size:11px;color:#F59E0B">2 walk-ins</div><div style="font-size:11px;color:#E74C3C">8 lost</div><div style="font-size:12px;font-weight:700;color:#FF6B35">7% conv</div></div>
+<div class="section"><h2>Monthly Trend — May 2025 to Jun 2026</h2><div class="grid"><div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">May '25</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('May '25')">13</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">9 visited</div><div style="color:#27AE60;font-weight:600">4 enrolled</div><div style="font-size:11px;color:#F59E0B">0 walk-ins</div><div style="font-size:11px;color:#E74C3C">9 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">31% conv</div></div>
+<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Jun '25</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('Jun '25')">25</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">14 visited</div><div style="color:#27AE60;font-weight:600">8 enrolled</div><div style="font-size:11px;color:#F59E0B">0 walk-ins</div><div style="font-size:11px;color:#E74C3C">11 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">32% conv</div></div>
+<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Jul '25</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('Jul '25')">11</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">8 visited</div><div style="color:#27AE60;font-weight:600">3 enrolled</div><div style="font-size:11px;color:#F59E0B">0 walk-ins</div><div style="font-size:11px;color:#E74C3C">1 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">27% conv</div></div>
+<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Aug '25</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('Aug '25')">13</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">11 visited</div><div style="color:#27AE60;font-weight:600">6 enrolled</div><div style="font-size:11px;color:#F59E0B">0 walk-ins</div><div style="font-size:11px;color:#E74C3C">5 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">46% conv</div></div>
+<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Sep '25</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('Sep '25')">45</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">28 visited</div><div style="color:#27AE60;font-weight:600">9 enrolled</div><div style="font-size:11px;color:#F59E0B">0 walk-ins</div><div style="font-size:11px;color:#E74C3C">15 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">20% conv</div></div>
+<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Oct '25</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('Oct '25')">10</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">9 visited</div><div style="color:#27AE60;font-weight:600">3 enrolled</div><div style="font-size:11px;color:#F59E0B">0 walk-ins</div><div style="font-size:11px;color:#E74C3C">3 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">30% conv</div></div>
+<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Nov '25</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('Nov '25')">7</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">4 visited</div><div style="color:#27AE60;font-weight:600">1 enrolled</div><div style="font-size:11px;color:#F59E0B">0 walk-ins</div><div style="font-size:11px;color:#E74C3C">1 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">14% conv</div></div>
+<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Dec '25</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('Dec '25')">13</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">6 visited</div><div style="color:#27AE60;font-weight:600">3 enrolled</div><div style="font-size:11px;color:#F59E0B">0 walk-ins</div><div style="font-size:11px;color:#E74C3C">3 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">23% conv</div></div>
+<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Jan</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('Jan')">3</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">1 visited</div><div style="color:#27AE60;font-weight:600">0 enrolled</div><div style="font-size:11px;color:#F59E0B">0 walk-ins</div><div style="font-size:11px;color:#E74C3C">1 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">0% conv</div></div>
+<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Feb</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('Feb')">9</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">1 visited</div><div style="color:#27AE60;font-weight:600">0 enrolled</div><div style="font-size:11px;color:#F59E0B">0 walk-ins</div><div style="font-size:11px;color:#E74C3C">1 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">0% conv</div></div>
+<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;text-align:center"><div style="font-weight:700">Mar</div><div style="font-size:22px;font-weight:700;color:#2563EB;cursor:pointer" onclick="showMonthLeads('Mar')">2</div><div style="font-size:11px;color:#666">leads</div><div style="color:#7C3AED;font-weight:600">0 visited</div><div style="color:#27AE60;font-weight:600">0 enrolled</div><div style="font-size:11px;color:#F59E0B">0 walk-ins</div><div style="font-size:11px;color:#E74C3C">0 lost</div><div style="font-size:12px;font-weight:700;color:#6B7280">0% conv</div></div>
 </div></div>
 
 <div class="section"><h2>Hot Leads — Action Required <span id="hot-leads-count" style="font-size:13px;color:#6B7280;font-weight:400;text-transform:none;letter-spacing:0"></span></h2>
@@ -171,13 +166,13 @@ footer{text-align:center;padding:24px;color:#888;font-size:12px}
 <div class="empty-msg" id="hot-leads-empty">No active leads match the current filters.</div></div>
 
 <div class="section"><h2>Key Insights</h2><div class="ig">
-  <div class="ib" style="border-left:4px solid #27AE60"><h3 style="color:#27AE60;margin-bottom:8px">✅ What's Working</h3><p>Overall conv: 7.4% (of tagged)<br>Visit-to-enroll: 52%<br>Top program: Other<br>Thoraipakkam: 200 leads, 61 visited, 39 enrolled<br>Tansi Nagar: 212 leads, 53 visited, 21 enrolled</p></div>
-  <div class="ib" style="border-left:4px solid #E74C3C"><h3 style="color:#E74C3C;margin-bottom:8px">🚩 Flags</h3><p>660 leads lost/disqualified<br>63 active leads need follow-up<br>55 visited but not enrolled<br>2 leads missing status tag</p></div>
-  <div class="ib" style="border-left:4px solid #F59E0B"><h3 style="color:#F59E0B;margin-bottom:8px">📅 Due This Week</h3><p>5 school visits done — follow up!<br>10 walk-ins scheduled<br>RNR: 5 — retry contact</p></div>
-  <div class="ib" style="border-left:4px solid #7C3AED"><h3 style="color:#7C3AED;margin-bottom:8px">🎯 June Pipeline</h3><p>Future Prospects: 26<br>School Visited: 115 (52% enrolled)<br>Active pipeline: 63<br>Hot-Payment expected: 1</p></div>
+  <div class="ib" style="border-left:4px solid #27AE60"><h3 style="color:#27AE60;margin-bottom:8px">✅ What's Working</h3><p>Overall conv: 25.2% (of tagged)<br>Visit-to-enroll: 41%<br>Top program: Other<br>Thoraipakkam: 95 leads, 49 visited, 28 enrolled<br>Tansi Nagar: 52 leads, 42 visited, 9 enrolled</p></div>
+  <div class="ib" style="border-left:4px solid #E74C3C"><h3 style="color:#E74C3C;margin-bottom:8px">🚩 Flags</h3><p>50 leads lost<br>60 active leads need follow-up<br>54 visited but not enrolled<br>4 leads missing status tag</p></div>
+  <div class="ib" style="border-left:4px solid #F59E0B"><h3 style="color:#F59E0B;margin-bottom:8px">📅 Pipeline Now</h3><p>Active (Followup): 60<br>School visits done: 0<br>Walk-ins scheduled: 0<br>RNR: 0</p></div>
+  <div class="ib" style="border-left:4px solid #7C3AED"><h3 style="color:#7C3AED;margin-bottom:8px">🎯 2026 Pipeline</h3><p>Future Prospects: 0<br>Total school visits: 91 (40.7% enrolled)<br>Active pipeline: 60<br>Hot-Payment: 0</p></div>
 </div></div>
 
-<footer>Generated by Flinto Admissions Intelligence · <a href="https://docs.google.com/spreadsheets/d/1b4j3GeQZrEyJAUDQxgKKwLcG6iNjwdlPHIKRxQqmXRo/edit?gid=1680636582" target="_blank" style="color:#FF6B35">Source Sheet</a> · Last updated Sat 13 Jun, 2026, 01:07 pm IST · Refreshed at 9 AM, 1 PM &amp; 8 PM IST</footer>
+<footer>Generated by Flinto Admissions Intelligence · <a href="https://docs.google.com/spreadsheets/d/1b4j3GeQZrEyJAUDQxgKKwLcG6iNjwdlPHIKRxQqmXRo/edit?gid=1680636582" target="_blank" style="color:#FF6B35">Source Sheet</a> · Last updated Sun 14 Jun, 2026, 04:00 pm IST · Refreshed at 9 AM, 1 PM &amp; 4 PM IST</footer>
 
 <!-- Modal -->
 <div id="modal-overlay">
@@ -192,564 +187,323 @@ footer{text-align:center;padding:24px;color:#888;font-size:12px}
 
 <script>
 var progData = {
-  'Academics':   {total:'152',totalSub:'tagged leads',visited:'24',visitedSub:'15.8% of tagged',enrolled:'19',enrolledSub:'79.2% of visitors',future:'11',lost:'71'},
-  'Daycare':     {total:'18', totalSub:'tagged leads',visited:'5', visitedSub:'27.8% of tagged',enrolled:'5', enrolledSub:'100% of visitors', future:'0', lost:'9'},
-  'Phonics':     {total:'4',  totalSub:'tagged leads',visited:'2', visitedSub:'50% of tagged',  enrolled:'2', enrolledSub:'100% of visitors', future:'0', lost:'1'},
-  'Summer Camp': {total:'29', totalSub:'tagged leads',visited:'4', visitedSub:'13.8% of tagged',enrolled:'4', enrolledSub:'100% of visitors', future:'0', lost:'21'},
-  'Dance':       {total:'0',  totalSub:'tagged leads',visited:'0', visitedSub:'N/A',             enrolled:'0', enrolledSub:'N/A',              future:'0', lost:'0'},
-  'Drawing':     {total:'0',  totalSub:'tagged leads',visited:'0', visitedSub:'N/A',             enrolled:'0', enrolledSub:'N/A',              future:'0', lost:'0'},
-  'Abacus':      {total:'0',  totalSub:'tagged leads',visited:'0', visitedSub:'N/A',             enrolled:'0', enrolledSub:'N/A',              future:'0', lost:'0'},
-  'Language':    {total:'0',  totalSub:'tagged leads',visited:'0', visitedSub:'N/A',             enrolled:'0', enrolledSub:'N/A',              future:'0', lost:'0'},
-  'Other':       {total:'103',totalSub:'untagged leads',visited:'14',visitedSub:'N/A',           enrolled:'10',enrolledSub:'N/A',              future:'0', lost:'54'}
+  'Academics': {total:52,totalSub:'tagged leads',visited:43,visitedSub:'82.7% of total',enrolled:10,enrolledSub:'23.3% of visitors',future:0,lost:15}
+  'Summer Camp': {total:9,totalSub:'tagged leads',visited:4,visitedSub:'44.4% of total',enrolled:3,enrolledSub:'75.0% of visitors',future:0,lost:2}
+  'Daycare': {total:11,totalSub:'tagged leads',visited:7,visitedSub:'63.6% of total',enrolled:5,enrolledSub:'71.4% of visitors',future:0,lost:2}
+  'Phonics': {total:3,totalSub:'tagged leads',visited:2,visitedSub:'66.7% of total',enrolled:2,enrolledSub:'100.0% of visitors',future:0,lost:0}
+  'Other': {total:76,totalSub:'tagged leads',visited:35,visitedSub:'46.1% of total',enrolled:17,enrolledSub:'48.6% of visitors',future:0,lost:31}
 };
 var centreData = {
-  'all':         {total:'306',totalSub:'302 tagged',visited:'45',visitedSub:'14.9% of tagged',enrolled:'40',enrolledSub:'88.9% of visitors',active:'95',future:'11',lost:'156',noStatus:'4'},
-  'thoraipakkam':{total:'134',totalSub:'130 tagged',visited:'31',visitedSub:'23.8% of tagged',enrolled:'31',enrolledSub:'100% of visitors',active:'30',future:'8',lost:'61',noStatus:'4'},
-  'tansi nagar': {total:'172',totalSub:'172 tagged',visited:'14',visitedSub:'8.1% of tagged',enrolled:'9',enrolledSub:'64.3% of visitors',active:'65',future:'3',lost:'95',noStatus:'0'}
+  'all':         {total:151,totalSub:'147 tagged',visited:91,visitedSub:'61.9% of tagged',enrolled:37,enrolledSub:'40.7% of visitors',active:60,future:0,lost:50,noStatus:4},
+  'thoraipakkam':{total:99,totalSub:'95 tagged',visited:49,visitedSub:'51.6% of tagged',enrolled:28,enrolledSub:'57.1% of visitors',active:30,future:0,lost:37,noStatus:4},
+  'tansi nagar': {total:52,totalSub:'52 tagged',visited:42,visitedSub:'80.8% of tagged',enrolled:9,enrolledSub:'21.4% of visitors',active:30,future:0,lost:13,noStatus:0}
 };
-
 var LEADS = [
-  {d:'2025-05-03',p:'Saranya S',c:'thoraipakkam',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-05-16',p:'Gairika',c:'thoraipakkam',pr:'Summer Camp',s:'Enrolled',nt:''},
-  {d:'2025-05-16',p:'Manoj Kumar',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-05-13',p:'Binisha',c:'thoraipakkam',pr:'Summer Camp',s:'Enrolled',nt:''},
-  {d:'2025-05-22',p:'P Nithyanatham',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-05-22',p:'Karthikeyan',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-05-26',p:'Vaishnavi',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-05-26',p:'Ponmani Thiagarajan',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-05-28',p:'Tamil Selva T',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-05-29',p:'S Vigneshwari',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-05-29',p:'Abu',c:'thoraipakkam',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2025-05-31',p:'Poorana Priya',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-05-29',p:'Gajalakshmi V',c:'thoraipakkam',pr:'Summer Camp',s:'Enrolled',nt:''},
-  {d:'2025-06-02',p:'Deepashri',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-06-02',p:'Deepashri',c:'thoraipakkam',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-06-05',p:'Sebastin Agnes Joyner',c:'thoraipakkam',pr:'Daycare',s:'Followup',nt:''},
-  {d:'2025-06-07',p:'Hari Prasanth',c:'thoraipakkam',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-06-07',p:'Vanisha B',c:'thoraipakkam',pr:'Daycare',s:'No Status',nt:''},
-  {d:'2025-06-07',p:'Ashwini Poopathy',c:'thoraipakkam',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-06-07',p:'Kaviya',c:'thoraipakkam',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-06-09',p:'Anandan K',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-06-09',p:'Arulrajadurai',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2025-06-09',p:'Dinesh R',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-06-14',p:'Sasikumar',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2025-06-14',p:'Umesh Deshmukh',c:'thoraipakkam',pr:'Daycare',s:'Enrolled',nt:''},
-  {d:'2025-06-14',p:'Nirmala Devi',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-06-14',p:'Santhinee',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-06-16',p:'Roja',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-06-24',p:'TCK Harish',c:'thoraipakkam',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-06-25',p:'Mohan Balaji',c:'thoraipakkam',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-06-25',p:'I Amudhavalli',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2025-07-15',p:'Balu Elakkiya',c:'thoraipakkam',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-07-26',p:'G Tara',c:'thoraipakkam',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-07-26',p:'Karpana',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2025-08-02',p:'G Pavithra',c:'thoraipakkam',pr:'Daycare',s:'Enrolled',nt:''},
-  {d:'2025-08-02',p:'Paritosh Bapat',c:'thoraipakkam',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-08-09',p:'Avisant Singh',c:'thoraipakkam',pr:'Daycare',s:'Enrolled',nt:''},
-  {d:'2025-08-09',p:'Ineya R',c:'thoraipakkam',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-08-09',p:'Rubiga',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-08-29',p:'N Sathesh Kumar',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-09-01',p:'M Dharanipriyanga',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-09-03',p:'Abinaya Meenakshi S',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-09-04',p:'P Raja Selva Lakshmi',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-09-08',p:'AASHIQ AHAMED',c:'thoraipakkam',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-09-09',p:'EDWIN BERITTO',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-09-11',p:'S Magesh Kumar',c:'thoraipakkam',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-09-12',p:'Prannov G',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-09-13',p:'Magesh R',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2025-09-13',p:'Sheela Rani S P',c:'thoraipakkam',pr:'',s:'Enrolled',nt:''},
-  {d:'2025-09-13',p:'Vasumathi',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2025-09-19',p:'Parthasarathi',c:'thoraipakkam',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-09-20',p:'Sabapathy',c:'thoraipakkam',pr:'',s:'Enrolled',nt:''},
-  {d:'2025-09-20',p:'Parvathy Sarath',c:'thoraipakkam',pr:'',s:'Enrolled',nt:''},
-  {d:'2025-09-20',p:'Prasanna',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-09-20',p:'P Rajaprabha',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-09-20',p:'C. Saranya',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-09-20',p:'Nandhini H',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-09-22',p:'Ashiq Ansari',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-09-24',p:'D Sujitha',c:'thoraipakkam',pr:'',s:'Enrolled',nt:''},
-  {d:'2025-09-25',p:'Shraddha Agarwal',c:'thoraipakkam',pr:'',s:'Enrolled',nt:''},
-  {d:'2025-09-26',p:'Samira',c:'thoraipakkam',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-09-27',p:'Sonali Maharana',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2025-09-27',p:'M Chandana',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2025-09-27',p:'Priyadharshini',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2025-09-27',p:'Vidya Venugopal',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-09-27',p:'Ishwarya M',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-10-02',p:'Srivatsan V',c:'thoraipakkam',pr:'',s:'Enrolled',nt:''},
-  {d:'2025-10-04',p:'Chanchal Asati',c:'thoraipakkam',pr:'',s:'Enrolled',nt:''},
-  {d:'2025-10-11',p:'Kumar Vasupalli',c:'thoraipakkam',pr:'',s:'Enrolled',nt:''},
-  {d:'2025-10-16',p:'Keerthi Prakash',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-10-23',p:'Harun',c:'thoraipakkam',pr:'Daycare',s:'Followup',nt:''},
-  {d:'2025-10-25',p:'Mohammad Shadab',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-11-05',p:'R Shobana',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-12-05',p:'AISHWARYA',c:'thoraipakkam',pr:'Summer Camp',s:'Followup',nt:''},
-  {d:'2025-12-08',p:'SUREKHA',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2025-12-09',p:'Amal Infant Ashwin G',c:'thoraipakkam',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-12-11',p:'Krishnam Raju',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2025-12-12',p:'Maheshwari R',c:'thoraipakkam',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-12-13',p:'Sirisha Vuta',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-12-13',p:'Krishitiz',c:'thoraipakkam',pr:'',s:'Enrolled',nt:''},
-  {d:'2025-12-13',p:'Krishitiz',c:'thoraipakkam',pr:'',s:'Enrolled',nt:''},
-  {d:'2025-12-17',p:'Dhanalakshmi A',c:'thoraipakkam',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-12-20',p:'Prabhu Murugesan',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-12-29',p:'Ram Kumar T',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-12-30',p:'R Durga Devi',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2026-01-03',p:'Surya',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2026-01-31',p:'Sandhya',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2026-01-31',p:'Nirupana',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2026-02-13',p:'A Surendar',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2026-02-13',p:'Maya Kumari',c:'thoraipakkam',pr:'Summer Camp',s:'Followup',nt:''},
-  {d:'2026-02-14',p:'Likhitha Gurram',c:'thoraipakkam',pr:'Academics',s:'Followup',nt:''},
-  {d:'2026-02-17',p:'Kavirajan',c:'thoraipakkam',pr:'Academics',s:'Followup',nt:''},
-  {d:'2026-02-21',p:'V Ram Kumar',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2026-02-21',p:'Shalom Livingsten',c:'thoraipakkam',pr:'',s:'Followup',nt:''},
-  {d:'2026-02-23',p:'Geetha',c:'thoraipakkam',pr:'Summer Camp',s:'No Status',nt:''},
-  {d:'2026-02-23',p:'Ani Jose',c:'thoraipakkam',pr:'',s:'No Status',nt:''},
-  {d:'2026-02-23',p:'Abi Ramya',c:'thoraipakkam',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-03-17',p:'Mithla Aravind',c:'thoraipakkam',pr:'Summer Camp',s:'Followup',nt:''},
-  {d:'2026-03-30',p:'Pushpa Latha',c:'thoraipakkam',pr:'',s:'No Status',nt:''},
-  {d:'2025-06-12',p:'Kamini',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-06-14',p:'M. Sivapriya',c:'tansi nagar',pr:'Phonics',s:'Enrolled',nt:''},
-  {d:'2025-06-16',p:'Sivapriya P. Nair',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-06-17',p:'N. Roja',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-06-19',p:'Jasnain. Kaur',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-06-23',p:'Vaishnavi.S',c:'tansi nagar',pr:'Daycare',s:'Lead lost',nt:''},
-  {d:'2025-06-26',p:'Shalini',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-07-08',p:'Saravanan',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-07-21',p:'Subashini',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-07-22',p:'Ramya.S',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-07-24',p:'Devika',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-07-25',p:'Jothi Priya.K',c:'tansi nagar',pr:'Daycare',s:'Enrolled',nt:''},
-  {d:'2025-07-26',p:'Santhosh Sethi',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-07-31',p:'Eliamma Princy(staff)',c:'tansi nagar',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-07-31',p:'Varsha',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-08-04',p:'DR. Subbulakshmi P S',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-08-09',p:'Anupriya',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-08-22',p:'Syed Raabiyah',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-08-20',p:'madhunima.B',c:'tansi nagar',pr:'Daycare',s:'Enrolled',nt:''},
-  {d:'2025-08-23',p:'Meenatchi',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-08-26',p:'S Jeba Shalini',c:'tansi nagar',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-08-28',p:'Maragatham M',c:'tansi nagar',pr:'Phonics',s:'Enrolled',nt:''},
-  {d:'2025-09-01',p:'Jayanthi',c:'tansi nagar',pr:'Phonics',s:'Followup',nt:''},
-  {d:'2025-09-04',p:'Rama lakshmi',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-09-05',p:'Meenakshi',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-09-08',p:'J. Balaji',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-09-09',p:'M. Pavithra',c:'tansi nagar',pr:'',s:'Followup',nt:''},
-  {d:'2025-09-10',p:'Janani',c:'tansi nagar',pr:'',s:'Followup',nt:''},
-  {d:'2025-09-11',p:'Rajakumaran',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-09-13',p:'Renusree',c:'tansi nagar',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-09-13',p:'Indhumathi',c:'tansi nagar',pr:'',s:'Followup',nt:''},
-  {d:'2025-09-13',p:'ADMISSION',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-09-17',p:'Abhinaya B',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-09-18',p:'Aparna',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-09-20',p:'C. Saranya',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-09-22',p:'Raji',c:'tansi nagar',pr:'Daycare',s:'Followup',nt:''},
-  {d:'2025-09-24',p:'Sathya R',c:'tansi nagar',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-09-25',p:'Vaishnavi',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-09-25',p:'Ramya',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-09-27',p:'Sanjana.K',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-09-29',p:'R.Jayapriya',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-10-01',p:'Sneha Jayaraghavan',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-10-11',p:'Samranika Pati',c:'tansi nagar',pr:'Daycare',s:'Lead lost',nt:''},
-  {d:'2025-10-30',p:'Preethi Ravi',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-10-31',p:'Vandhana Balaji',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-11-01',p:'Deepthi',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-11-03',p:'Deepika. V',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-11-04',p:'Ramya vivek',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-11-07',p:'Madiniyal',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-11-15',p:'Divya Vivek',c:'tansi nagar',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2025-11-22',p:'Dhanya',c:'tansi nagar',pr:'',s:'Followup',nt:''},
-  {d:'2025-12-09',p:'Sowmini',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2024-12-10',p:'Anand',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-01-02',p:'Subashini.G',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-01-17',p:'Yamuna',c:'tansi nagar',pr:'Phonics',s:'Lead lost',nt:''},
-  {d:'2025-01-21',p:'KrishnaPriya',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-01-21',p:'karthik',c:'tansi nagar',pr:'Academics',s:'RNR',nt:''},
-  {d:'2025-01-21',p:'Kavitha.C',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-01-27',p:'Steffi',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-01-27',p:'Advik Siddhartha',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-01-28',p:'Monika Theresa',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-01-29',p:'Shalini',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-02-03',p:'Madhubala',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-01-29',p:'DhanaShekar',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-01-29',p:'Gomathi.K',c:'tansi nagar',pr:'Daycare',s:'Lead lost',nt:''},
-  {d:'2025-01-30',p:'Akhilam',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-01-30',p:'Mona',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-02-03',p:'Smita',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-02-03',p:'P. Deepica',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-02-04',p:'Nandhiswari',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-02-04',p:'Ramya',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-02-10',p:'Amy shalesha',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-02-14',p:'Tamizharasi',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-02-15',p:'Poornima',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-02-20',p:'Anantha Krishnan',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-02-20',p:'Deepa',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-02-21',p:'Atharv',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-02-21',p:'Godavari',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-02-22',p:'Sumit',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-02-26',p:'Joylin',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-02-27',p:'Nataraj',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-02-27',p:'Benitta',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-02-27',p:'Manimehalai',c:'tansi nagar',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2025-02-27',p:'Manju',c:'tansi nagar',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2025-03-01',p:'Rupadevi',c:'tansi nagar',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2025-03-01',p:'Dheeraj D',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-03-03',p:'Priya',c:'tansi nagar',pr:'Daycare',s:'Lead lost',nt:''},
-  {d:'2025-03-04',p:'Siya',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-03-09',p:'V. Parithielamaran',c:'tansi nagar',pr:'Academics',s:'RNR',nt:''},
-  {d:'2025-03-10',p:'Gomathi',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-03-19',p:'Sabhiha',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-03-20',p:'Remi',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-03-21',p:'Evvi',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-03-22',p:'Mohamed Riyas',c:'tansi nagar',pr:'Academics',s:'RNR',nt:''},
-  {d:'2025-03-23',p:'Cynthia Immaculate',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-03-23',p:'Shabina m',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-03-23',p:'Divya',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-03-24',p:'Ezhilvendhan',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-03-26',p:'Krishnakumar U',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-03-27',p:'Yuvaraj',c:'tansi nagar',pr:'Academics',s:'RNR',nt:''},
-  {d:'2025-03-27',p:'Parabharan',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-03-28',p:'Navinika',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-03-29',p:'Santhiya V',c:'tansi nagar',pr:'Academics',s:'RNR',nt:''},
-  {d:'2025-03-31',p:'Raadhya Santhosh',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-03-29',p:'Mohammed Aqmal',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-04-01',p:'Megha',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-04-02',p:'Mohan',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-04-03',p:'Vetrimaran',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-04-05',p:'Priya',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-04-05',p:'Nadhiya',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-04-10',p:'Nidhulen',c:'tansi nagar',pr:'Academics',s:'RNR',nt:''},
-  {d:'2025-04-15',p:'Swapna',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-04-18',p:'K Aranganathan',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-04-22',p:'Ruhi Patra',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-04-23',p:'Arjun',c:'tansi nagar',pr:'Academics',s:'School visit done',nt:''},
-  {d:'2025-04-24',p:'Prithikasri',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-04-24',p:'Steffi Janet',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-04-25',p:'No name',c:'tansi nagar',pr:'Daycare',s:'Lead lost',nt:''},
-  {d:'2025-04-28',p:'Merlin Sacha Deepa .',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-04-30',p:'Shiva',c:'tansi nagar',pr:'Academics',s:'RNR',nt:''},
-  {d:'2025-04-30',p:'Dr Afshan Banu',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-05-01',p:'Leon Simon',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-05-03',p:'Sujith',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-05-04',p:'Adhishan',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-05-05',p:'Samvitha R',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-05-06',p:'Revathi',c:'tansi nagar',pr:'Daycare',s:'Lead lost',nt:''},
-  {d:'2025-05-07',p:'Nandhita',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-05-07',p:'Shriyan Reddy',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-05-09',p:'Dishala reddy',c:'tansi nagar',pr:'Academics',s:'RNR',nt:''},
-  {d:'2025-05-10',p:'K Vinodh Kumar',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-05-10',p:'Sivachandra Bala',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2025-05-12',p:'Jothi',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-05-15',p:'Sheela Devi.M',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-05-17',p:'Akila Nivashini',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-05-21',p:'Meenakshi',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-05-23',p:'Shakthi Sree',c:'tansi nagar',pr:'Academics',s:'Followup',nt:''},
-  {d:'2025-05-23',p:'Tharnish',c:'tansi nagar',pr:'',s:'RNR',nt:''},
-  {d:'2025-05-23',p:'Theeksha',c:'tansi nagar',pr:'Academics',s:'RNR',nt:''},
-  {d:'2025-05-26',p:'No name',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-05-26',p:'Poongothai',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-05-26',p:'Priyasha.C',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-05-27',p:'Vinu priya',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-05-27',p:'Sarashri',c:'tansi nagar',pr:'Academics',s:'School visit done',nt:''},
-  {d:'2025-05-28',p:'Suresh',c:'tansi nagar',pr:'Academics',s:'RNR',nt:''},
-  {d:'2025-05-29',p:'Dinesh kumar',c:'tansi nagar',pr:'Academics',s:'RNR',nt:''},
-  {d:'2025-06-02',p:'Swetha.K',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-06-02',p:'R, Jeevitha',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-06-03',p:'Manivannan',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-06-03',p:'Manju',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-06-04',p:'Devaki',c:'tansi nagar',pr:'Academics',s:'RNR',nt:''},
-  {d:'2025-06-04',p:'M. Aysha Nasreen',c:'tansi nagar',pr:'Academics',s:'School visit done',nt:''},
-  {d:'2025-06-06',p:'Revathi vijay',c:'tansi nagar',pr:'Academics',s:'RNR',nt:''},
-  {d:'2025-06-07',p:'A. Adhvik',c:'tansi nagar',pr:'Academics',s:'School visit done',nt:''},
-  {d:'2025-06-07',p:'Sivamani',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2025-06-14',p:'Kalai',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2026-01-27',p:'Deepika. V',c:'thoraipakkam',pr:'Academics',s:'Future Prospect',nt:''},
-  {d:'2026-01-27',p:'SANDHIYA',c:'thoraipakkam',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2026-01-27',p:'MANISHA',c:'tansi nagar',pr:'Academics',s:'School visit done',nt:''},
-  {d:'2026-01-26',p:'RADHIKA KARTHICK',c:'thoraipakkam',pr:'Daycare',s:'Lead lost',nt:''},
-  {d:'2026-01-27',p:'BHAKIYALASKHMI',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2026-02-02',p:'Muthulakshmi',c:'tansi nagar',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-02-02',p:'Sathish',c:'thoraipakkam',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-02-03',p:'Anand',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2026-02-03',p:'Rasika',c:'tansi nagar',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-02-04',p:'Bhuvana',c:'thoraipakkam',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-01-21',p:'Nandhini',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2026-02-04',p:'Surekha',c:'thoraipakkam',pr:'Academics',s:'Future Prospect',nt:''},
-  {d:'2026-02-03',p:'Balu',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2026-02-04',p:'Madhuri',c:'thoraipakkam',pr:'Academics',s:'Enrolled',nt:''},
-  {d:'2026-02-04',p:'Dhivya',c:'thoraipakkam',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-02-05',p:'Preeti',c:'thoraipakkam',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-02-05',p:'No name',c:'thoraipakkam',pr:'Daycare',s:'Lead lost',nt:''},
-  {d:'2026-02-06',p:'Swetha',c:'thoraipakkam',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-02-07',p:'',c:'thoraipakkam',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-02-07',p:'Vigneshwari',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2026-02-07',p:'Sarojkanna R',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2026-02-07',p:'Abi Ramya',c:'thoraipakkam',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'',p:'Maya',c:'thoraipakkam',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-02-08',p:'Harini',c:'thoraipakkam',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-02-10',p:'Jayapradha',c:'tansi nagar',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-02-10',p:'Gracy',c:'tansi nagar',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-02-10',p:'Kalaivarai',c:'tansi nagar',pr:'Academics',s:'Future Prospect',nt:''},
-  {d:'2026-02-10',p:'Shivani',c:'thoraipakkam',pr:'Summer Camp',s:'Enrolled',nt:''},
-  {d:'2026-02-11',p:'Fairin',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2026-02-11',p:'Dr.Sakthi',c:'tansi nagar',pr:'Academics',s:'Future Prospect',nt:''},
-  {d:'2026-02-12',p:'Parveen Fathima',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2026-02-12',p:'Shwetha',c:'thoraipakkam',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-02-13',p:'Deepa',c:'thoraipakkam',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-02-13',p:'Harini',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2026-02-13',p:'Priya',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2026-02-13',p:'Jeeva',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2026-02-14',p:'Angeline',c:'tansi nagar',pr:'Summer Camp',s:'Lead lost',nt:''},
-  {d:'2026-02-15',p:'Hema',c:'tansi nagar',pr:'',s:'Lead lost',nt:''},
-  {d:'2026-02-15',p:'No name',c:'thoraipakkam',pr:'Daycare',s:'Lead lost',nt:''},
-  {d:'2026-02-13',p:'',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2026-02-14',p:'V. Thenmoli',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2026-02-14',p:'Likhitha Gurram',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2026-02-13',p:'Esther Prisilla.C',c:'tansi nagar',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2026-02-16',p:'Gayathri',c:'thoraipakkam',pr:'Academics',s:'Future Prospect',nt:''},
-  {d:'2026-02-16',p:'Sathya',c:'tansi nagar',pr:'Academics',s:'Future Prospect',nt:''},
-  {d:'2026-02-17',p:'Povas',c:'thoraipakkam',pr:'Academics',s:'Lead lost',nt:''},
-  {d:'2026-02-17',p:'Maragathavalli Subbiah',c:'thoraipakkam',pr:'',s:'Lead lost',nt:''},
-  {d:'2026-02-04',p:'Surekha',c:'thoraipakkam',pr:'Academics',s:'Future Prospect',nt:''},
-  {d:'2026-02-16',p:'Gayathri',c:'thoraipakkam',pr:'Academics',s:'Future Prospect',nt:''},
-  {d:'2026-03-07',p:'Priya',c:'thoraipakkam',pr:'Academics',s:'Future Prospect',nt:''},
-  {d:'2026-03-14',p:'R Anuradha',c:'thoraipakkam',pr:'Academics',s:'Future Prospect',nt:''},
-  {d:'2026-03-16',p:'Barendra Panda',c:'thoraipakkam',pr:'Academics',s:'Future Prospect',nt:''},
+  {d:'2025-06-05',p:'Sebastin Agnes Joyner',c:'thoraipakkam',pr:'Daycare',s:'Followup',nt:'',notes:'Daycare from 1pm.  The parent has taken the enrollment form and did not return'},
+  {d:'2025-06-07',p:'Vanisha B',c:'thoraipakkam',pr:'Daycare',s:'No Status',nt:'',notes:'Child is too young for the program, they were looking for infant care /fullday care'},
+  {d:'2025-06-09',p:'Arulrajadurai',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'Visited the and ready to enroll have taken the enrollment form follow up on 15-09-2025'},
+  {d:'2025-06-14',p:'Sasikumar',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'Parents would like to enroll for vijayadhashmi'},
+  {d:'2025-06-25',p:'I Amudhavalli',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'She will come with her husband for a school tour and then decide.'},
+  {d:'2025-07-26',p:'G Tara',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'The parents are looking out for Vijaydhasmi enrollment.  Will decide and let us known when they woul'},
+  {d:'2025-07-26',p:'Karpana',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'The parents want to enroll for Vijaydhasmi'},
+  {d:'2025-08-09',p:'Ineya R',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'Shared the fees structure on request will get back'},
+  {d:'2025-09-11',p:'S Magesh Kumar',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'The child did not accompany with the parent.  They will visit the school on Saturday for a school to'},
+  {d:'2025-09-13',p:'Magesh R',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'Parents will decide and come back in a weeks time'},
+  {d:'2025-09-13',p:'Vasumathi',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'Parent feels the child is too young, will think and let me know about enrolling.'},
+  {d:'2025-09-26',p:'Samira',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'The kids are studying at Kidos.  The parents will enquire about the last working day for the term an'},
+  {d:'2025-09-27',p:'Sonali Maharana',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'Will come on monday and confirm.'},
+  {d:'2025-09-27',p:'M Chandana',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'Need time to confirm, will confirm this month end.'},
+  {d:'2025-09-27',p:'Priyadharshini',c:'thoraipakkam',pr:'Academics',s:'Followup',nt:'',notes:'The child is young need time to decide whether to join this year or next academic year. Will decide '},
+  {d:'2025-10-23',p:'Harun',c:'thoraipakkam',pr:'Daycare',s:'Followup',nt:'',notes:'Parents will come for a school visit, they are looking out for daycare.  Then decide of enrolling in'},
+  {d:'2025-12-05',p:'AISHWARYA',c:'thoraipakkam',pr:'Summer Camp',s:'Followup',nt:'',notes:'School tour- done, interested in summer camp as well.'},
+  {d:'2025-12-08',p:'SUREKHA',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'Did not seem positive, just came to enquire.'},
+  {d:'2025-12-09',p:'Amal Infant Ashwin G',c:'thoraipakkam',pr:'Academics',s:'Followup',nt:'',notes:'Parent need time to decide whether to enrol in EY1 for the next term or EY2 for the next academic ye'},
+  {d:'2025-12-11',p:'Krishnam Raju',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'Parent with come along his wife for a school tour on Saturday and will decide to enroll the child fr'},
+  {d:'2025-12-12',p:'Maheshwari R',c:'thoraipakkam',pr:'Academics',s:'Followup',nt:'',notes:'Parent will like to enroll for Jan 2026 in EY1.  Will complete the enrollment formalities by the mon'},
+  {d:'2025-12-30',p:'R Durga Devi',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'Parent will discuss with her husband and get back.  She also is looking for a school transport.'},
+  {d:'2026-01-03',p:'Surya',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'Parent will visit the school with his wife and child next week and decide.'},
+  {d:'2026-01-31',p:'Sandhya',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'School tour done, checking with other schools as well.'},
+  {d:'2026-02-13',p:'A Surendar',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'Parent will come with his wife for a school tour tomorrow (Saturday) and confirm.'},
+  {d:'2026-02-13',p:'Maya Kumari',c:'thoraipakkam',pr:'Summer Camp',s:'Followup',nt:'',notes:'Parents need time to discuss and are interested in summer camp too.'},
+  {d:'2026-02-14',p:'Likhitha Gurram',c:'thoraipakkam',pr:'Academics',s:'Followup',nt:'',notes:'Parents want to check with the age for grade 1 and decide to enroll either EY1 or EY2'},
+  {d:'2026-02-17',p:'Kavirajan',c:'thoraipakkam',pr:'Academics',s:'Followup',nt:'',notes:'Parents have returned form Singapore looking for admission immediately for EY2.   They will decide a'},
+  {d:'2026-02-21',p:'V Ram Kumar',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'PARENTS WILL DECIDE AND COME BACK'},
+  {d:'2026-02-21',p:'Shalom Livingsten',c:'thoraipakkam',pr:'Other',s:'Followup',nt:'',notes:'PARENTS WILL DECIDE AND COME BACK'},
+  {d:'2026-02-23',p:'Geetha',c:'thoraipakkam',pr:'Summer Camp',s:'No Status',nt:'',notes:'Parent enquired over phone for summer camp for May as they out of town (6yrs)'},
+  {d:'2026-02-23',p:'Ani Jose',c:'thoraipakkam',pr:'Other',s:'No Status',nt:'',notes:'Parent enquired for her 2yr daughter will visit the school for more details.'},
+  {d:'2026-03-17',p:'Mithla Aravind',c:'thoraipakkam',pr:'Summer Camp',s:'Followup',nt:'',notes:'Have already enrolled the child for summer camp previously. Will come back the month end.'},
+  {d:'2026-03-30',p:'Pushpa Latha',c:'thoraipakkam',pr:'Other',s:'No Status',nt:'',notes:'Will get back with one or two days'},
+  {d:'2025-06-12',p:'Kamini',c:'tansi nagar',pr:'Other',s:'Followup',nt:'',notes:'The parent will get back to us on Monday 16-6-25'},
+  {d:'2025-07-21',p:'Subashini',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for Ey1 school tour complete will get back to us within 2 days'},
+  {d:'2025-07-22',p:'Ramya.S',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for Ey1 school tour complete will get back to us within 2 days'},
+  {d:'2025-07-24',p:'Devika',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for EY2 will get back to us during vijaydashmi'},
+  {d:'2025-07-26',p:'Santhosh Sethi',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for EY1 ,School visit complete'},
+  {d:'2025-07-31',p:'Varsha',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for Ey1 school tour complete ,follow up 4-8-25'},
+  {d:'2025-08-23',p:'Meenatchi',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for Ey1,school tour done will come with the child on 5th september 2025(twins).'},
+  {d:'2025-09-01',p:'Jayanthi',c:'tansi nagar',pr:'Phonics',s:'Followup',nt:'',notes:'Enquiry for Phonics , Handwriting'},
+  {d:'2025-09-04',p:'Rama lakshmi',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for Ey1, school tour done'},
+  {d:'2025-09-08',p:'J. Balaji',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for EY1 school tour done will get back to us during vijaydashmi time.'},
+  {d:'2025-09-09',p:'M. Pavithra',c:'tansi nagar',pr:'Other',s:'Followup',nt:'',notes:'School tour pending will come on 12-9-25'},
+  {d:'2025-09-10',p:'Janani',c:'tansi nagar',pr:'Other',s:'Followup',nt:'',notes:'School tour complete'},
+  {d:'2025-09-11',p:'Rajakumaran',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'School tour done,enquiry for EY1(Vijaydashmi)'},
+  {d:'2025-09-13',p:'Indhumathi',c:'tansi nagar',pr:'Other',s:'Followup',nt:'',notes:'Have shared the location the parent will get back to us  (lead shared by vijay sir)'},
+  {d:'2025-09-17',p:'Abhinaya B',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for EY2 school tour done'},
+  {d:'2025-09-20',p:'C. Saranya',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for EY2, school tour done'},
+  {d:'2025-09-22',p:'Raji',c:'tansi nagar',pr:'Daycare',s:'Followup',nt:'',notes:'The child is 1.7yrs old, and the parent is unsure of how she\'ll adapt. Planning for daycare to start'},
+  {d:'2025-09-25',p:'Vaishnavi',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for Ey1, school tour done'},
+  {d:'2025-09-25',p:'Ramya',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for Ey1,school tour done.'},
+  {d:'2025-09-27',p:'Sanjana.K',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for  Ey1,school tour done'},
+  {d:'2025-09-29',p:'R.Jayapriya',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for Ey2 ,school tour done'},
+  {d:'2025-10-01',p:'Sneha Jayaraghavan',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for Ey1,school tour complete'},
+  {d:'2025-10-30',p:'Preethi Ravi',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for EY1 school tour done'},
+  {d:'2025-10-31',p:'Vandhana Balaji',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for EY2 school tour done.'},
+  {d:'2025-11-01',p:'Deepthi',c:'tansi nagar',pr:'Other',s:'Followup',nt:'',notes:'The parent said they will decide and call back.'},
+  {d:'2025-11-03',p:'Deepika. V',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for EY1, School tour done'},
+  {d:'2025-11-04',p:'Ramya vivek',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for EY1, Parent has to come for school tour'},
+  {d:'2025-11-07',p:'Madiniyal',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for EY2 school tour pending'},
+  {d:'2025-11-22',p:'Dhanya',c:'tansi nagar',pr:'Other',s:'Followup',nt:'',notes:'Wants to join in the month of Jan.'},
+  {d:'2025-12-09',p:'Sowmini',c:'tansi nagar',pr:'Academics',s:'Followup',nt:'',notes:'Enquiry for Ey2 , parent has to come for school tour.'}
 ];
+var state = {centre:'all', prog:'all', datePreset:'all', dateFrom:null, dateTo:null};
 
-var state = {centre:'all', prog:'all', datePreset:'all'};
-var TODAY = new Date(2026,5,13);
+var STATUS_COLORS = {'Enrolled':'#27AE60','Lead lost':'#E74C3C','Followup':'#2563EB','Future Prospect':'#06B6D4','Hot-Payment expected':'#10B981','School visit done':'#7C3AED','Walkin scheduled':'#FF6B35','RNR':'#F59E0B','Disqualified':'#6B7280','No Status':'#D97706'};
+var ACTIVE_STATUSES = ['Hot-Payment expected','School visit done','Walkin scheduled','Followup','RNR'];
+var TODAY_DATE = new Date('2026-06-14');
 
-function parseDate(s){var p=s.split('-');return new Date(parseInt(p[0]),parseInt(p[1])-1,parseInt(p[2]));}
-
-function getDateRange(){
-  var p=state.datePreset;
-  if(p==='all') return null;
-  if(p==='today') return {from:new Date(2026,5,13),to:new Date(2026,5,13)};
-  if(p==='last7') return {from:new Date(2026,5,6),to:TODAY};
-  if(p==='thismonth') return {from:new Date(2026,5,1),to:TODAY};
-  if(p==='last3m') return {from:new Date(2026,2,13),to:TODAY};
-  if(p==='thisyear') return {from:new Date(2026,0,1),to:TODAY};
-  if(p==='custom'){
-    var f=document.getElementById('date-from').value,t=document.getElementById('date-to').value;
-    if(!f||!t) return null;
-    return {from:new Date(f),to:new Date(t)};
+function matchLead(l) {
+  if (state.centre !== 'all' && l.c !== state.centre) return false;
+  if (state.prog !== 'all' && l.pr !== state.prog) return false;
+  if (state.datePreset !== 'all' && l.d !== '?') {
+    var ld = new Date(l.d);
+    var now = TODAY_DATE;
+    var from, to = now;
+    if (state.datePreset === 'today') { from = now; }
+    else if (state.datePreset === 'last7') { from = new Date(now - 7*864e5); }
+    else if (state.datePreset === 'thismonth') { from = new Date(now.getFullYear(), now.getMonth(), 1); }
+    else if (state.datePreset === 'last3m') { from = new Date(now - 90*864e5); }
+    else if (state.datePreset === 'thisyear') { from = new Date(now.getFullYear(), 0, 1); }
+    else if (state.datePreset === 'custom') { from = state.dateFrom ? new Date(state.dateFrom) : null; to = state.dateTo ? new Date(state.dateTo) : now; }
+    if (from && ld < from) return false;
+    if (ld > to) return false;
   }
-  return null;
-}
-
-function matchLead(l){
-  if(state.centre!=='all'){if(l.c!==state.centre) return false;}
-  if(state.prog!=='all'){if(l.pr!==state.prog) return false;}
-  var r=getDateRange();
-  if(r){var d=parseDate(l.d);if(d<r.from||d>r.to) return false;}
   return true;
 }
 
-function setDate(btn,preset){
-  document.querySelectorAll('[data-group="date"]').forEach(function(b){b.classList.remove('active');});
-  btn.classList.add('active');
-  state.datePreset=preset;
-  document.getElementById('custom-dates').classList.toggle('show',preset==='custom');
-  markPending();
-}
-function setCentre(btn,centre){
-  document.querySelectorAll('[data-group="centre"]').forEach(function(b){b.classList.remove('active');});
-  btn.classList.add('active');
-  state.centre=centre;
-  markPending();
-}
-function setProg(btn,prog){
-  document.querySelectorAll('[data-group="prog"]').forEach(function(b){b.classList.remove('active');});
-  btn.classList.add('active');
-  state.prog=prog;
-  markPending();
-}
-function markPending(){
-  var btn=document.getElementById('apply-btn');
-  btn.classList.add('pending');
-  btn.textContent='Apply Filters ●';
-}
-function resetFilters(){
-  state={centre:'all',prog:'all',datePreset:'all'};
-  document.querySelectorAll('[data-group="date"]').forEach(function(b){b.classList.remove('active');});
-  document.querySelector('[data-group="date"][onclick*="\'all\'"]').classList.add('active');
-  document.querySelectorAll('[data-group="centre"]').forEach(function(b){b.classList.remove('active');});
-  document.querySelector('[data-group="centre"][onclick*="\'all\'"]').classList.add('active');
-  document.querySelectorAll('[data-group="prog"]').forEach(function(b){b.classList.remove('active');});
-  document.querySelector('[data-group="prog"][onclick*="\'all\'"]').classList.add('active');
-  document.getElementById('custom-dates').classList.remove('show');
-  applyFilters();
-}
-function updateFilterNote(){
-  var active=state.datePreset!=='all'||state.prog!=='all'||state.centre!=='all';
-  document.getElementById('filter-note').classList.toggle('show',active);
-}
-function updateSummaryCards(){
-  var hasProg=state.prog!=='all';
-  var hasCentre=state.centre!=='all';
-  var hasDate=state.datePreset!=='all';
+function isActive(s) { return ACTIVE_STATUSES.indexOf(s) >= 0; }
+function isNoStatus(s) { return s === 'No Status' || s === ''; }
 
-  // Active Pipeline + No Status: always computed live from LEADS with ALL filters
-  var ACTIVE_STATUSES={'Followup':1,'RNR':1,'Hot-Payment expected':1,'Walkin scheduled':1,'School visit done':1,'Future Prospect':1};
-  var activeLeads=LEADS.filter(function(l){return ACTIVE_STATUSES[l.s]&&matchLead(l);});
-  var nsLeads=LEADS.filter(function(l){return l.s==='No Status'&&matchLead(l);});
-  document.getElementById('c-active').textContent=activeLeads.length;
-  document.getElementById('c-nostatus').textContent=nsLeads.length;
-  document.getElementById('nostatus-count').textContent=nsLeads.length;
+function updateSummaryCards() {
+  var filtered = LEADS.filter(matchLead);
+  var activeCount = filtered.filter(function(l){return isActive(l.s);}).length;
+  var noStatusCount = filtered.filter(function(l){return isNoStatus(l.s);}).length;
+  document.getElementById('c-active').textContent = activeCount;
+  document.getElementById('c-nostatus').textContent = noStatusCount;
+  document.getElementById('nostatus-count').textContent = noStatusCount;
 
-  // Pick the best available data source for aggregate cards
-  // Priority: progData (if prog filter) > centreData (if centre filter) > all
-  var d, approx=false;
-  if(hasProg){
-    d=progData[state.prog]||centreData['all'];
-    if(hasCentre||hasDate) approx=true; // can't cross-filter centre×prog or date
-  }else{
-    d=centreData[state.centre]||centreData['all'];
-    if(hasDate) approx=true; // date filter can't be applied to aggregate totals
+  var hasProg = state.prog !== 'all';
+  var hasCentre = state.centre !== 'all';
+  var hasDate = state.datePreset !== 'all';
+  var src = null, suffix = '';
+
+  if (!hasProg && !hasCentre && !hasDate) {
+    src = centreData['all'];
+  } else if (hasProg && !hasCentre && !hasDate) {
+    src = progData[state.prog];
+  } else if (!hasProg && hasCentre && !hasDate) {
+    src = centreData[state.centre];
+  } else {
+    src = centreData[state.centre !== 'all' ? state.centre : 'all'];
+    suffix = ' *';
   }
 
-  var suffix=approx?' *':'';
-  document.getElementById('c-total').textContent=d.total;
-  document.getElementById('c-total-sub').textContent=(d.totalSub||'')+suffix;
-  document.getElementById('c-visited').textContent=d.visited;
-  document.getElementById('c-visited-sub').textContent=(d.visitedSub||'')+suffix;
-  document.getElementById('c-enrolled').textContent=d.enrolled;
-  document.getElementById('c-enrolled-sub').textContent=(d.enrolledSub||'')+suffix;
-  document.getElementById('c-future').textContent=d.future||'—';
-  document.getElementById('c-lost').textContent=d.lost;
-
-  // Dim only the 5 aggregate cards (NOT Active Pipeline / No Status) when data is approximate
-  var dimStyle=approx?'0.5':'1';
-  var tipText=approx?'* Approximate — full breakdown not available for this filter combination':'';
-  ['c-total','c-visited','c-enrolled','c-future','c-lost'].forEach(function(id){
-    var card=document.getElementById(id).parentElement; // .val → .card (one level up)
-    card.style.opacity=dimStyle;
-    card.title=tipText;
-  });
-
-  // Centre performance visibility
-  document.querySelectorAll('[data-centre]').forEach(function(el){
-    if(el.tagName==='TR') return;
-    el.style.display=(state.centre==='all'||el.getAttribute('data-centre')===state.centre)?'':'none';
-  });
-}
-function updateFunnel(){
-  var extraFilter=state.centre!=='all'||state.prog!=='all'||state.datePreset!=='all';
-  var defs=[
-    {s:'Hot-Payment expected',id:'fc-hot',base:'1',pct:'0.1'},
-    {s:'School visit done',id:'fc-visit',base:'5',pct:'0.6'},
-    {s:'Walkin scheduled',id:'fc-walkin',base:'10',pct:'1.2'},
-    {s:'Followup',id:'fc-followup',base:'42',pct:'5.2'},
-    {s:'RNR',id:'fc-rnr',base:'5',pct:'0.6'}
-  ];
-  defs.forEach(function(item){
-    var el=document.getElementById(item.id);
-    if(!el) return;
-    if(extraFilter){
-      var n=LEADS.filter(function(l){return l.s===item.s&&matchLead(l);}).length;
-      el.textContent=n+' (filtered)';
-    }else{
-      el.textContent=item.base+' ('+item.pct+'%)';
+  var ids = [['c-total','total','c-total-sub','totalSub'],['c-visited','visited','c-visited-sub','visitedSub'],['c-enrolled','enrolled','c-enrolled-sub','enrolledSub'],['c-future','future',null,null],['c-lost','lost',null,null]];
+  ids.forEach(function(x) {
+    var el = document.getElementById(x[0]);
+    if (src && src[x[1]] !== undefined) {
+      el.textContent = src[x[1]] + suffix;
+      el.parentElement.style.opacity = suffix ? '0.6' : '1';
+    }
+    if (x[2] && src && src[x[3]]) {
+      document.getElementById(x[2]).textContent = src[x[3]];
     }
   });
 }
-function updateCentrePerf(){
-  var extraFilter=state.prog!=='all'||state.datePreset!=='all';
-  var el1=document.getElementById('ca-thoraipakkam');
-  var el2=document.getElementById('ca-tansi');
-  if(extraFilter){
-    if(el1) el1.textContent=LEADS.filter(function(l){return l.s!=='No Status'&&l.c==='thoraipakkam'&&matchLead(l);}).length;
-    if(el2) el2.textContent=LEADS.filter(function(l){return l.s!=='No Status'&&l.c==='tansi nagar'&&matchLead(l);}).length;
-  }else{
-    var d=centreData[state.centre]||centreData['all'];
-    if(el1) el1.textContent=centreData['thoraipakkam'].active;
-    if(el2) el2.textContent=centreData['tansi nagar'].active;
-  }
-}
-function applyFilters(){
-  updateFilterNote();
-  updateSummaryCards();
-  updateFunnel();
-  updateCentrePerf();
-  renderHotLeads();
-  renderNoStatus();
-  var btn=document.getElementById('apply-btn');
-  if(btn){btn.classList.remove('pending');btn.textContent='Applied ✓';setTimeout(function(){btn.textContent='Apply Filters';},1500);}
-}
 
-function renderNoStatus(){
-  var ns=LEADS.filter(function(l){return l.s==='No Status'&&matchLead(l);});
-  var tb=document.getElementById('nostatus-tbody');tb.innerHTML='';
-  ns.forEach(function(l){
-    var tr=document.createElement('tr');tr.style.borderBottom='1px solid #fef3c7';
-    tr.innerHTML='<td class="td" style="color:#92400e;font-weight:600">'+(l.row||'')+'</td><td class="td">'+fmtDate(l.d)+'</td><td class="td" style="font-weight:500">'+esc(l.p)+'</td><td class="td">'+capFirst(l.c)+'</td><td class="td" style="color:#666;font-size:12px">'+esc(l.notes)+'</td>';
-    tb.appendChild(tr);
+function updateFunnel() {
+  var filtered = LEADS.filter(matchLead);
+  var sc = {};
+  filtered.forEach(function(l){ sc[l.s] = (sc[l.s]||0)+1; });
+  [['fc-hot','Hot-Payment expected'],['fc-visit','School visit done'],['fc-walkin','Walkin scheduled'],['fc-followup','Followup'],['fc-rnr','RNR']].forEach(function(x){
+    var el = document.getElementById(x[0]);
+    if(el) el.textContent = (sc[x[1]]||0);
   });
-  document.getElementById('nostatus-empty').style.display=ns.length===0?'block':'none';
 }
 
-var STATUS_COLORS={'Hot-Payment expected':'#10B981','School visit done':'#7C3AED','Walkin scheduled':'#FF6B35','Followup':'#2563EB','RNR':'#F59E0B'};
-var STATUS_ORDER=['Hot-Payment expected','School visit done','Walkin scheduled','Followup','RNR'];
-
-function renderHotLeads(){
-  var active=LEADS.filter(function(l){return l.s!=='No Status'&&matchLead(l);});
-  var tb=document.getElementById('hot-leads-tbody');tb.innerHTML='';
-  var total=0;
-  STATUS_ORDER.forEach(function(status){
-    var grp=active.filter(function(l){return l.s===status;});
-    if(grp.length===0) return;
-    total+=grp.length;
-    var hdr=document.createElement('tr');
-    hdr.innerHTML='<td colspan="6" class="group-hdr" style="color:'+STATUS_COLORS[status]+'">'+status+' ('+grp.length+')</td>';
-    tb.appendChild(hdr);
-    grp.forEach(function(l){
-      var tr=document.createElement('tr');tr.style.borderBottom='1px solid #f3f4f6';
-      tr.innerHTML='<td class="td" style="color:#666">'+fmtDate(l.d)+'</td><td class="td" style="font-weight:500">'+esc(l.p)+'</td><td class="td">'+capFirst(l.c)+'</td><td class="td">'+esc(l.pr)+'</td><td class="td">'+esc(l.nt)+'</td><td class="td" style="color:#666;font-size:12px">'+esc(l.notes)+'</td>';
-      tb.appendChild(tr);
-    });
-  });
-  var cnt=document.getElementById('hot-leads-count');
-  cnt.textContent=total>0?'— '+total+' leads':'';
-  document.getElementById('hot-leads-empty').style.display=total===0?'block':'none';
-  document.getElementById('hot-leads-table').style.display=total===0?'none':'';
+function updateCentrePerf() {
+  var filtered = LEADS.filter(matchLead);
+  var sc = {'thoraipakkam':0,'tansi nagar':0};
+  filtered.forEach(function(l){ if(isActive(l.s) && sc[l.c]!==undefined) sc[l.c]++; });
+  var t = document.getElementById('ca-thoraipakkam'); if(t) t.textContent = sc['thoraipakkam'];
+  var n = document.getElementById('ca-tansi'); if(n) n.textContent = sc['tansi nagar'];
 }
 
-function fmtDate(iso){
-  var p=iso.split('-'),m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return m[parseInt(p[1])-1]+'-'+p[2];
+function renderHotLeads() {
+  var filtered = LEADS.filter(function(l){ return matchLead(l) && isActive(l.s); });
+  var tbody = document.getElementById('hot-leads-tbody');
+  var empty = document.getElementById('hot-leads-empty');
+  var cnt = document.getElementById('hot-leads-count');
+  cnt.textContent = '(' + filtered.length + ' leads)';
+  if (!filtered.length) { tbody.innerHTML=''; if(empty) empty.style.display='block'; return; }
+  if(empty) empty.style.display='none';
+  var COLOR = STATUS_COLORS;
+  tbody.innerHTML = filtered.sort(function(a,b){return b.d.localeCompare(a.d);}).map(function(l){
+    var badge = '<span class="sbadge" style="background:'+(COLOR[l.s]||'#ccc')+'20;color:'+(COLOR[l.s]||'#374151')+'">'+l.s+'</span>';
+    return '<tr><td class="td">'+l.d+'</td><td class="td"><b>'+l.p+'</b></td><td class="td">'+l.c+'</td><td class="td">'+l.pr+'</td><td class="td">'+badge+'</td><td class="td" style="font-size:12px;color:#555">'+l.notes+'</td></tr>';
+  }).join('');
 }
-function capFirst(s){if(!s)return '?';return s.charAt(0).toUpperCase()+s.slice(1);}
-function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-// Modal
-function openLeadsModal(title,leads,subtitle){
-  document.getElementById('modal-title').textContent=title;
-  document.getElementById('modal-subtitle').textContent=subtitle||(leads.length+' leads');
-  var body=document.getElementById('modal-body');
-  if(leads.length===0){body.innerHTML='<div style="padding:20px;color:#888;font-style:italic;text-align:center">No leads match the current filters.</div>';
-  }else{
-    var h='<table><thead><tr><th>Date</th><th>Parent</th><th>Centre</th><th>Programme</th><th>Status</th><th>Next Task</th><th>Notes</th></tr></thead><tbody>';
-    leads.forEach(function(l){
-      h+='<tr><td>'+fmtDate(l.d)+'</td><td style="font-weight:500">'+esc(l.p)+'</td><td>'+capFirst(l.c)+'</td><td>'+esc(l.pr)+'</td><td><span class="sbadge">'+esc(l.s)+'</span></td><td>'+esc(l.nt)+'</td><td style="color:#666;font-size:12px;max-width:200px">'+esc(l.notes)+'</td></tr>';
-    });
-    h+='</tbody></table>';body.innerHTML=h;
-  }
-  document.getElementById('modal-overlay').classList.add('open');
+function renderNoStatus() {
+  var filtered = LEADS.filter(function(l){ return matchLead(l) && isNoStatus(l.s); });
+  var tbody = document.getElementById('nostatus-tbody');
+  var empty = document.getElementById('nostatus-empty');
+  if (!filtered.length) { tbody.innerHTML=''; if(empty) empty.style.display='block'; return; }
+  if(empty) empty.style.display='none';
+  tbody.innerHTML = filtered.map(function(l){
+    return '<tr><td class="td">—</td><td class="td">'+l.d+'</td><td class="td">'+l.p+'</td><td class="td">'+l.c+'</td><td class="td" style="font-size:12px;color:#555">'+l.notes+'</td></tr>';
+  }).join('');
 }
-function openInfoModal(title,msg){
-  document.getElementById('modal-title').textContent=title;
-  document.getElementById('modal-subtitle').textContent='';
-  document.getElementById('modal-body').innerHTML='<div class="modal-info">'+msg+'<br><br><a href="https://docs.google.com/spreadsheets/d/1b4j3GeQZrEyJAUDQxgKKwLcG6iNjwdlPHIKRxQqmXRo/edit?gid=1680636582" target="_blank">View Source Sheet ↗</a></div>';
-  document.getElementById('modal-overlay').classList.add('open');
-}
-function closeModal(){document.getElementById('modal-overlay').classList.remove('open');}
-document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
 
-// Named click handlers
-var NO_DATA_MSGS={
-  total:'All 816 leads span all statuses (Enrolled, Active, Lost, Disqualified, Future Prospects, No-Status). Individual records require source sheet access.',
-  visited:'115 leads have visited the school. Individual records require source sheet access.',
-  enrolled:'60 leads have enrolled. Individual records require source sheet access.',
-  future:'26 leads are marked as Future Prospects. Individual records require source sheet access.',
-  lost:'660 leads are Lost or Disqualified. Individual re
+function applyFilters() {
+  updateSummaryCards(); updateFunnel(); updateCentrePerf(); renderHotLeads(); renderNoStatus();
+  var hasFilter = state.centre!=='all'||state.prog!=='all'||state.datePreset!=='all';
+  var note = document.getElementById('filter-note');
+  if(note) note.className = 'filter-note' + (hasFilter?' show':'');
+  var btn = document.getElementById('apply-btn');
+  btn.className='apply-btn'; btn.textContent='Apply Filters';
+}
+
+function markPending() {
+  var btn = document.getElementById('apply-btn');
+  btn.className='apply-btn pending'; btn.textContent='⟳ Apply';
+}
+
+function setDate(btn,val) {
+  document.querySelectorAll('[data-group="date"]').forEach(function(b){b.className='fbtn';});
+  btn.className='fbtn active';
+  state.datePreset = val;
+  var cd = document.getElementById('custom-dates');
+  if(cd) cd.className = val==='custom'?'date-custom show':'date-custom';
+  markPending();
+}
+
+function setCentre(btn,val) {
+  document.querySelectorAll('[data-group="centre"]').forEach(function(b){b.className='fbtn';});
+  btn.className='fbtn active';
+  state.centre = val;
+  markPending();
+  applyFilters();
+}
+
+function setProg(btn,val) {
+  document.querySelectorAll('[data-group="prog"]').forEach(function(b){b.className='fbtn';});
+  btn.className='fbtn active';
+  state.prog = val;
+  markPending();
+  applyFilters();
+}
+
+function resetFilters() {
+  state={centre:'all',prog:'all',datePreset:'all',dateFrom:null,dateTo:null};
+  document.querySelectorAll('.fbtn').forEach(function(b){b.className='fbtn';});
+  document.querySelectorAll('.fbtn[onclick*=\'all\']').forEach(function(b){b.className='fbtn active';});
+  var cd=document.getElementById('custom-dates'); if(cd) cd.className='date-custom';
+  var note=document.getElementById('filter-note'); if(note) note.className='filter-note';
+  applyFilters();
+}
+
+function openModal(title, subtitle, bodyHtml) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-subtitle').textContent = subtitle;
+  document.getElementById('modal-body').innerHTML = bodyHtml;
+  document.getElementById('modal-overlay').className = 'open';
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').className = '';
+}
+
+document.getElementById('modal-overlay').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+
+function noDataModal(type) {
+  openModal('Full Lead Details', 'Filter by centre or programme to drill down',
+    '<div class="modal-info">For detailed lead-level data, open the <a href="https://docs.google.com/spreadsheets/d/1b4j3GeQZrEyJAUDQxgKKwLcG6iNjwdlPHIKRxQqmXRo/edit?gid=1680636582" target="_blank">source Google Sheet</a>. The dashboard shows aggregate metrics; individual records are in the sheet.</div>');
+}
+
+function showActiveLeads() {
+  var leads = LEADS.filter(function(l){ return matchLead(l) && isActive(l.s); });
+  var COLOR = STATUS_COLORS;
+  var rows = leads.sort(function(a,b){return b.d.localeCompare(a.d);}).map(function(l){
+    return '<tr><td>'+l.d+'</td><td><b>'+l.p+'</b></td><td>'+l.c+'</td><td>'+l.pr+'</td><td><span class="sbadge" style="background:'+(COLOR[l.s]||'#ccc')+'20;color:'+(COLOR[l.s]||'#374151')+'">'+l.s+'</span></td><td style="font-size:12px">'+l.notes+'</td></tr>';
+  }).join('');
+  openModal('Active Pipeline Leads', leads.length+' leads',
+    '<table><thead><tr><th>Date</th><th>Parent</th><th>Centre</th><th>Programme</th><th>Status</th><th>Notes</th></tr></thead><tbody>'+rows+'</tbody></table>');
+}
+
+function showNoStatusLeads() {
+  var leads = LEADS.filter(function(l){ return matchLead(l) && isNoStatus(l.s); });
+  var rows = leads.map(function(l){
+    return '<tr><td>'+l.d+'</td><td><b>'+l.p+'</b></td><td>'+l.c+'</td><td>'+l.pr+'</td><td style="font-size:12px">'+l.notes+'</td></tr>';
+  }).join('');
+  openModal('Leads Without Status', leads.length+' need tagging',
+    '<table><thead><tr><th>Date</th><th>Parent</th><th>Centre</th><th>Programme</th><th>Notes</th></tr></thead><tbody>'+rows+'</tbody></table>');
+}
+
+function clickFunnel(status) {
+  var leads = LEADS.filter(function(l){ return matchLead(l) && l.s===status; });
+  var rows = leads.sort(function(a,b){return b.d.localeCompare(a.d);}).map(function(l){
+    return '<tr><td>'+l.d+'</td><td><b>'+l.p+'</b></td><td>'+l.c+'</td><td>'+l.pr+'</td><td style="font-size:12px">'+l.notes+'</td></tr>';
+  }).join('');
+  if(!rows) rows='<tr><td colspan=5 style="text-align:center;color:#888;padding:20px">No leads in current filters</td></tr>';
+  openModal(status+' Leads', leads.length+' leads',
+    '<table><thead><tr><th>Date</th><th>Parent</th><th>Centre</th><th>Programme</th><th>Notes</th></tr></thead><tbody>'+rows+'</tbody></table>');
+}
+
+function showCentreActiveLeads(centre) {
+  var leads = LEADS.filter(function(l){ return l.c===centre && isActive(l.s); });
+  var COLOR = STATUS_COLORS;
+  var rows = leads.sort(function(a,b){return b.d.localeCompare(a.d);}).map(function(l){
+    return '<tr><td>'+l.d+'</td><td><b>'+l.p+'</b></td><td>'+l.pr+'</td><td><span class="sbadge" style="background:'+(COLOR[l.s]||'#ccc')+'20;color:'+(COLOR[l.s]||'#374151')+'">'+l.s+'</span></td><td style="font-size:12px">'+l.notes+'</td></tr>';
+  }).join('');
+  openModal('Active Leads — '+centre, leads.length+' leads',
+    '<table><thead><tr><th>Date</th><th>Parent</th><th>Programme</th><th>Status</th><th>Notes</th></tr></thead><tbody>'+rows+'</tbody></table>');
+}
+
+function showStatusForCentre(status,centre) {
+  var leads = LEADS.filter(function(l){ return l.c===centre && l.s===status; });
+  var rows = leads.sort(function(a,b){return b.d.localeCompare(a.d);}).map(function(l){
+    return '<tr><td>'+l.d+'</td><td><b>'+l.p+'</b></td><td>'+l.pr+'</td><td style="font-size:12px">'+l.notes+'</td></tr>';
+  }).join('');
+  openModal(status+' — '+centre, leads.length+' leads',
+    '<table><thead><tr><th>Date</th><th>Parent</th><th>Programme</th><th>Notes</th></tr></thead><tbody>'+rows+'</tbody></table>');
+}
+
+function showProgStatus(prog,status) {
+  var leads = LEADS.filter(function(l){ return l.pr===prog && l.s===status; });
+  var rows = leads.sort(function(a,b){return b.d.localeCompare(a.d);}).map(function(l){
+    return '<tr><td>'+l.d+'</td><td><b>'+l.p+'</b></td><td>'+l.c+'</td><td style="font-size:12px">'+l.notes+'</td></tr>';
+  }).join('');
+  openModal(prog+' — '+status, leads.length+' leads',
+    '<table><thead><tr><th>Date</th><th>Parent</th><th>Centre</th><th>Notes</th></tr></thead><tbody>'+rows+'</tbody></table>');
+}
+
+function showMonthLeads(label) {
+  openModal('Leads in '+label, 'Open sheet for full details',
+    '<div class="modal-info">Monthly lead data is shown in the trend chart. For individual lead details by month, filter the source sheet by date.<br><a href="https://docs.google.com/spreadsheets/d/1b4j3GeQZrEyJAUDQxgKKwLcG6iNjwdlPHIKRxQqmXRo/edit?gid=1680636582" target="_blank">Open Google Sheet →</a></div>');
+}
+
+// Init
+updateSummaryCards();
+renderHotLeads();
+renderNoStatus();
+</script>
+</body></html>
