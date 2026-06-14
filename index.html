@@ -94,7 +94,7 @@ footer{text-align:center;padding:24px;color:#888;font-size:12px}
     <button class="fbtn" data-group="prog" onclick="setProg(this,'Other')">Other</button>
   </div>
 </div>
-<div class="filter-note" id="filter-note">⚠️ Date &amp; programme filters apply to the Active Leads table. Summary totals reflect all-time data for the selected centre.</div>
+<div class="filter-note" id="filter-note">⚡ Active Pipeline, No Status, Funnel &amp; Hot Leads reflect current filters. Cards marked * show all-time centre totals (full dataset needed for filtering).</div>
 
 <div class="cards">
   <div class="card"><div class="val" id="c-total" style="color:#2563EB" onclick="noDataModal('total')">816</div><div class="lbl">Total Leads</div><div class="sub" id="c-total-sub">814 tagged</div></div>
@@ -119,18 +119,18 @@ footer{text-align:center;padding:24px;color:#888;font-size:12px}
 <div class="funnel-row" onclick="clickFunnel('Disqualified')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Disqualified</span><span>170 (20.9%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#6B7280;width:20.9%;height:14px;border-radius:4px"></div></div></div>
 <div class="funnel-row" onclick="clickFunnel('Enrolled')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Enrolled</span><span>60 (7.4%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#27AE60;width:7.4%;height:14px;border-radius:4px"></div></div></div>
 <div class="funnel-row" onclick="clickFunnel('Lead lost after visit')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Lead lost after visit</span><span>49 (6.0%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#DC2626;width:6%;height:14px;border-radius:4px"></div></div></div>
-<div class="funnel-row" onclick="clickFunnel('Followup')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Followup</span><span>42 (5.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#2563EB;width:5.2%;height:14px;border-radius:4px"></div></div></div>
+<div class="funnel-row" onclick="clickFunnel('Followup')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Followup</span><span id="fc-followup">42 (5.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#2563EB;width:5.2%;height:14px;border-radius:4px"></div></div></div>
 <div class="funnel-row" onclick="clickFunnel('Future Prospect')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Future Prospect</span><span>26 (3.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#06B6D4;width:3.2%;height:14px;border-radius:4px"></div></div></div>
-<div class="funnel-row" onclick="clickFunnel('Walkin scheduled')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Walkin scheduled</span><span>10 (1.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#FF6B35;width:1.2%;height:14px;border-radius:4px"></div></div></div>
-<div class="funnel-row" onclick="clickFunnel('School visit done')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>School visit done</span><span>5 (0.6%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#7C3AED;width:0.6%;height:14px;border-radius:4px"></div></div></div>
+<div class="funnel-row" onclick="clickFunnel('Walkin scheduled')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Walkin scheduled</span><span id="fc-walkin">10 (1.2%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#FF6B35;width:1.2%;height:14px;border-radius:4px"></div></div></div>
+<div class="funnel-row" onclick="clickFunnel('School visit done')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>School visit done</span><span id="fc-visit">5 (0.6%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#7C3AED;width:0.6%;height:14px;border-radius:4px"></div></div></div>
 <div class="funnel-row" onclick="clickFunnel('Others')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Others - Explain in Summary</span><span>5 (0.6%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#888;width:0.6%;height:14px;border-radius:4px"></div></div></div>
-<div class="funnel-row" onclick="clickFunnel('RNR')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>RNR</span><span>5 (0.6%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#F59E0B;width:0.6%;height:14px;border-radius:4px"></div></div></div>
-<div class="funnel-row" onclick="clickFunnel('Hot-Payment expected')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Hot-Payment expected</span><span>1 (0.1%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#10B981;width:0.1%;height:14px;border-radius:4px"></div></div></div>
+<div class="funnel-row" onclick="clickFunnel('RNR')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>RNR</span><span id="fc-rnr">5 (0.6%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#F59E0B;width:0.6%;height:14px;border-radius:4px"></div></div></div>
+<div class="funnel-row" onclick="clickFunnel('Hot-Payment expected')"><div style="display:flex;justify-content:space-between;font-size:13px"><span>Hot-Payment expected</span><span id="fc-hot">1 (0.1%)</span></div><div style="background:#f0f0f0;border-radius:4px;height:14px"><div style="background:#10B981;width:0.1%;height:14px;border-radius:4px"></div></div></div>
 </div>
 
 <div class="section"><h2>Centre Performance</h2><div style="display:flex;gap:16px">
-<div data-centre="thoraipakkam" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);flex:1"><h3 style="color:#2563EB;margin:0 0 12px">Thoraipakkam</h3><div style="font-size:28px;font-weight:700;cursor:pointer" onclick="noDataModal('total')" title="Click for details">200</div><div style="font-size:13px;color:#666">Tagged Leads</div><hr style="margin:12px 0"><div>🏫 School Visited: <b style="cursor:pointer" onclick="noDataModal('visited')" title="Click for details">61</b></div><div>✅ Enrolled: <b style="cursor:pointer" onclick="noDataModal('enrolled')" title="Click for details">39</b> (19.5%)</div><div>🔥 Active: <b style="cursor:pointer" onclick="showCentreActiveLeads('thoraipakkam')" title="Click to see leads">17</b></div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost: 99</div><div style="font-size:12px;color:#555;margin-top:4px">Enrolled: 39</div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost after visit: 18</div><div style="font-size:12px;color:#555;margin-top:4px">Future Prospect: 14</div><div style="font-size:12px;color:#555;margin-top:4px">Disqualified: 12</div><div style="font-size:12px;color:#555;margin-top:4px">Followup: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Followup','thoraipakkam')">10</span></div><div style="font-size:12px;color:#555;margin-top:4px">School visit done: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('School visit done','thoraipakkam')">3</span></div><div style="font-size:12px;color:#555;margin-top:4px">Walkin scheduled: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Walkin scheduled','thoraipakkam')">2</span></div><div style="font-size:12px;color:#555;margin-top:4px">Others - Explain in Summary: 1</div><div style="font-size:12px;color:#555;margin-top:4px">Hot-Payment expected: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Hot-Payment expected','thoraipakkam')">1</span></div><div style="font-size:12px;color:#555;margin-top:4px">RNR: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('RNR','thoraipakkam')">1</span></div></div>
-<div data-centre="tansi nagar" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);flex:1"><h3 style="color:#2563EB;margin:0 0 12px">Tansi Nagar</h3><div style="font-size:28px;font-weight:700;cursor:pointer" onclick="noDataModal('total')" title="Click for details">212</div><div style="font-size:13px;color:#666">Tagged Leads</div><hr style="margin:12px 0"><div>🏫 School Visited: <b style="cursor:pointer" onclick="noDataModal('visited')" title="Click for details">53</b></div><div>✅ Enrolled: <b style="cursor:pointer" onclick="noDataModal('enrolled')" title="Click for details">21</b> (9.9%)</div><div>🔥 Active: <b style="cursor:pointer" onclick="showCentreActiveLeads('tansi nagar')" title="Click to see leads">35</b></div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost: 102</div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost after visit: 30</div><div style="font-size:12px;color:#555;margin-top:4px">Followup: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Followup','tansi nagar')">23</span></div><div style="font-size:12px;color:#555;margin-top:4px">Enrolled: 21</div><div style="font-size:12px;color:#555;margin-top:4px">Disqualified: 14</div><div style="font-size:12px;color:#555;margin-top:4px">Future Prospect: 9</div><div style="font-size:12px;color:#555;margin-top:4px">Walkin scheduled: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Walkin scheduled','tansi nagar')">8</span></div><div style="font-size:12px;color:#555;margin-top:4px">School visit done: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('School visit done','tansi nagar')">2</span></div><div style="font-size:12px;color:#555;margin-top:4px">RNR: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('RNR','tansi nagar')">2</span></div><div style="font-size:12px;color:#555;margin-top:4px">Others - Explain in Summary: 1</div></div>
+<div data-centre="thoraipakkam" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);flex:1"><h3 style="color:#2563EB;margin:0 0 12px">Thoraipakkam</h3><div style="font-size:28px;font-weight:700;cursor:pointer" onclick="noDataModal('total')" title="Click for details">200</div><div style="font-size:13px;color:#666">Tagged Leads</div><hr style="margin:12px 0"><div>🏫 School Visited: <b style="cursor:pointer" onclick="noDataModal('visited')" title="Click for details">61</b></div><div>✅ Enrolled: <b style="cursor:pointer" onclick="noDataModal('enrolled')" title="Click for details">39</b> (19.5%)</div><div>🔥 Active: <b id="ca-thoraipakkam" style="cursor:pointer" onclick="showCentreActiveLeads('thoraipakkam')" title="Click to see leads">17</b></div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost: 99</div><div style="font-size:12px;color:#555;margin-top:4px">Enrolled: 39</div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost after visit: 18</div><div style="font-size:12px;color:#555;margin-top:4px">Future Prospect: 14</div><div style="font-size:12px;color:#555;margin-top:4px">Disqualified: 12</div><div style="font-size:12px;color:#555;margin-top:4px">Followup: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Followup','thoraipakkam')">10</span></div><div style="font-size:12px;color:#555;margin-top:4px">School visit done: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('School visit done','thoraipakkam')">3</span></div><div style="font-size:12px;color:#555;margin-top:4px">Walkin scheduled: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Walkin scheduled','thoraipakkam')">2</span></div><div style="font-size:12px;color:#555;margin-top:4px">Others - Explain in Summary: 1</div><div style="font-size:12px;color:#555;margin-top:4px">Hot-Payment expected: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Hot-Payment expected','thoraipakkam')">1</span></div><div style="font-size:12px;color:#555;margin-top:4px">RNR: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('RNR','thoraipakkam')">1</span></div></div>
+<div data-centre="tansi nagar" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);flex:1"><h3 style="color:#2563EB;margin:0 0 12px">Tansi Nagar</h3><div style="font-size:28px;font-weight:700;cursor:pointer" onclick="noDataModal('total')" title="Click for details">212</div><div style="font-size:13px;color:#666">Tagged Leads</div><hr style="margin:12px 0"><div>🏫 School Visited: <b style="cursor:pointer" onclick="noDataModal('visited')" title="Click for details">53</b></div><div>✅ Enrolled: <b style="cursor:pointer" onclick="noDataModal('enrolled')" title="Click for details">21</b> (9.9%)</div><div>🔥 Active: <b id="ca-tansi" style="cursor:pointer" onclick="showCentreActiveLeads('tansi nagar')" title="Click to see leads">35</b></div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost: 102</div><div style="font-size:12px;color:#555;margin-top:4px">Lead lost after visit: 30</div><div style="font-size:12px;color:#555;margin-top:4px">Followup: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Followup','tansi nagar')">23</span></div><div style="font-size:12px;color:#555;margin-top:4px">Enrolled: 21</div><div style="font-size:12px;color:#555;margin-top:4px">Disqualified: 14</div><div style="font-size:12px;color:#555;margin-top:4px">Future Prospect: 9</div><div style="font-size:12px;color:#555;margin-top:4px">Walkin scheduled: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('Walkin scheduled','tansi nagar')">8</span></div><div style="font-size:12px;color:#555;margin-top:4px">School visit done: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('School visit done','tansi nagar')">2</span></div><div style="font-size:12px;color:#555;margin-top:4px">RNR: <span style="cursor:pointer;text-decoration:underline dotted" onclick="showStatusForCentre('RNR','tansi nagar')">2</span></div><div style="font-size:12px;color:#555;margin-top:4px">Others - Explain in Summary: 1</div></div>
 </div></div>
 
 <div class="section"><h2>Programme Breakdown</h2><table><thead><tr><th class="th">Programme</th><th class="th" style="text-align:center">Total</th><th class="th" style="text-align:center">Visited</th><th class="th" style="text-align:center">Enrolled</th><th class="th" style="text-align:center">Conv%</th><th class="th" style="text-align:center">Followup</th><th class="th" style="text-align:center">Visit Done</th><th class="th" style="text-align:center">Walkin Sched</th><th class="th" style="text-align:center">Lost</th><th class="th" style="text-align:center">Disqualified</th></tr></thead>
@@ -301,7 +301,7 @@ function setCentre(btn,centre){
   document.querySelectorAll('[data-group="centre"]').forEach(function(b){b.classList.remove('active');});
   btn.classList.add('active');
   state.centre=centre;
-  updateSummaryCards();updateFilterNote();applyFilters();
+  updateFilterNote();applyFilters();
 }
 function setProg(btn,prog){
   document.querySelectorAll('[data-group="prog"]').forEach(function(b){b.classList.remove('active');});
@@ -315,23 +315,73 @@ function updateFilterNote(){
 }
 function updateSummaryCards(){
   var d=centreData[state.centre]||centreData['all'];
+  var extraFilter=state.prog!=='all'||state.datePreset!=='all';
+
+  // Active Pipeline and No Status: always computed from LEADS with ALL active filters
+  var activeLeads=LEADS.filter(function(l){return l.s!=='No Status'&&matchLead(l);});
+  var nsLeads=LEADS.filter(function(l){return l.s==='No Status'&&matchLead(l);});
+  document.getElementById('c-active').textContent=activeLeads.length;
+  document.getElementById('c-nostatus').textContent=nsLeads.length;
+  document.getElementById('nostatus-count').textContent=nsLeads.length;
+
+  // Aggregate cards: use centreData (we don't have full individual records for these)
   document.getElementById('c-total').textContent=d.total;
-  document.getElementById('c-total-sub').textContent=d.totalSub;
+  document.getElementById('c-total-sub').textContent=d.totalSub+(extraFilter?' *':'');
   document.getElementById('c-visited').textContent=d.visited;
-  document.getElementById('c-visited-sub').textContent=d.visitedSub;
+  document.getElementById('c-visited-sub').textContent=d.visitedSub+(extraFilter?' *':'');
   document.getElementById('c-enrolled').textContent=d.enrolled;
-  document.getElementById('c-enrolled-sub').textContent=d.enrolledSub;
-  document.getElementById('c-active').textContent=d.active;
+  document.getElementById('c-enrolled-sub').textContent=d.enrolledSub+(extraFilter?' *':'');
   document.getElementById('c-future').textContent=d.future;
   document.getElementById('c-lost').textContent=d.lost;
-  document.getElementById('c-nostatus').textContent=d.noStatus;
-  document.getElementById('nostatus-count').textContent=d.noStatus;
+
+  // Dim aggregate cards when date/prog filter active (they can't respond to those filters)
+  var dimStyle=extraFilter?'0.45':'1';
+  ['c-total','c-visited','c-enrolled','c-future','c-lost'].forEach(function(id){
+    var card=document.getElementById(id).parentElement.parentElement;
+    card.style.opacity=dimStyle;
+    card.title=extraFilter?'* This number reflects all-time data for the selected centre only — date & programme filters do not apply':'';
+  });
+
+  // Centre performance visibility
   document.querySelectorAll('[data-centre]').forEach(function(el){
     if(el.tagName==='TR') return;
     el.style.display=(state.centre==='all'||el.getAttribute('data-centre')===state.centre)?'':'none';
   });
 }
-function applyFilters(){renderHotLeads();renderNoStatus();}
+function updateFunnel(){
+  var extraFilter=state.centre!=='all'||state.prog!=='all'||state.datePreset!=='all';
+  var defs=[
+    {s:'Hot-Payment expected',id:'fc-hot',base:'1',pct:'0.1'},
+    {s:'School visit done',id:'fc-visit',base:'5',pct:'0.6'},
+    {s:'Walkin scheduled',id:'fc-walkin',base:'10',pct:'1.2'},
+    {s:'Followup',id:'fc-followup',base:'42',pct:'5.2'},
+    {s:'RNR',id:'fc-rnr',base:'5',pct:'0.6'}
+  ];
+  defs.forEach(function(item){
+    var el=document.getElementById(item.id);
+    if(!el) return;
+    if(extraFilter){
+      var n=LEADS.filter(function(l){return l.s===item.s&&matchLead(l);}).length;
+      el.textContent=n+' (filtered)';
+    }else{
+      el.textContent=item.base+' ('+item.pct+'%)';
+    }
+  });
+}
+function updateCentrePerf(){
+  var extraFilter=state.prog!=='all'||state.datePreset!=='all';
+  var el1=document.getElementById('ca-thoraipakkam');
+  var el2=document.getElementById('ca-tansi');
+  if(extraFilter){
+    if(el1) el1.textContent=LEADS.filter(function(l){return l.s!=='No Status'&&l.c==='thoraipakkam'&&matchLead(l);}).length;
+    if(el2) el2.textContent=LEADS.filter(function(l){return l.s!=='No Status'&&l.c==='tansi nagar'&&matchLead(l);}).length;
+  }else{
+    var d=centreData[state.centre]||centreData['all'];
+    if(el1) el1.textContent=centreData['thoraipakkam'].active;
+    if(el2) el2.textContent=centreData['tansi nagar'].active;
+  }
+}
+function applyFilters(){updateSummaryCards();updateFunnel();updateCentrePerf();renderHotLeads();renderNoStatus();}
 
 function renderNoStatus(){
   var ns=LEADS.filter(function(l){return l.s==='No Status'&&matchLead(l);});
@@ -441,6 +491,7 @@ function showMonthLeads(mon){
 }
 
 // Init
+updateSummaryCards();
 renderHotLeads();
 renderNoStatus();
 </script>
